@@ -1,5 +1,8 @@
 namespace Web
 {
+    /// <summary>
+    /// This is weather forecast model.
+    /// </summary>
     public class WeatherForecast
     {
         public DateTime Date { get; set; }
