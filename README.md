@@ -2,15 +2,13 @@
 
 ## Front-end setup
 
-You should be able to run this command (so firstly and try this):
+Install yarn (if needed)  
+To run application in development environment (http://localhost:3000/):
 
-yarn start (directory .../FE/tigets)
+...\TiGets\FE\tigets> yarn start
 
-For everything else i guess just google. Install yarn, then using yarn install everything you need, and time to time run the command 'yarn' to download all this tool updates.
+If some errors occurred which don't let to run application, don't panic and firstly try running this:
 
-Technologies to learn about:
+...\tigets> yarn
 
-- react
-- redux
-- react router
-- Material UI
+Recommended to use VSCode for developing front-end.

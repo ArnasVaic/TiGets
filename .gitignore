@@ -1,3 +1,26 @@
 .vs
 bin
 obj
+
+# FRONTEND
+# dependencies
+FE/tigets/node_modules
+FE/tigets/.pnp
+FE/tigets/.pnp.js
+
+# testing
+FE/tigets/coverage
+
+# production
+FE/tigets/build
+
+# misc
+FE/tigets/.DS_Store
+FE/tigets/.env.local
+FE/tigets/.env.development.local
+FE/tigets/.env.test.local
+FE/tigets/.env.production.local
+
+FE/tigets/npm-debug.log*
+FE/tigets/yarn-debug.log*
+FE/tigets/yarn-error.log*
