@@ -1,8 +1,8 @@
 namespace Web.Models
 {
-	public class TransferDTO
+	public class Transfer
 	{
-		public string Guid { get; set; }
+		public string Id { get; set; }
 
 		public string TicketId { get; set; }
 
