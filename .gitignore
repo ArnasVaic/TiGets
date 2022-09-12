@@ -4,23 +4,23 @@ obj
 
 # FRONTEND
 # dependencies
-FE/tigets/node_modules
-FE/tigets/.pnp
-FE/tigets/.pnp.js
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
 
 # testing
-FE/tigets/coverage
+frontend/coverage
 
 # production
-FE/tigets/build
+frontend/build
 
 # misc
-FE/tigets/.DS_Store
-FE/tigets/.env.local
-FE/tigets/.env.development.local
-FE/tigets/.env.test.local
-FE/tigets/.env.production.local
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
 
-FE/tigets/npm-debug.log*
-FE/tigets/yarn-debug.log*
-FE/tigets/yarn-error.log*
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
