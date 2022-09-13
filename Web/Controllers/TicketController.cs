@@ -20,14 +20,10 @@ namespace Web.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("ticket")]
-        public async Task<Ticket> Post([FromBody] TicketPostModel ticketPostModel)
+        [HttpPost]
+        public async Task Post([FromBody] TicketPostModel ticketPostModel)
         {
-            var ticket = _mapper.Map<Ticket>(ticketPostModel);
-            ticket.Id = "1";
-            _tigetsContext.Tickets.Add(ticket);
-            _tigetsContext.SaveChanges();
-            return ticket;
+            
         }
     }
 }
