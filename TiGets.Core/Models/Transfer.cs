@@ -12,7 +12,6 @@ namespace Web.Models
 
 		public DateTime Time { get; set; }
 
-		public Decimal Cost { get; set }
-
-	}
+		public decimal Cost { get; set; }
+    }
 }
