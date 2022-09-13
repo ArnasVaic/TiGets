@@ -1,6 +1,7 @@
 import { Typography, Button} from "@mui/material";
 
-function Ticket() {
+function Ticket(props) {
+
   return (
     <div
       style={{
@@ -14,7 +15,10 @@ function Ticket() {
       <Typography style={{ padding: "10px 50px" }}>Event name</Typography>
       <Typography style={{ padding: "10px 50px" }}>Address</Typography>
       <Typography style={{ padding: "10px 50px" }}>Date</Typography>
-      <Button variant="contained">Take of the market</Button>
+
+      {props.onTheMarket ? <Button variant="contained"> Take of the market</Button>
+              : <Button variant="contained"> Sell </Button>}
+
     </div>
   );
 }
