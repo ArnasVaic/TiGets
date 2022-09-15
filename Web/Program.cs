@@ -1,24 +1,11 @@
+using System.Configuration;
+using Core.Utilities;
+using Infrastructure.Data;
+using Microsoft.Extensions.DependencyInjection;
+using Web;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
+var startup = new Startup(builder.Configuration);
+startup.ConfigureServices(builder.Services);
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+startup.Configure(app, builder.Environment);
