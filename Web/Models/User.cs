@@ -15,6 +15,5 @@ namespace Core.Models
         public double Balanace { get; set; }
         public string Username { get; set; }
         public double PasswordHash { get; set; }
-
     }
 }
