@@ -2,7 +2,7 @@
 {
     public class TicketPostModel
     {
-        public TicketState state { get; set; }
+        public TicketState State { get; set; }
 
         public DateTime ValidFrom { get; set; }
 
