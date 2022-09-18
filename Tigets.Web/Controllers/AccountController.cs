@@ -24,7 +24,7 @@ namespace Tigets.Web.Controllers
             [FromQuery] string returnUrl
         )
         {
-            if (username == "admin" || password == "123")
+            if (username == "admin" && password == "123")
             {
                 var claims = new List<Claim>();
                 claims.Add(new Claim("username", username));
