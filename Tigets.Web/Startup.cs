@@ -1,8 +1,8 @@
-﻿using Core.Utilities;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Tigets.Core.Utilities;
+using Tigets.Infrastructure.Data;
 
-namespace Web
+namespace Tigets.Web
 {
     public class Startup
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Web.Models;
+using Tigets.Core.Models;
 
-namespace Infrastructure.Data
+namespace Tigets.Infrastructure.Data
 {
     public class TigetsContext : DbContext
     {

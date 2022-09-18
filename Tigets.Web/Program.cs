@@ -1,8 +1,6 @@
 using System.Configuration;
-using Core.Utilities;
-using Infrastructure.Data;
 using Microsoft.Extensions.DependencyInjection;
-using Web;
+using Tigets.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 var startup = new Startup(builder.Configuration);

@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TiGets.Core\TiGets.Core.csproj" />
-    <ProjectReference Include="..\TiGets.Infrastructure\TiGets.Infrastructure.csproj" />
+    <ProjectReference Include="..\TiGets.Core\Tigets.Core.csproj" />
+    <ProjectReference Include="..\TiGets.Infrastructure\Tigets.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

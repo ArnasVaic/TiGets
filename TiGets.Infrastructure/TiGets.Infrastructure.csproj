@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TiGets.Core\TiGets.Core.csproj" />
+    <ProjectReference Include="..\TiGets.Core\Tigets.Core.csproj" />
   </ItemGroup>
 
 </Project>
