@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
 using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
 
@@ -17,6 +18,11 @@ namespace Tigets.Web
         {
             // Add services to the container.
             services.AddControllers();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/api/Account/login";
+                });
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -38,6 +44,7 @@ namespace Tigets.Web
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
