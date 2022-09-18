@@ -20,10 +20,10 @@ function ProfilePage() {
       </Stack>
       <Stack spacing={2} style={{ padding: "50px" }}>
         <Typography>Your tickets</Typography>
-        <Ticket />
-        <Ticket />
-        <Ticket />
-        <Ticket />
+        <Ticket onTheMarket={true} />
+        <Ticket onTheMarket={true} />
+        <Ticket onTheMarket={false} />
+        <Ticket onTheMarket={false} />
       </Stack>
     </div>
   );

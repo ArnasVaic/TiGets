@@ -29,7 +29,7 @@ namespace Tigets.Web
             services.AddAutoMapper(typeof(DefaultProfile));
 
             services.AddDbContext<TigetsContext>(options =>
-                options.UseSqlServer("Server=ARNASVAIC;Initial Catalog=Tigets;Integrated Security=True;")
+                options.UseSqlServer("Server=LAPTOP-377R5CRR\\SQLEXPRESS;Initial Catalog=Tigets;Integrated Security=True;")
             );
         }
 
