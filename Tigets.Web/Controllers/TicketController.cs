@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
 using Tigets.Infrastructure.Data;
@@ -6,7 +7,7 @@ using Tigets.Infrastructure.Data;
 namespace Tigets.Web.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class TicketController : ControllerBase
     {
         private readonly TigetsContext _tigetsContext;
@@ -20,10 +21,18 @@ namespace Tigets.Web.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpPost]
-        public async Task Post([FromBody] TicketPostModel ticketPostModel)
+        public async Task<IActionResult> Post([FromBody] TicketPostModel ticketPostModel)
         {
-            
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok();
         }
     }
 }
