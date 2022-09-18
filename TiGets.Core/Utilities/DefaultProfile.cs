@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using Web.Models;
+using Tigets.Core.Models;
 
-namespace Core.Utilities
+namespace Tigets.Core.Utilities
 {
     public class DefaultProfile : Profile
     {

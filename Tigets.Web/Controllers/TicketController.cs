@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
-using Web.Models;
+using Tigets.Core.Models;
+using Tigets.Infrastructure.Data;
 
-namespace Web.Controllers
+namespace Tigets.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]
