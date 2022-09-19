@@ -13,8 +13,9 @@ function RegisterPage() {
    // const { returnUrl } = useParams();
 
     function checkValidation(){
-        if (password !== cPassword) 
-             setShowErrorMessage("Passwords must match")
+        if (password !== cPassword)
+            setShowErrorMessage("Passwords must match")
+        else setShowErrorMessage('');
     }
 
     return (
@@ -62,7 +63,7 @@ function RegisterPage() {
                
                 onClick={() => {
                     if (password == cPassword) {
-                        console.log("hurray");
+                        checkValidation();
                      //     dispatch(postRegister(username, password, returnUrl)
                     }
                     else {
