@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
+using Tigets.Web.Commons;
 
 namespace Tigets.Web
 {
@@ -28,8 +29,10 @@ namespace Tigets.Web
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(DefaultProfile));
 
+            services.InjectServices();
+
             services.AddDbContext<TigetsContext>(options =>
-                options.UseSqlServer("Server=LAPTOP-377R5CRR\\SQLEXPRESS;Initial Catalog=Tigets;Integrated Security=True;")
+                options.UseSqlServer("Server=;Initial Catalog=Tigets;Integrated Security=True;")
             );
         }
 
