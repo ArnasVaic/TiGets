@@ -3,19 +3,30 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 //import { postRegister } from "../../services/registerService";
+import { useNavigate, useLocation } from "react-router-dom";
+import Alert from '@mui/material/Alert';
+
+
+
+import InputAdornment from "@material-ui/core/InputAdornment";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import IconButton from '@mui/material/IconButton';
+
 
 function RegisterPage() {
 
     const [username, setUsername] = useState('');
     const[password, setPassword] = useState('');
     const [cPassword, setCPassword] = useState('');
-    const [showErrorMessage, setShowErrorMessage] = useState('');
+    const [showErrorMessage, setShowErrorMessage] = useState();
    // const { returnUrl } = useParams();
+    const navigate = useNavigate();
 
     function checkValidation(){
         if (password !== cPassword)
-            setShowErrorMessage("Passwords must match")
-        else setShowErrorMessage('');
+            setShowErrorMessage(true)
+        else setShowErrorMessage(false);
     }
 
     return (
@@ -47,13 +58,20 @@ function RegisterPage() {
             <TextField
                 label="Confirm password"
                 type="password"
+
                 onChange={(event) => {
                     setCPassword(event.target.value);
                 }}
-            />
+
+             />
+
 
             <div>
-                {showErrorMessage}
+                    {showErrorMessage ? <Alert sx={{
+                        mt: 1 // margint top
+                    }}
+                        severity="error"> Passwords must match </Alert>
+                  : ''}
             </div>
 
             <div style={{ display: "flex", flexDirection: "column", padding: "2% 0%" }} >
@@ -72,7 +90,16 @@ function RegisterPage() {
                }}
              >
                 Register
-             </Button>
+                    </Button>
+
+                    <Typography style={{ textAlign: "center", marginTop: "10px", textDecorationLine: 'underline' }}
+                        onClick={() => {
+                            navigate("/");
+                        }}
+             >
+                 Already have and account? Log in.
+            </Typography>
+
 
             </div>
 
