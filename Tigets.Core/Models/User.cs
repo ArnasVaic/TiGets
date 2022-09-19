@@ -13,8 +13,8 @@ namespace Tigets.Core.Models
         public string Surname { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public double Balanace { get; set; }
+        public decimal Balance { get; set; }
         public string Username { get; set; }
-        public double PasswordHash { get; set; }
+        public string PasswordHash { get; set; }
     }
 }
