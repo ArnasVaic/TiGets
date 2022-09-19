@@ -1,9 +1,12 @@
 import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Ticket from "./components/Ticket";
+import React, { useState } from 'react';
+
 
 function ProfilePage() {
-  return (
+    const [count, setCount] = useState(0);
+    return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Stack spacing={2} style={{ padding: "50px" }}>
         <Typography>Your balance</Typography>
@@ -14,9 +17,9 @@ function ProfilePage() {
             padding: "5px",
           }}
         >
-          10.00
+           {count}
         </Typography>
-        <Button variant="contained">Add money</Button>
+            <Button variant="contained" onClick={() => setCount(count + 1)}>Add money</Button>
       </Stack>
       <Stack spacing={2} style={{ padding: "50px" }}>
         <Typography>Your tickets</Typography>
