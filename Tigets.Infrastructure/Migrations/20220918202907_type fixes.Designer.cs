@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tigets.Infrastructure.Data;
 
@@ -11,9 +12,10 @@ using Tigets.Infrastructure.Data;
 namespace Tigets.Infrastructure.Migrations
 {
     [DbContext(typeof(TigetsContext))]
-    partial class TigetsContextModelSnapshot : ModelSnapshot
+    [Migration("20220918202907_type fixes")]
+    partial class typefixes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
