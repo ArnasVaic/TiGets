@@ -1,4 +1,4 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { TextField, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -82,6 +82,3 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
-
-
-
