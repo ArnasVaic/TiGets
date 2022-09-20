@@ -21,14 +21,7 @@ namespace Tigets.Web.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody] TicketPostModel ticketPostModel)
-        {
-            return Ok();
-        }
-
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet]
         public IActionResult Get()
         {
