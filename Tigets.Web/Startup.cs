@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
@@ -19,11 +22,6 @@ namespace Tigets.Web
         {
             // Add services to the container.
             services.AddControllers();
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/api/Account/login";
-                });
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();
@@ -32,8 +30,19 @@ namespace Tigets.Web
             services.InjectServices();
 
             services.AddDbContext<TigetsContext>(options =>
-                options.UseSqlServer("Server=;Initial Catalog=Tigets;Integrated Security=True;")
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<TigetsContext>();
+
+            services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            });
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
