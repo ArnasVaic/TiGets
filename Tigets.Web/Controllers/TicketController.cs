@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Tigets.Core.Constants;
 using Tigets.Core.Models;
 using Tigets.Infrastructure.Data;
 
@@ -21,7 +22,7 @@ namespace Tigets.Web.Controllers
             _mapper = mapper;
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = Roles.User)]
         [HttpGet]
         public IActionResult Get()
         {
