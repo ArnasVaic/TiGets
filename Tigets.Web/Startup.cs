@@ -30,8 +30,10 @@ namespace Tigets.Web
             services.InjectServices();
 
             services.AddDbContext<TigetsContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
-            );
+            {
+                var connectionString = Configuration.GetConnectionString("DefaultConnection");
+                options.UseSqlServer(connectionString);
+            });
 
             services.AddDefaultIdentity<IdentityUser>()
                 .AddRoles<IdentityRole>()
