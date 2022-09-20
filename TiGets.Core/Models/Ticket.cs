@@ -28,6 +28,7 @@ namespace Tigets.Core.Models
         public string Address { get; set; }
 
         [Required]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
     }
 }
