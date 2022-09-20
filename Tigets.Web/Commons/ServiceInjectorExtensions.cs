@@ -7,8 +7,7 @@ namespace Tigets.Web.Commons
     {
         public static void InjectServices(this IServiceCollection services)
         {
-            services.AddScoped<ITigetsRepository<User>, TigetsRepository<User>>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            
         }
     }
 }
