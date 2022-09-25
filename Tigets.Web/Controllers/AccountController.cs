@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Tigets.Core.Constants;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
