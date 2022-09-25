@@ -54,9 +54,7 @@ function RegisterPage() {
                 <div>
                     {showErrorMessage ? (
                         <Alert
-                            sx={{
-                                mt: 1
-                            }}
+                            sx={{ mt: 1 }}
                             severity="error"
                         >
                             {" "}
@@ -73,7 +71,7 @@ function RegisterPage() {
                     <Button
                         variant="contained"
                         onClick={() => {
-                            if (password == cPassword) {
+                            if (password === cPassword) {
                                 checkValidation();
                                 //     dispatch(postRegister(username, password, returnUrl)
                             } else {
