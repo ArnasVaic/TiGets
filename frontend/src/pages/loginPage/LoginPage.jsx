@@ -1,9 +1,12 @@
-import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { postLogin } from "../../services/loginService";
-import sha256 from "sha256";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledJustValueTextField } from "../../generalComponents/styled/JustValueTextField.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.styled";
+import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -16,45 +19,34 @@ function LoginPage() {
   const navigate = useNavigate();
 
   return (
-    <div
-      style={{ display: "flex", flexDirection: "column", padding: "10% 40%" }}
-    >
-      <Typography variant="h2" style={{ textAlign: "center" }}>
-        TIGETS
-      </Typography>
-      <TextField
-        label="username"
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
-      />
-      <TextField
-        label="password"
-        type="password"
-        onChange={(event) => {
-          setPassword(event.target.value);
-        }}
-      />
-      <Button
-        variant="contained"
-        onClick={() => {
-          dispatch(
-            postLogin(
-              username,
-              sha256(password),
-              returnUrl,
-              navigate,
-              setWrongPassword
-            )
-          );
-        }}
-      >
-        Log in
-      </Button>
-      {wrongPassword && (
-        <Typography color="red">Wrong username or password</Typography>
-      )}
-    </div>
+    <>
+      <StyledTitle>TIGETS</StyledTitle>
+      <StyledCenteredColumn>
+        <StyledJustValueTextField label="username" setValue={setUsername} />
+        <StyledJustValueTextField
+          label="password"
+          type="password"
+          setValue={setPassword}
+        />
+        <StyledSubmitButton
+          text="Log in"
+          onClick={() => {
+            dispatch(
+              postLogin(
+                username,
+                password,
+                returnUrl,
+                navigate,
+                setWrongPassword
+              )
+            );
+          }}
+        />
+        {wrongPassword && (
+          <StyledErrorMessage>Wrong username or password</StyledErrorMessage>
+        )}
+      </StyledCenteredColumn>
+    </>
   );
 }
 
