@@ -3,14 +3,16 @@ import ProfilePage from "./pages/profilePage/ProfilePage";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from './pages/loginPage/LoginPage';
 import RegisterPage from './pages/registerPage/RegisterPage';
+import MarketPage from './pages/marketPage/MarketPage';
 
 function App() {
   return (
     <BrowserRouter>
-     <Routes>
+      <Routes>       
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/market" element={<MarketPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/" element={<ProfilePage />} />
-        <Route path="/login/ReturnUrl=:returnUrl" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>
   );

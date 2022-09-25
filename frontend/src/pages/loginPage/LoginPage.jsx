@@ -1,14 +1,19 @@
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { postLogin } from "../../services/loginService";
+import sha256 from "sha256";
 
 function LoginPage() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [wrongPassword, setWrongPassword] = useState(false);
   const dispatch = useDispatch();
-  const { returnUrl } = useParams();
+
+  const search = useLocation().search;
+  const returnUrl = new URLSearchParams(search).get("ReturnUrl");
+  const navigate = useNavigate();
 
   return (
     <div
@@ -33,14 +38,22 @@ function LoginPage() {
       <Button
         variant="contained"
         onClick={() => {
-          dispatch(postLogin(username, password, returnUrl));
-          console.log(
-            `DEBUG: Calling https://localhost:7056/api/Account/login?Username=${username}&Password=${password}&ReturnUrl=${returnUrl}`
+          dispatch(
+            postLogin(
+              username,
+              sha256(password),
+              returnUrl,
+              navigate,
+              setWrongPassword
+            )
           );
         }}
       >
         Log in
       </Button>
+      {wrongPassword && (
+        <Typography color="red">Wrong username or password</Typography>
+      )}
     </div>
   );
 }
