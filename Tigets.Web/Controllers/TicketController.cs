@@ -13,13 +13,16 @@ namespace Tigets.Web.Controllers
     {
         private readonly ITicketRepository _ticketRepository;
         private readonly IMapper _mapper;
+        private readonly ITransferRepository _transferRepository;
         public TicketController(
             ITicketRepository ticketRepository,
-            IMapper mapper
+            IMapper mapper,
+            ITransferRepository transferRepository
         )
         {
             _ticketRepository = ticketRepository;
             _mapper = mapper;
+            _transferRepository = transferRepository;
         }
 
         [HttpPost]
@@ -29,6 +32,8 @@ namespace Tigets.Web.Controllers
             ticket.Id = Guid.NewGuid().ToString();
             ticket.UserId = "some user";
             await _ticketRepository.AddAsync(ticket);
+            var transfer = new Transfer { Cost = 1, FromId = "user1", Id = "123", TicketId = "5020719", Time = DateTime.Now, ToId = "User2" };
+            await _transferRepository.AddAsync(transfer);
             return Ok();
         }
 

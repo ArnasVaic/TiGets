@@ -9,6 +9,7 @@ namespace Tigets.Web.Commons
         public static void InjectServices(this IServiceCollection services)
         {
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<ITransferRepository, TransferRepository>();
         }
     }
 }

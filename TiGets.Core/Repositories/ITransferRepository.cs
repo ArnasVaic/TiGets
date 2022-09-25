@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
-using Tigets.Infrastructure.Data;
 
 namespace Tigets.Core.Repositories
 {
-    public interface ITransferRepository : ITransferRepository<Transfer>
+    public interface ITransferRepository : ITigetsRepository<Transfer>
     {
 
     }
