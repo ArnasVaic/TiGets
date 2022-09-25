@@ -22,11 +22,11 @@ namespace Tigets.Web.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = Roles.User)]
+        [Authorize]
         [HttpGet]
-        public IActionResult Get()
+        public async Task<string> Get()
         {
-            return Ok();
+            return "This is a secret";
         }
     }
 }
