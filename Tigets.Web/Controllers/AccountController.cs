@@ -14,12 +14,12 @@ namespace Tigets.Web.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager
+            UserManager<User> userManager,
+            SignInManager<User> signInManager
         )
         {
             _signInManager = signInManager;
@@ -50,7 +50,7 @@ namespace Tigets.Web.Controllers
             if (user != null)
                 throw new Exception("User with this username already exists");
 
-            user = new IdentityUser(username) { EmailConfirmed = true };
+            user = new User { UserName = username, EmailConfirmed = true, Balance = 0m}; 
             var result = await _userManager.CreateAsync(user, password);
 
             if (!result.Succeeded)

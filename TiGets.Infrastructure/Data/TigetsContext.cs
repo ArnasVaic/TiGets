@@ -8,7 +8,7 @@ using Tigets.Core.Models;
 
 namespace Tigets.Infrastructure.Data
 {
-    public class TigetsContext : IdentityDbContext
+    public class TigetsContext : IdentityDbContext<User> 
     {
         public TigetsContext(DbContextOptions<TigetsContext> options) 
             : base(options) { }
