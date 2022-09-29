@@ -13,6 +13,7 @@ namespace Tigets.Core.Utilities
         public DefaultProfile()
         {
             CreateMap<TicketPostModel, Ticket>();
+            CreateMap<UserPostModel, User>();
         }
     }
 }
