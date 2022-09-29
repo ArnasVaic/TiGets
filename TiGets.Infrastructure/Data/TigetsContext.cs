@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Tigets.Core.Models;
 
 namespace Tigets.Infrastructure.Data
 {
-    public class TigetsContext : DbContext
+    public class TigetsContext : IdentityDbContext<User> 
     {
         public TigetsContext(DbContextOptions<TigetsContext> options) 
             : base(options) { }
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<User> Users { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
     }
 }
