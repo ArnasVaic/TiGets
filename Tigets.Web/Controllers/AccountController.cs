@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,14 +17,17 @@ namespace Tigets.Web.Controllers
     {
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
+        private readonly IMapper _mapper;
 
         public AccountController(
             UserManager<User> userManager,
-            SignInManager<User> signInManager
+            SignInManager<User> signInManager,
+            IMapper mapper
         )
         {
             _signInManager = signInManager;
             _userManager = userManager;
+            _mapper = mapper;
         }
 
         [AllowAnonymous]
@@ -44,14 +48,17 @@ namespace Tigets.Web.Controllers
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromQuery] string username, [FromQuery] string password)
+        public async Task<IActionResult> Register([FromBody] UserPostModel userPostModel)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(userPostModel.UserName);
             if (user != null)
                 throw new Exception("User with this username already exists");
 
-            user = new User { UserName = username, EmailConfirmed = true, Balance = 0m}; 
-            var result = await _userManager.CreateAsync(user, password);
+            user = _mapper.Map<User>(userPostModel);
+            user.Id = Guid.NewGuid().ToString();
+            user.Balance = 0m;
+            user.EmailConfirmed = true;
+            var result = await _userManager.CreateAsync(user, userPostModel.Password);
 
             if (!result.Succeeded)
                 return BadRequest(result.Errors);
