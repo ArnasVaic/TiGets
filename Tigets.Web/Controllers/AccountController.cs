@@ -31,7 +31,7 @@ namespace Tigets.Web.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet("Login")]
+        [HttpPost("Login")]
         public async Task<IActionResult> Login([FromQuery] string username, [FromHeader(Name = "password")] string password)
         {
             var user = await _userManager.FindByNameAsync(username);
