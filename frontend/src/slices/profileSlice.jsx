@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+
+
 export const profileSlice = createSlice({
   name: "profile",
   initialState: {
@@ -7,7 +10,7 @@ export const profileSlice = createSlice({
   },
   reducers: {
     increaseBalanceBy: (state, action) => {
-      state.balance += action.payload;
+          state.balance += action.payload;
     },
   },
 });

@@ -2,10 +2,16 @@ import { Button, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import Ticket from "./components/Ticket";
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux'
+import {increaseBalanceBy } from '../../slices/profileSlice'
+
 
 
 function ProfilePage() {
-    const [count, setCount] = useState(0);
+
+    const profile = useSelector(state => state.profile);
+    const dispatch = useDispatch();
+
     return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Stack spacing={2} style={{ padding: "50px" }}>
@@ -17,9 +23,9 @@ function ProfilePage() {
             padding: "5px",
           }}
         >
-           {count}
+           {profile.balance}
         </Typography>
-            <Button variant="contained" onClick={() => setCount(count + 1)}>Add money</Button>
+                <Button variant="contained" onClick={() => dispatch(increaseBalanceBy(1)) }>Add money</Button>
       </Stack>
       <Stack spacing={2} style={{ padding: "50px" }}>
         <Typography>Your tickets</Typography>
