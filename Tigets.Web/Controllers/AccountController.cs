@@ -39,10 +39,14 @@ namespace Tigets.Web.Controllers
             if (user is null)
                 throw new Exception("User does not exist.");
 
+            if (!await _userManager.CheckPasswordAsync(user, password))
+                throw new Exception("Incorrect password");
+
             var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
 
             if(result.Succeeded)
                 return Ok();
+
             return BadRequest(result.ToString());
         }
 
