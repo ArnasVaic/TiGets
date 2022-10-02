@@ -26,8 +26,8 @@ function RegisterPage() {
     const [errorMsg, setErrorMsg] = useState("Passwords do not match"); 
 
     const dispatch = useDispatch();
-    const search = useLocation().search;
-    const returnUrl = new URLSearchParams(search).get("ReturnUrl");
+   // const search = useLocation().search;
+   // const returnUrl = new URLSearchParams(search).get("ReturnUrl");
     const navigate = useNavigate();
 
     function checkValidation() {
@@ -40,7 +40,7 @@ function RegisterPage() {
     function handleData() {
         const dataObject = { userName, password, name, surname, email, phoneNumber };
         console.log(dataObject);
-        dispatch(postRegister(dataObject, navigate, returnUrl));
+        dispatch(postRegister(dataObject, navigate));
     }
 
     return (
