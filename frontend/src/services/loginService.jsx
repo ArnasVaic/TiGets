@@ -1,12 +1,14 @@
+import { POST_LOGIN_URL } from "../constants";
+
 export const postLogin =
   (username, password, returnUrl, navigate, setWrongPassword) => async () => {
     try {
-      const response = await fetch(
-        `https://localhost:7056/api/Account/login?Username=${username}&Password=${password}`,
-        {
-          method: "POST",
-        }
-      );
+      const response = await fetch(POST_LOGIN_URL(username), {
+        method: "POST",
+        headers: {
+          password: password,
+        },
+      });
       if (response.ok) {
         navigate(returnUrl);
         setWrongPassword(false);
