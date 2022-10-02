@@ -1,103 +1,118 @@
-import { TextField, Typography, Button } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-//import { postRegister } from "../../services/registerService";
 import { useNavigate, useLocation } from "react-router-dom";
+import { postRegister } from "../../services/registerService";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledJustValueTextField } from "../../generalComponents/styled/JustValueTextField.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.styled";
+import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
+import { Typography, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
 
+
 function RegisterPage() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
-    const [cPassword, setCPassword] = useState("");
-    const [showErrorMessage, setShowErrorMessage] = useState();
-    // const { returnUrl } = useParams();
+    const [userName, setUsername] = useState();
+    const [password, setPassword] = useState();
+    const [cPassword, setCPassword] = useState();
+    const [wrongPassword, setWrongPassword] = useState(false);
+    const [isError, setIsError] = useState();
+    const [errorMsg, setErrorMsg] = useState("Passwords do not match");
+
+    const [name, setName] = useState();
+    const [surname, setSurname] = useState();
+    const [email, setEmail] = useState();
+    const [phoneNumber, setPhoneNumber] = useState();
+
+    const dispatch = useDispatch();
+    const search = useLocation().search;
+    const returnUrl = new URLSearchParams(search).get("ReturnUrl");
     const navigate = useNavigate();
 
     function checkValidation() {
-        if (password !== cPassword) setShowErrorMessage(true);
-        else setShowErrorMessage(false);
+        if (password !== cPassword) {
+            setIsError(true);
+            return true;
+        }
+        else {
+            setIsError(false);
+            return false;
+        }
+    }
+
+    function handleData() {
+        const dataObject = { userName, password, name, surname, email, phoneNumber };
+        dispatch(postRegister(dataObject, navigate, returnUrl));
     }
 
     return (
-        <div>
-            <div
-                style={{ display: "flex", flexDirection: "column", padding: "10% 40%" }}
-            >
-                <Typography variant="h2" style={{ textAlign: "center" }}>
-                    TIGETS
-                </Typography>
-
-                <TextField
-                    label="Username"
-                    onChange={(event) => {
-                        setUsername(event.target.value);
-                    }}
-                />
-
-                <TextField
-                    label="Password"
+        <>
+            <StyledTitle>TIGETS</StyledTitle>
+            <StyledCenteredColumn>
+                <StyledJustValueTextField label="userName" setValue={setUsername} />
+                <StyledJustValueTextField
+                    label="password"
                     type="password"
-                    onChange={(event) => {
-                        setPassword(event.target.value);
-                    }}
+                    setValue={setPassword}
                 />
-
-                <TextField
-                    label="Confirm password"
+                <StyledJustValueTextField
+                    label="confirm password"
                     type="password"
-                    onChange={(event) => {
-                        setCPassword(event.target.value);
-                    }}
+                    setValue={setCPassword}
+                />
+                <StyledJustValueTextField
+                    label="name"
+                    setValue={setName}
+                />
+                <StyledJustValueTextField
+                    label="surname"
+                    setValue={setSurname}
+                />
+                <StyledJustValueTextField
+                    label="email"
+                    setValue={setEmail}
+                />
+                <StyledJustValueTextField
+                    label="phone number"
+                    setValue={setPhoneNumber}
                 />
 
                 <div>
-                    {showErrorMessage ? (
-                        <Alert
-                            sx={{ mt: 1 }}
-                            severity="error"
-                        >
-                            {" "}
-                            Passwords must match{" "}
+                    {isError ? (
+                        <Alert sx={{ mt: 1, marginBottom: 1 }} severity="error" >
+                            {errorMsg}
                         </Alert>
-                    ) : (
-                        ""
-                    )}
+                    ) : ( "" )}
                 </div>
 
-                <div
-                    style={{ display: "flex", flexDirection: "column", padding: "2% 0%" }}
+                <Button
+                    variant="contained"
+                    onClick={() => {
+                        checkValidation()
+                        if (!isError) {
+                            handleData();
+                        }
+                    }}
                 >
-                    <Button
-                        variant="contained"
-                        onClick={() => {
-                            if (password === cPassword) {
-                                checkValidation();
-                                //     dispatch(postRegister(username, password, returnUrl)
-                            } else {
-                                checkValidation();
-                            }
-                        }}
-                    >
-                        Register
-                    </Button>
+                    Register
+                </Button>
 
-                    <Typography
-                        style={{
-                            textAlign: "center",
-                            marginTop: "10px",
-                            textDecorationLine: "underline",
-                        }}
-                        onClick={() => {
-                            navigate("/login/ReturnUrl=:returnUrl");
-                        }}
-                    >
-                        Already have and account? Log in.
-                    </Typography>
-                </div>
-            </div>
-        </div>
+                <Typography
+                    style={{
+                        textAlign: "center",
+                        marginTop: "10px",
+                        textDecorationLine: "underline",
+                    }}
+                    onClick={() => {
+                        navigate("/login");
+                    }}
+                >
+                    Already have and account? Log in.
+                </Typography>
+
+            </StyledCenteredColumn>
+        </>
     );
 }
 
-export default RegisterPage; 
+export default RegisterPage;
