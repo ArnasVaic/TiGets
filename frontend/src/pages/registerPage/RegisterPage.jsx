@@ -9,20 +9,21 @@ import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.
 import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
 import { Typography, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
+import { LOGIN_URL } from '../../constants';
 
 
 function RegisterPage() {
     const [userName, setUsername] = useState();
     const [password, setPassword] = useState();
     const [cPassword, setCPassword] = useState();
-    const [wrongPassword, setWrongPassword] = useState(false);
-    const [isError, setIsError] = useState();
-    const [errorMsg, setErrorMsg] = useState("Passwords do not match");
-
     const [name, setName] = useState();
     const [surname, setSurname] = useState();
     const [email, setEmail] = useState();
-    const [phoneNumber, setPhoneNumber] = useState();
+    const [phoneNumber, setPhoneNumber] = useState(); 
+
+    const [wrongPassword, setWrongPassword] = useState(false);
+    const [isError, setIsError] = useState();
+    const [errorMsg, setErrorMsg] = useState("Passwords do not match"); 
 
     const dispatch = useDispatch();
     const search = useLocation().search;
@@ -30,18 +31,15 @@ function RegisterPage() {
     const navigate = useNavigate();
 
     function checkValidation() {
-        if (password !== cPassword) {
+        if (password !== cPassword)  
             setIsError(true);
-            return true;
-        }
-        else {
-            setIsError(false);
-            return false;
-        }
+        else  
+            setIsError(false);       
     }
 
     function handleData() {
         const dataObject = { userName, password, name, surname, email, phoneNumber };
+        console.log(dataObject);
         dispatch(postRegister(dataObject, navigate, returnUrl));
     }
 
@@ -104,7 +102,7 @@ function RegisterPage() {
                         textDecorationLine: "underline",
                     }}
                     onClick={() => {
-                        navigate("/login");
+                        navigate(LOGIN_URL);
                     }}
                 >
                     Already have and account? Log in.
