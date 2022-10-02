@@ -1,5 +1,6 @@
 ﻿using Tigets.Core.Models;
 using Tigets.Core.Repositories;
+using Tigets.Core.Services;
 using Tigets.Infrastructure.Repositories;
 
 namespace Tigets.Web.Commons
@@ -10,6 +11,7 @@ namespace Tigets.Web.Commons
         {
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
+            services.AddScoped<IAccountService, AccountService>();
         }
     }
 }

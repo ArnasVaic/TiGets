@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
+using Tigets.Core.Services;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Tigets.Web.Controllers
@@ -14,49 +16,43 @@ namespace Tigets.Web.Controllers
     [Route("api/[controller]")]
     public class AccountController : ControllerBase
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly IAccountService _accountService;
 
-        public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager
-        )
+        public AccountController(IAccountService accountService)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
+            _accountService = accountService;
         }
 
         [AllowAnonymous]
-        [HttpGet("Login")]
-        public async Task<IActionResult> Login([FromQuery] string username, [FromQuery] string password)
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login([FromQuery] string username, [FromHeader(Name = "password")] string password)
         {
-            var user = await _userManager.FindByNameAsync(username);
+            try
+            {
+                await _accountService.Login(username, password);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            if (user is null)
-                throw new Exception("User does not exist.");
-
-            var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
-
-            if(result.Succeeded)
-                return Ok();
-            return BadRequest(result.ToString());
+            return Ok();
         }
 
         [AllowAnonymous]
         [HttpPost("Register")]
-        public async Task<IActionResult> Register([FromQuery] string username, [FromQuery] string password)
+        public async Task<IActionResult> Register([FromBody] UserPostModel userPostModel)
         {
-            var user = await _userManager.FindByNameAsync(username);
-            if (user != null)
-                throw new Exception("User with this username already exists");
+            try
+            {
+                await _accountService.Register(userPostModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
 
-            user = new IdentityUser(username) { EmailConfirmed = true };
-            var result = await _userManager.CreateAsync(user, password);
-
-            if (!result.Succeeded)
-                return BadRequest(result.Errors);
-
-            return Ok();
+            return NoContent();
         }
     }
 }

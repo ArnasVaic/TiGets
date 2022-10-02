@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
+using Tigets.Core.Models;
 using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
 using Tigets.Web.Commons;
@@ -35,7 +36,7 @@ namespace Tigets.Web
                 options.UseSqlServer(connectionString);
             });
 
-            services.AddDefaultIdentity<IdentityUser>()
+            services.AddDefaultIdentity<User>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<TigetsContext>();
 
