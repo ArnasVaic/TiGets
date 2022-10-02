@@ -1,17 +1,29 @@
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Tigets.Core.Models
 {
 	public class Transfer
 	{
-		public string Id { get; set; }
+        [Key]
+        [Required]
+        public string Id { get; set; }
 
-		public string TicketId { get; set; }
+        [Required]
+        public string TicketId { get; set; }
 
-		public string FromId { get; set; }
+        [Required]
+        public string FromId { get; set; }
 
-		public string ToId { get; set; }
+        [Required]
+        public string ToId { get; set; }
 
-		public DateTime Time { get; set; }
+        [Required]
+        public DateTime Time { get; set; }
 
-		public decimal Cost { get; set; }
+		[Required]
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal Cost { get; set; }
     }
 }
