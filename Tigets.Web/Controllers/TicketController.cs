@@ -35,11 +35,7 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> ImportTicket(TicketPostModel ticketPostModel)
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            var user = await _userManager.FindByNameAsync(username);
-
-            var ticket = _mapper.Map<Ticket>(ticketPostModel);
-            ticket.Id = Guid.NewGuid().ToString();
-            ticket.UserId = user.Id;
+            await _ticketService.Import(username, ticketPostModel);
             return Ok();
         }
 
