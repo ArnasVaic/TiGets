@@ -24,9 +24,20 @@ namespace Tigets.Web.Controllers
         }
 
         [AllowAnonymous]
+        [HttpGet("Test")]
+        public async Task<string> Test()
+        {
+            return User.Identity?.Name ?? "no user";
+        }
+
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromQuery] string username, [FromHeader(Name = "password")] string password)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return BadRequest("User is already logged in");
+            }
             try
             {
                 await _accountService.Login(username, password);
