@@ -9,6 +9,7 @@ namespace Tigets.Core.Services
 {
     public interface ITicketService
     {
+        Task Import(string username, TicketPostModel ticketPostModel);
         Task Buy(string buyerId, string ticketId);
     }
 }
