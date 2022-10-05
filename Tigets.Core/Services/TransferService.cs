@@ -17,19 +17,16 @@ namespace Tigets.Core.Services
             _transferRepository = transferRepository;
         }
 
-        public async Task CreateTransfer(string buyerId, Ticket ticket)
+        public async Task Create(string buyerId, string? ownerId, string ticketId, decimal cost)
         {
-            if (buyerId == ticket.UserId)
-                throw new Exception("Cannot transfer tickets to yourself");
-
             var transfer = new Transfer
             {
                 Id = Guid.NewGuid().ToString(),
                 Time = DateTime.UtcNow,
-                TicketId = ticket.Id,
+                TicketId = ticketId,
                 ToId = buyerId,
-                FromId = ticket.UserId,
-                Cost = ticket.Cost
+                FromId = ownerId,
+                Cost = cost
             };
 
             await _transferRepository.AddAsync(transfer);
