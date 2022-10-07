@@ -5,8 +5,6 @@ import { postRegister } from "../../services/registerService";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledJustValueTextField } from "../../generalComponents/styled/JustValueTextField.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
-import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.styled";
-import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
 import { Typography, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { LOGIN_URL } from '../../constants';
@@ -21,7 +19,6 @@ function RegisterPage() {
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
 
-    const [wrongPassword, setWrongPassword] = useState(false);
     const [isError, setIsError] = useState();
     const [errorMsg, setErrorMsg] = useState("Passwords do not match");
 
