@@ -29,8 +29,11 @@ namespace Tigets.Core.Services
             _mapper = mapper;
         }
 
-        public async Task AddBalance([NotNull] string username, decimal amount)
+        public async Task AddBalance(string username, decimal amount)
         {
+            if(username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
             // TODO: perhaps it's not a good idea to allow adding negative amount of money
             var user = await _userManager.FindByNameAsync(username);
             if (user is null)
@@ -40,8 +43,14 @@ namespace Tigets.Core.Services
             await _userManager.UpdateAsync(user);
         }
 
-        public async Task Login([NotNull] string username, [NotNull] string password)
+        public async Task Login(string username, string password)
         {
+            if (username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
+            if (password is null)
+                throw new ArgumentNullException($"{nameof(password)}");
+
             var user = await _userManager.FindByNameAsync(username);
 
             if (user is null)

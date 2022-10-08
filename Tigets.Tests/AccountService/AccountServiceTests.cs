@@ -38,14 +38,15 @@ namespace Tigets.Tests.AccountService
         public async Task AddBalance_UsernameNull_ThrowsArgumentNullException()
         {
             // ARRANGE
-            string userName = null;
+            string username = null;
             var service = CreateAccountService();
+
             // ACT
-            Func<Task> action = async () => await service.AddBalance(userName, 0);
+            Func<Task> action = async () => await service.AddBalance(username, 0);
 
             // ASSERT
             var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
-            Assert.Equal($"Value cannot be null. (Parameter '{nameof(userName)}')", result.Message);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
         }
 
         [Fact]
