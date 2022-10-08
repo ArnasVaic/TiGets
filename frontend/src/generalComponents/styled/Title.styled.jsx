@@ -4,5 +4,5 @@ export const StyledTitle = styled(Typography)`
   display: flex;
   justify-content: center;
   font-size: 50px;
-  padding-top: 10%;
+  padding-top: 0%;
 `;
