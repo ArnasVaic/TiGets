@@ -66,11 +66,11 @@ namespace Tigets.Core.Services
                 throw new Exception("User cannot buy a ticket that is off the market.");
 
             var now = DateTime.UtcNow;
-            if (now > ticket.ValidFrom)
-                throw new Exception("This event has already started");
+            if (now >= ticket.ValidTo)
+                throw new Exception("This event has already ended.");
 
             var owner = await _userManager.FindByIdAsync(ticket.UserId) ?? throw new Exception("Owner does not exist.");
-            var user = await _userManager.FindByNameAsync(username);
+            var user = await _userManager.FindByNameAsync(username) ?? throw new Exception("User does not exist.");
 
             if (owner.Id == user.Id)
                 throw new Exception("User cannot buy a ticket that already belongs to him.");
