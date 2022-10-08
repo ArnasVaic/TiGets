@@ -17,8 +17,20 @@ namespace Tigets.Core.Services
             _transferRepository = transferRepository;
         }
 
-        public async Task Create(string buyerId, string? ownerId, string ticketId, decimal cost)
+        public async Task Create(string buyerId, string ownerId, string ticketId, decimal cost)
         {
+            if (buyerId is null)
+                throw new ArgumentNullException($"{nameof(buyerId)}");
+
+            if (ownerId is null)
+                throw new ArgumentNullException($"{nameof(ownerId)}");
+
+            if (ticketId is null)
+                throw new ArgumentNullException($"{nameof(ticketId)}");
+
+            if (cost <= 0)
+                throw new Exception("Cannot register a transfer with a negative cost.");
+
             var transfer = new Transfer
             {
                 Id = Guid.NewGuid().ToString(),
@@ -30,7 +42,6 @@ namespace Tigets.Core.Services
             };
 
             await _transferRepository.AddAsync(transfer);
-            await _transferRepository.SaveChangesAsync();
         }
     }
 }
