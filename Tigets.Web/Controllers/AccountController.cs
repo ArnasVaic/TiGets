@@ -23,11 +23,20 @@ namespace Tigets.Web.Controllers
             _accountService = accountService;
         }
 
-        [AllowAnonymous]
-        [HttpGet("Test")]
-        public async Task<string> Test()
+        [Authorize]
+        [HttpGet("Balance")]
+        public async Task<IActionResult> AddBalance(decimal amount)
         {
-            return User.Identity?.Name ?? "no user";
+            var username = User.Identity?.Name;
+            try
+            {
+                await _accountService.AddBalance(username, amount);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok();
         }
 
         [AllowAnonymous]
