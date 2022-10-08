@@ -7,7 +7,8 @@ import { StyledJustValueTextField } from "../../generalComponents/styled/JustVal
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.styled";
 import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
-import { Typography } from "@mui/material";
+import { Typography, Link } from "@mui/material";
+import { REGISTER_URL } from "../../constants";
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -49,6 +50,7 @@ function LoginPage() {
           <StyledErrorMessage>Wrong username or password</StyledErrorMessage>
         )}
         {loading && <Typography>Loading...</Typography>}
+        <Link href={REGISTER_URL}>New to TiGets? Create an account.</Link>
       </StyledCenteredColumn>
     </>
   );
