@@ -84,7 +84,7 @@ namespace Tigets.Tests.TransferService
             _transferRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Transfer>(), It.IsAny<CancellationToken>()), Times.Never);
 
             var result = await Assert.ThrowsAsync<Exception>(action);
-            Assert.Equal("Cannot register a transfer with a negative cost.", result.Message);
+            Assert.Equal("Cannot register a transfer with a non positive cost.", result.Message);
         }
 
         [Fact]

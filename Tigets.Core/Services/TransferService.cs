@@ -29,7 +29,7 @@ namespace Tigets.Core.Services
                 throw new ArgumentNullException($"{nameof(ticketId)}");
 
             if (cost <= 0)
-                throw new Exception("Cannot register a transfer with a negative cost.");
+                throw new Exception("Cannot register a transfer with a non positive cost.");
 
             var transfer = new Transfer
             {
