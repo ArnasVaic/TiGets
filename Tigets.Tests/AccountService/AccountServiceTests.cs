@@ -17,26 +17,21 @@ namespace Tigets.Tests.AccountService
 {
     public class AccountServiceTests
     {
-        //private readonly Mock<SignInManager<User>> _signInManagerMock;
         private readonly Mock<IUserStore<User>> _userStoreMock;
-        private readonly IMapper _mapper;
-
-        // sign in mocks
         private readonly Mock<IHttpContextAccessor> _contextAccessorMock;
         private readonly Mock<IUserClaimsPrincipalFactory<User>> _userClaimsPrincipalFactoryMock;
         private readonly Mock<IOptions<IdentityOptions>> _optionsMock;
         private readonly Mock<IAuthenticationSchemeProvider> _authenticationSchemeProviderMock;
+        private readonly IMapper _mapper;
 
         public AccountServiceTests()
         {
-            //_signInManagerMock = new Mock<SignInManager<User>>();
             _userStoreMock = new Mock<IUserStore<User>>();
-            _mapper = TestsHelper.CreateDefaultMapper();
-
             _contextAccessorMock = new Mock<IHttpContextAccessor>();
             _optionsMock = new Mock<IOptions<IdentityOptions>>();
             _authenticationSchemeProviderMock = new Mock<IAuthenticationSchemeProvider>();
             _userClaimsPrincipalFactoryMock = new Mock<IUserClaimsPrincipalFactory<User>>();
+            _mapper = TestsHelper.CreateDefaultMapper();
         }
 
         [Fact]
