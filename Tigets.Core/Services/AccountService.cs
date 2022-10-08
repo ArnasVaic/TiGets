@@ -65,8 +65,11 @@ namespace Tigets.Core.Services
                 throw new Exception(result.ToString());
         }
 
-        public async Task Register([NotNull] UserPostModel userPostModel)
+        public async Task Register(UserPostModel userPostModel)
         {
+            if (userPostModel is null)
+                throw new ArgumentNullException($"{nameof(userPostModel)}");
+
             var user = await _userManager.FindByNameAsync(userPostModel.UserName);
             if (user != null)
                 throw new Exception("User with this username already exists.");
