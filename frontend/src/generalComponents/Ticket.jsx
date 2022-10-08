@@ -1,19 +1,26 @@
-import { Typography, Button } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+} from "@mui/material";
 import { useState } from "react";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 
 function Ticket({ name, address, date, price }) {
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [open, setOpen] = useState(false);
+  const [dialogPrice, setDialogPrice] = useState(0);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleBuyAttempt = (event) => {
+    setDialogPrice(event.target.textContent);
+    setOpen(true);
   };
 
   const handleClose = () => {
-    setAnchorEl(null);
+    setOpen(false);
   };
+
+  const handleBuy = () => {};
 
   return (
     <div
@@ -28,29 +35,20 @@ function Ticket({ name, address, date, price }) {
       <Typography style={{ padding: "10px 50px" }}>{name}</Typography>
       <Typography style={{ padding: "10px 50px" }}>{address}</Typography>
       <Typography style={{ padding: "10px 50px" }}>{date}</Typography>
-      <Typography style={{ padding: "10px 50px" }}>{price}</Typography>
 
-      <Button variant="contained" onClick={handleClick}>
-        {" "}
-        Buy{" "}
+      <Button variant="contained" onClick={handleBuyAttempt}>
+        Buy {price}Eur
       </Button>
 
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "left",
-        }}
-      >
-        <MenuItem onClick={handleClose}>Buy</MenuItem>
-        <MenuItem onClick={handleClose}>Cancel</MenuItem>
-      </Menu>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>
+        <DialogActions>
+          <Button variant="contained" onClick={handleBuy} autofocus>
+            {dialogPrice}
+          </Button>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }
