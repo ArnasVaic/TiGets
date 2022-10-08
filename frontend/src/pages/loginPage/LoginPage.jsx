@@ -50,7 +50,7 @@ function LoginPage() {
           <StyledErrorMessage>Wrong username or password</StyledErrorMessage>
         )}
         {loading && <Typography>Loading...</Typography>}
-        <Link href={REGISTER_URL}>New to TiGets? Create an account.</Link>
+        <Link style={{ textAlign: "center"}} href={REGISTER_URL}>New to TiGets? Create an account.</Link>
       </StyledCenteredColumn>
     </>
   );
