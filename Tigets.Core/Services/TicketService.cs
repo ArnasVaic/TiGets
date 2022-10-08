@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
+using Tigets.Core.Specifications
 
 namespace Tigets.Core.Services
 {
@@ -98,5 +100,21 @@ namespace Tigets.Core.Services
             if (model.Cost < 0)
                 throw new Exception("Ticket cost must be positive.");
         }
+
+        public async Task<List<Ticket>> GetTicketsOnTheMarket(string UserId)
+        {
+
+           if (UserId is null)
+                throw new ArgumentNullException($"{nameof(UserId)}");
+
+           var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(UserId)); // can I use ListAsync?
+
+           if (tickets is null)
+                throw new Exception("Cannot find any tickets for this user");
+
+            return tickets;
+        }
+
+
     }
 }
