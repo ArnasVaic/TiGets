@@ -1,3 +1,4 @@
+import { DialogContent } from "@material-ui/core";
 import {
   Typography,
   Button,
@@ -7,12 +8,12 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-function Ticket({ name, address, date, price }) {
+function Ticket({ ticketId, name, address, date, price }) {
   const [open, setOpen] = useState(false);
-  const [dialogPrice, setDialogPrice] = useState(0);
+  const [buyEvent, setBuyEvent] = useState();
 
   const handleBuyAttempt = (event) => {
-    setDialogPrice(event.target.textContent);
+    setBuyEvent(event);
     setOpen(true);
   };
 
@@ -20,7 +21,10 @@ function Ticket({ name, address, date, price }) {
     setOpen(false);
   };
 
-  const handleBuy = () => {};
+  const handleBuy = () => {
+    alert(`Ticket with id=${buyEvent.target.id} was bought`);
+    setOpen(false);
+  };
 
   return (
     <div
@@ -36,15 +40,15 @@ function Ticket({ name, address, date, price }) {
       <Typography style={{ padding: "10px 50px" }}>{address}</Typography>
       <Typography style={{ padding: "10px 50px" }}>{date}</Typography>
 
-      <Button variant="contained" onClick={handleBuyAttempt}>
+      <Button id={ticketId} variant="contained" onClick={handleBuyAttempt}>
         Buy {price}Eur
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>
         <DialogActions>
-          <Button variant="contained" onClick={handleBuy} autofocus>
-            {dialogPrice}
+          <Button variant="contained" onClick={handleBuy} autoFocus>
+            Yes, please
           </Button>
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
