@@ -36,7 +36,7 @@ namespace Tigets.Web.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            return Ok();
+            return NoContent();
         }
 
         [AllowAnonymous]

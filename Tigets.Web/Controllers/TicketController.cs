@@ -46,7 +46,7 @@ namespace Tigets.Web.Controllers
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
             await _ticketService.Buy(username, ticketId);
-            return Ok();
+            return NoContent();
         }
     }
 }
