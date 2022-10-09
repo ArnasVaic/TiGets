@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
-using Tigets.Core.Specifications
+using Tigets.Core.Specifications;
 
 namespace Tigets.Core.Services
 {
@@ -101,7 +101,7 @@ namespace Tigets.Core.Services
                 throw new Exception("Ticket cost must be positive.");
         }
 
-        public async Task<List<Ticket>> GetTicketsOnTheMarket(string userId)
+        public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string userId)
         {
 
            if (userId is null)
