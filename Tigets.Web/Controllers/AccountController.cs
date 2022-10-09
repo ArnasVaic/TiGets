@@ -24,7 +24,7 @@ namespace Tigets.Web.Controllers
         }
 
         [Authorize]
-        [HttpGet("Balance")]
+        [HttpPatch("Balance")]
         public async Task<IActionResult> AddBalance(decimal amount)
         {
             var username = User.Identity?.Name;
