@@ -101,18 +101,15 @@ namespace Tigets.Core.Services
                 throw new Exception("Ticket cost must be positive.");
         }
 
-        public async Task<List<Ticket>> GetTicketsOnTheMarket(string UserId)
+        public async Task<List<Ticket>> GetTicketsOnTheMarket(string userId)
         {
 
-           if (UserId is null)
-                throw new ArgumentNullException($"{nameof(UserId)}");
+           if (userId is null)
+                throw new ArgumentNullException($"{nameof(userId)}");
 
-           var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(UserId)); // can I use ListAsync?
+           var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(userId));
 
-           if (tickets is null)
-                throw new Exception("Cannot find any tickets for this user");
-
-            return tickets;
+           return tickets;
         }
 
 

@@ -10,9 +10,9 @@ namespace Tigets.Core.Specifications
 {
     public class TicketByOnTheMarketSpec : Specification<Ticket>
     {
-        public TicketByOnTheMarketSpec(string UserId)
+        public TicketByOnTheMarketSpec(string userId)
         {
-            Query.Where(c => (c.State == TicketState.OnMarket && UserId != c.UserId));
+            Query.Where(c => (c.State == TicketState.OnMarket && userId != c.UserId));
         }
     }
 }
