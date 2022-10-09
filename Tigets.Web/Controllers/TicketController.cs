@@ -52,8 +52,8 @@ namespace Tigets.Web.Controllers
         [HttpGet("GetTickets")]
         public async Task<IActionResult> GetTicketsOnTheMarket(string userId)
         {
-            await _ticketService.GetTicketsOnTheMarket(userId);
-            return Ok();
+            var tickets = await _ticketService.GetTicketsOnTheMarket(userId);
+            return Ok(tickets);
         }
     }
 }

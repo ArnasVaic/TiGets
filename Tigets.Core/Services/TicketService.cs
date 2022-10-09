@@ -107,6 +107,7 @@ namespace Tigets.Core.Services
            if (userId is null)
                 throw new ArgumentNullException($"{nameof(userId)}");
 
+       
            var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(userId));
 
            return tickets;
