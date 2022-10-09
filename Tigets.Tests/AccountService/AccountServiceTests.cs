@@ -84,6 +84,50 @@ namespace Tigets.Tests.AccountService
             Assert.Equal(30, user.Balance);
         }
 
+        [Fact]
+        public async Task Login_UsernameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Login(username, "password");
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task Login_PasswordNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string password = null;
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Login("username", password);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(password)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task Login_UserDoesNotExist_ThrowsException()
+        {
+          
+        }
+
+        [Fact]
+        public async Task Login_WrongPassword_ThrowsException()
+        {
+           
+        }
+
+        //TO-DO 
+
         private Core.Services.AccountService CreateAccountService()
         {
             var userManager =
