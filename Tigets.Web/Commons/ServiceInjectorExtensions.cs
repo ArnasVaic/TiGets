@@ -12,6 +12,8 @@ namespace Tigets.Web.Commons
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<ITransferRepository, TransferRepository>();
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ITransferService, TransferService>();
+            services.AddScoped<ITicketService, TicketService>();
         }
     }
 }
