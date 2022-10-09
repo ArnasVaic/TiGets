@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Moq;
 using Tigets.Core.Models;
 using Xunit;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Tigets.Tests.AccountService
 {
@@ -117,16 +118,39 @@ namespace Tigets.Tests.AccountService
         [Fact]
         public async Task Login_UserDoesNotExist_ThrowsException()
         {
-          
+            // ARRANGE
+            var userName = "username";
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Login(userName, "");
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("User does not exist.", result.Message);
         }
 
         [Fact]
         public async Task Login_WrongPassword_ThrowsException()
         {
-           
+            // ARRANGE
+            var userName = "username1";
+            var password = "User123!";
+            var user = new User { UserName = userName, PasswordHash = password};
+
+            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+             .ReturnsAsync(user);
+
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Login(userName, "User1234!");
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("Incorrect password.", result.Message);
         }
 
-        //TO-DO 
 
         private Core.Services.AccountService CreateAccountService()
         {
