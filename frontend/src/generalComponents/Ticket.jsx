@@ -1,4 +1,3 @@
-import { DialogContent } from "@material-ui/core";
 import {
   Typography,
   Button,
@@ -7,10 +6,13 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { patchBuy } from '../services/marketService';
 
 function Ticket({ ticketId, name, address, date, price }) {
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
+  const dispatch = useDispatch();
 
   const handleBuyAttempt = (event) => {
     setBuyEvent(event);
@@ -22,7 +24,7 @@ function Ticket({ ticketId, name, address, date, price }) {
   };
 
   const handleBuy = () => {
-    alert(`Ticket with id=${buyEvent.target.id} was bought`);
+    dispatch(patchBuy(buyEvent.target.id));
     setOpen(false);
   };
 
