@@ -36,7 +36,8 @@ namespace Tigets.Web.Controllers
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
             await _ticketService.Import(username, ticketPostModel);
-            return Ok();
+            var view = _mapper.Map<TicketViewModel>(ticketPostModel);
+            return Ok(view);
         }
 
         [Authorize]
