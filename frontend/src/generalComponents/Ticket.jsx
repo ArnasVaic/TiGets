@@ -6,10 +6,11 @@ import {
   DialogActions,
 } from "@mui/material";
 import { useState } from "react";
-import { useDispatch } from 'react-redux';
-import { patchBuy } from '../services/marketService';
+import { useDispatch } from "react-redux";
+import { patchBuy } from "../services/marketService";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-function Ticket({ ticketId, name, address, date, price }) {
+function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
   const dispatch = useDispatch();
@@ -33,17 +34,21 @@ function Ticket({ ticketId, name, address, date, price }) {
       style={{
         display: "flex",
         flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         border: "2px solid black",
         borderRadius: "5px",
         padding: "5px",
       }}
     >
-      <Typography style={{ padding: "10px 50px" }}>{name}</Typography>
-      <Typography style={{ padding: "10px 50px" }}>{address}</Typography>
-      <Typography style={{ padding: "10px 50px" }}>{date}</Typography>
+      <Typography>{eventName}</Typography>
+      <Typography>{address}</Typography>
+      <Typography>{validFrom}</Typography>
+      <ArrowForwardIcon fontSize="large" />
+      <Typography>{validTo}</Typography>
 
       <Button id={ticketId} variant="contained" onClick={handleBuyAttempt}>
-        Buy {price}Eur
+        Buy {cost}Eur
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
