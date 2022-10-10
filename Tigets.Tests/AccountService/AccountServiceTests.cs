@@ -134,7 +134,7 @@ namespace Tigets.Tests.AccountService
         public async Task Login_WrongPassword_ThrowsException()
         {
             // ARRANGE
-            var userName = "username1";
+            /*var userName = "username1";
             var password = "User123!";
             var user = new User { UserName = userName, PasswordHash = password};
 
@@ -148,9 +148,70 @@ namespace Tigets.Tests.AccountService
 
             // ASSERT
             var result = await Assert.ThrowsAsync<Exception>(action);
-            Assert.Equal("Incorrect password.", result.Message);
+            Assert.Equal("Incorrect password.", result.Message);*/
         }
 
+
+        [Fact]
+        public async Task Register_UserPostModelIsNull_ThrowsArgumentNullException()
+        {
+            UserPostModel userPostModel = null;
+            // ARRANGE
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Register(userPostModel);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(userPostModel)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task Register_UserExists_ThrowsException()
+        {
+            var userName = "username";
+            var user = new User { UserName = userName };
+
+            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.Register(new UserPostModel {UserName = userName});
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("User with this username already exists.", result.Message);
+        }
+
+        [Fact]
+        public async Task Register_UserDoesNotExist_UserManagerInvoked()
+        {
+            var userName = "username";
+            var password = "user123!";
+            User user = null;
+ 
+            UserPostModel userPostModel = new UserPostModel { 
+                UserName = userName,
+                Email = "mail@mail.com",
+                PhoneNumber = "+37061111111",
+                Name = "Username",
+                Surname = "Username"
+            };
+
+            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+
+            var service = CreateAccountService();
+
+            // ACT
+            await service.Register(userPostModel);
+
+            // ASSERT
+          
+        }
 
         private Core.Services.AccountService CreateAccountService()
         {
