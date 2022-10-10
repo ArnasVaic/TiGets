@@ -101,15 +101,18 @@ namespace Tigets.Core.Services
                 throw new Exception("Ticket cost must be positive.");
         }
 
-        public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string userId)
+        public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username)
         {
 
-           if (userId is null)
-                throw new ArgumentNullException($"{nameof(userId)}");
-       
-           var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(userId));
+           if (username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
 
-           return tickets;
+            User user = await _userManager.FindByNameAsync(username);
+            var userId = user.Id;
+
+            var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(userId));
+
+            return tickets;
         }
 
 

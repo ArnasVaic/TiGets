@@ -11,6 +11,6 @@ namespace Tigets.Core.Services
     {
         Task Import(string username, TicketPostModel ticketPostModel);
         Task Buy(string buyerId, string ticketId);
-        Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string userId);
+        Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username);
     }
 }

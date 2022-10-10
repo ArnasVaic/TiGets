@@ -50,9 +50,10 @@ namespace Tigets.Web.Controllers
 
         [Authorize]
         [HttpGet("GetTickets")]
-        public async Task<IActionResult> GetTicketsOnTheMarket(string userId)
+        public async Task<IActionResult> GetTicketsOnTheMarket()
         {
-            var tickets = await _ticketService.GetTicketsOnTheMarket(userId);
+            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+            var tickets = await _ticketService.GetTicketsOnTheMarket(username);
             return Ok(tickets);
         }
     }
