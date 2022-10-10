@@ -20,31 +20,43 @@ function MarketPage() {
       setMarketTickets([
         {
           id: "1",
-          name: "Pasnekesiai",
+          userId: "0",
+          state: "0",
+          validFrom: "2022-10-10T15:33:45.591",
+          validTo: "2023-12-12T23:33:22.443",
+          eventName: "Pasnekesiai",
           address: "Verkiu 1",
-          date: "2022-10-10",
-          price: "10",
+          cost: "10",
         },
         {
           id: "2",
-          name: "Fejerverkai",
+          userId: "0",
+          state: "0",
+          validFrom: "2022-10-10T15:33:45.591",
+          validTo: "2023-12-12T23:33:22.443",
+          eventName: "Fejerverkai",
           address: "Nebeverkiu 1",
-          date: "2050-12-12",
-          price: "69",
+          cost: "69",
         },
         {
           id: "3",
-          name: "Galapagai",
+          userId: "0",
+          state: "0",
+          validFrom: "2022-10-10T15:33:45.591",
+          validTo: "2023-12-12T23:33:22.443",
+          eventName: "Galapagai",
           address: "Anyksciai",
-          date: "2027-10-10",
-          price: "15",
+          cost: "15",
         },
         {
           id: "4",
-          name: "Troliu pica",
+          userId: "0",
+          state: "0",
+          validFrom: "2022-10-10T15:33:45.591",
+          validTo: "2023-12-12T23:33:22.443",
+          eventName: "Troliu pica",
           address: "Miskenai",
-          date: "2022-12-23",
-          price: "12.24",
+          cost: "12.24",
         },
       ])
     );
@@ -63,7 +75,7 @@ function MarketPage() {
         <StyledTicket
           key={index}
           ticketId={ticket.id}
-          name={ticket.name}
+          eventName={ticket.name}
           address={ticket.address}
           date={ticket.date}
           price={ticket.price}
