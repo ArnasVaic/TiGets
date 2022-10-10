@@ -130,26 +130,6 @@ namespace Tigets.Tests.AccountService
             Assert.Equal("User does not exist.", result.Message);
         }
 
-        [Fact]
-        public async Task Login_WrongPassword_ThrowsException()
-        {
-            // ARRANGE
-            /*var userName = "username1";
-            var password = "User123!";
-            var user = new User { UserName = userName, PasswordHash = password};
-
-            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-             .ReturnsAsync(user);
-
-            var service = CreateAccountService();
-
-            // ACT
-            Func<Task> action = async () => await service.Login(userName, "User1234!");
-
-            // ASSERT
-            var result = await Assert.ThrowsAsync<Exception>(action);
-            Assert.Equal("Incorrect password.", result.Message);*/
-        }
 
 
         [Fact]
@@ -185,34 +165,7 @@ namespace Tigets.Tests.AccountService
             var result = await Assert.ThrowsAsync<Exception>(action);
             Assert.Equal("User with this username already exists.", result.Message);
         }
-
-        [Fact]
-        public async Task Register_UserDoesNotExist_UserManagerInvoked()
-        {
-            var userName = "username";
-            var password = "user123!";
-            User user = null;
- 
-            UserPostModel userPostModel = new UserPostModel { 
-                UserName = userName,
-                Email = "mail@mail.com",
-                PhoneNumber = "+37061111111",
-                Name = "Username",
-                Surname = "Username"
-            };
-
-            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(user);
-
-            var service = CreateAccountService();
-
-            // ACT
-            await service.Register(userPostModel);
-
-            // ASSERT
-          
-        }
-
+         
         private Core.Services.AccountService CreateAccountService()
         {
             var userManager =
