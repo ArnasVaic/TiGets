@@ -41,6 +41,16 @@ namespace Tigets.Web.Controllers
         }
 
         [Authorize]
+        [HttpGet("GetTickets")]
+        public async Task<IActionResult> GetTicketsOnTheMarket()
+        {
+            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+            await _ticketService.Import(username, ticketPostModel);
+            var view = _mapper.Map<TicketViewModel>(ticketPostModel);
+            return Ok(view);
+        }
+
+        [Authorize]
         [HttpPatch("Buy")]
         public async Task<IActionResult> Buy(string ticketId)
         {
