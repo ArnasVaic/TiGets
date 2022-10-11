@@ -23,10 +23,30 @@ namespace Tigets.Web.Controllers
             _accountService = accountService;
         }
 
+        [Authorize]
+        [HttpPatch("Balance")]
+        public async Task<IActionResult> AddBalance(decimal amount)
+        {
+            var username = User.Identity?.Name;
+            try
+            {
+                await _accountService.AddBalance(username, amount);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return NoContent();
+        }
+
         [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromQuery] string username, [FromHeader(Name = "password")] string password)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return BadRequest("User is already logged in");
+            }
             try
             {
                 await _accountService.Login(username, password);

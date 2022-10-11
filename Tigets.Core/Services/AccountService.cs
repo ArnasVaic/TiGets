@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -28,8 +29,28 @@ namespace Tigets.Core.Services
             _mapper = mapper;
         }
 
+        public async Task AddBalance(string username, decimal amount)
+        {
+            if(username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
+            // TODO: perhaps it's not a good idea to allow adding negative amount of money
+            var user = await _userManager.FindByNameAsync(username);
+            if (user is null)
+                throw new Exception("User does not exist.");
+
+            user.Balance += amount;
+            await _userManager.UpdateAsync(user);
+        }
+
         public async Task Login(string username, string password)
         {
+            if (username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
+            if (password is null)
+                throw new ArgumentNullException($"{nameof(password)}");
+
             var user = await _userManager.FindByNameAsync(username);
 
             if (user is null)
@@ -46,6 +67,9 @@ namespace Tigets.Core.Services
 
         public async Task Register(UserPostModel userPostModel)
         {
+            if (userPostModel is null)
+                throw new ArgumentNullException($"{nameof(userPostModel)}");
+
             var user = await _userManager.FindByNameAsync(userPostModel.UserName);
             if (user != null)
                 throw new Exception("User with this username already exists.");
