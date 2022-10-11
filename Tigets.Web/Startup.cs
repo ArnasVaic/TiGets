@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ namespace Tigets.Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
+        readonly string MyAllowSpecificOrigins = "http://localhost:3000";
 
         public Startup(IConfiguration configuration)
         {
@@ -73,6 +76,15 @@ namespace Tigets.Web
                 options.AccessDeniedPath = "/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(MyAllowSpecificOrigins,
+                builder =>
+                {
+                    builder.SetIsOriginAllowed(isOriginAllowed: _ => true).AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+                });
+            });
         }
 
         public void Configure(WebApplication app, IWebHostEnvironment env)
@@ -83,6 +95,14 @@ namespace Tigets.Web
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor |
+                   ForwardedHeaders.XForwardedProto
+            });
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseHttpsRedirection();
 

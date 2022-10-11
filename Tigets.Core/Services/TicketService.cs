@@ -10,6 +10,7 @@ using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using Tigets.Core.Specifications;
 
+
 namespace Tigets.Core.Services
 {
     public class TicketService : ITicketService
@@ -100,7 +101,7 @@ namespace Tigets.Core.Services
             if (model.Cost < 0)
                 throw new Exception("Ticket cost must be positive.");
         }
-
+        
         public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username)
         {
 
@@ -113,7 +114,5 @@ namespace Tigets.Core.Services
 
             return tickets;
         }
-
-
     }
 }
