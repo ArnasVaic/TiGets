@@ -108,9 +108,8 @@ namespace Tigets.Core.Services
                 throw new ArgumentNullException($"{nameof(username)}");
 
             User user = await _userManager.FindByNameAsync(username);
-            var userId = user.Id;
 
-            var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(userId));
+            var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(user.Id));
 
             return tickets;
         }
