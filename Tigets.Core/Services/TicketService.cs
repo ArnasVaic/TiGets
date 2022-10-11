@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
+using Tigets.Core.Specifications;
 
 namespace Tigets.Core.Services
 {
@@ -98,5 +100,20 @@ namespace Tigets.Core.Services
             if (model.Cost < 0)
                 throw new Exception("Ticket cost must be positive.");
         }
+
+        public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username)
+        {
+
+           if (username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
+            User user = await _userManager.FindByNameAsync(username);
+
+            var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(user.Id));
+
+            return tickets;
+        }
+
+
     }
 }

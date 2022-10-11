@@ -48,5 +48,14 @@ namespace Tigets.Web.Controllers
             await _ticketService.Buy(username, ticketId);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpGet("GetTickets")]
+        public async Task<IActionResult> GetTicketsOnTheMarket()
+        {
+            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+            var tickets = await _ticketService.GetTicketsOnTheMarket(username);
+            return Ok(tickets);
+        }
     }
 }
