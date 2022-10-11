@@ -1,13 +1,9 @@
-﻿using System.Reflection.Metadata.Ecma335;
-using System.Runtime.InteropServices;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
-using Tigets.Core.Repositories;
 using Tigets.Core.Services;
-using Tigets.Infrastructure.Data;
 
 namespace Tigets.Web.Controllers
 {
@@ -18,7 +14,7 @@ namespace Tigets.Web.Controllers
         private readonly ITicketService _ticketService;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        
+
         public TicketController(
             ITicketService ticketService,
             UserManager<User> userManager,
@@ -45,9 +41,8 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> GetTicketsOnTheMarket()
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            await _ticketService.Import(username, ticketPostModel);
-            var view = _mapper.Map<TicketViewModel>(ticketPostModel);
-            return Ok(view);
+            var tickets = await _ticketService.GetTicketsOnTheMarket(username);
+            return Ok(tickets);
         }
 
         [Authorize]
