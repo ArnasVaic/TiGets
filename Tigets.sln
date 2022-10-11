@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigets.Web", "Tigets.Web\Tigets.Web.csproj", "{E63A007E-F7D2-4862-B21F-3B6F1B59C195}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigets.Core", "TiGets.Core\Tigets.Core.csproj", "{CD6BF915-7A68-43C4-A560-363B7C87799B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigets.Core", "Tigets.Core\Tigets.Core.csproj", "{CD6BF915-7A68-43C4-A560-363B7C87799B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigets.Infrastructure", "TiGets.Infrastructure\Tigets.Infrastructure.csproj", "{7F6B743E-B018-4A46-8567-7FEBA7AC85E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tigets.Infrastructure", "Tigets.Infrastructure\Tigets.Infrastructure.csproj", "{7F6B743E-B018-4A46-8567-7FEBA7AC85E8}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "FrontEnd", "FrontEnd\FrontEnd.esproj", "{E67605DF-DFE6-4E60-9B9C-38B983AFA4B0}"
 EndProject

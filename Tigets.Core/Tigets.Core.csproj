@@ -18,8 +18,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.9" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Specifications\" />
-  </ItemGroup>
-
 </Project>
