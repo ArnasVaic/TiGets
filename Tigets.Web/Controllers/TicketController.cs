@@ -56,7 +56,7 @@ namespace Tigets.Web.Controllers
 
         [Authorize]
         [HttpPatch("Move")]
-        public async Task<IActionResult> Move(string ticketId, TicketState state)
+        public async Task<IActionResult> Move([FromQuery] string ticketId, [FromQuery] TicketState state)
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
             await _ticketService.Move(username, ticketId, state);
