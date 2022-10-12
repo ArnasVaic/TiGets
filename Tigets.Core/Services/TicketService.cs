@@ -92,7 +92,7 @@ namespace Tigets.Core.Services
             var user = await _userManager.FindByNameAsync(username) ?? throw new Exception("User does not exist.");
 
             if (ticket.UserId != user.Id)
-                throw new Exception("User does not own this ticket");
+                throw new Exception("User does not own this ticket.");
 
             ticket.State = state;
 
