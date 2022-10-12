@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Tigets.Core.Models;
+﻿using Tigets.Core.Models;
 
 namespace Tigets.Core.Services
 {
@@ -12,5 +7,6 @@ namespace Tigets.Core.Services
         Task Import(string username, TicketPostModel ticketPostModel);
         Task Buy(string buyerId, string ticketId);
         Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username);
+        Task Move(string username, string ticketId, TicketState state);
     }
 }

@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.SignalR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using Tigets.Core.Specifications;
@@ -64,8 +58,8 @@ namespace Tigets.Core.Services
                 throw new ArgumentNullException($"{nameof(ticketId)}");
 
             var ticket = await _ticketRepository.GetByIdAsync(ticketId) ?? throw new Exception("Ticket does not exist.");
-            
-            if(ticket.State == TicketState.OffMarket)
+
+            if (ticket.State == TicketState.OffMarket)
                 throw new Exception("User cannot buy a ticket that is off the market.");
 
             var now = DateTime.UtcNow;
@@ -89,6 +83,22 @@ namespace Tigets.Core.Services
             await _transferService.Create(user.Id, owner.Id, ticket.Id, ticket.Cost);
         }
 
+        public async Task Move(string username, string ticketId, TicketState state)
+        {
+            ArgumentNullException.ThrowIfNull(username, nameof(username));
+            ArgumentNullException.ThrowIfNull(ticketId, nameof(ticketId));
+
+            var ticket = await _ticketRepository.GetByIdAsync(ticketId) ?? throw new Exception("Ticket does not exist.");
+            var user = await _userManager.FindByNameAsync(username) ?? throw new Exception("User does not exist.");
+
+            if (ticket.UserId != user.Id)
+                throw new Exception("User does not own this ticket");
+
+            ticket.State = state;
+
+            await _ticketRepository.SaveChangesAsync();
+        }
+
         private void ValidateTicketPostModel(TicketPostModel model)
         {
             if (model.ValidFrom > model.ValidTo)
@@ -101,14 +111,17 @@ namespace Tigets.Core.Services
             if (model.Cost < 0)
                 throw new Exception("Ticket cost must be positive.");
         }
-        
+
         public async Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username)
         {
 
-           if (username is null)
+            if (username is null)
                 throw new ArgumentNullException($"{nameof(username)}");
 
             User user = await _userManager.FindByNameAsync(username);
+
+            if (user is null)
+                throw new Exception("User does not exist.");
 
             var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(user.Id));
 
