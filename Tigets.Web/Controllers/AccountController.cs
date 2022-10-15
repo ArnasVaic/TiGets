@@ -74,5 +74,12 @@ namespace Tigets.Web.Controllers
 
             return NoContent();
         }
+
+        [Authorize]
+        [HttpGet("GetProfileData")]
+        public async Task<IActionResult> GetProfileData()
+        {
+            return Ok(new UserViewModel());
+        }
     }
 }
