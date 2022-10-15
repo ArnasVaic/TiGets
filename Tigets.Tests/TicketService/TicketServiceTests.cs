@@ -449,6 +449,36 @@ namespace Tigets.Tests.TicketService
             Assert.Equal(TicketState.OffMarket, ticket.State);
         }
 
+        [Fact]
+        public async Task GetTicketsOnTheMarket_UserNameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetTicketsOnTheMarket(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task GetUserTickets_UserNameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetUserTickets(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
         private Core.Services.TicketService CreateTicketService() => new (
             _ticketRepositoryMock.Object,
             _transferServiceMock.Object,
