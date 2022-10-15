@@ -9,6 +9,8 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using AutoMapper;
 using Tigets.Core.Models;
+using Tigets.Core.Repositories;
+using Tigets.Core.Specifications;
 
 namespace Tigets.Core.Services
 {
@@ -82,6 +84,21 @@ namespace Tigets.Core.Services
 
             if (!result.Succeeded)
                 throw new Exception(result.ToString());
+        }
+
+        public async Task<UserViewModel> GetProfileData(string username)
+        {
+            UserViewModel userView = new UserViewModel();
+            var user = await _userManager.FindByNameAsync(username);
+
+            userView.UserName = user.UserName;
+            userView.Name = user.Name;
+            userView.Surname = user.Surname;
+            userView.Email = user.Email;
+            userView.PhoneNumber = user.PhoneNumber;
+            userView.Balance = user.Balance;
+
+            return userView;
         }
     }
 }

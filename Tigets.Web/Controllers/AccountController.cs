@@ -79,7 +79,16 @@ namespace Tigets.Web.Controllers
         [HttpGet("GetProfileData")]
         public async Task<IActionResult> GetProfileData()
         {
-            return Ok(new UserViewModel());
+            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+            try
+            {
+                var user = await _accountService.GetProfileData(username);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
