@@ -19,25 +19,26 @@ function RegisterPage() {
     const [email, setEmail] = useState();
     const [phoneNumber, setPhoneNumber] = useState();
 
-    const [isError, setIsError] = useState();
-    const [errorMsg, setErrorMsg] = useState("Passwords do not match");
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState();
+    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
-    // const search = useLocation().search;
-    // const returnUrl = new URLSearchParams(search).get("ReturnUrl");
     const navigate = useNavigate();
 
     function checkValidation() {
-        if (password !== cPassword)
+        if (password !== cPassword) {
             setIsError(true);
-        else
+            setErrorMsg("Passwords do not match!")
+        }
+        else {
             setIsError(false);
+        }
     }
 
     function handleData() {
         const dataObject = { userName, password, name, surname, email, phoneNumber };
-        console.log(dataObject);
-        dispatch(postRegister(dataObject, navigate));
+        if (password === cPassword) dispatch(postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading));
     }
 
     return (
@@ -83,7 +84,7 @@ function RegisterPage() {
                 <Button
                     variant="contained"
                     onClick={() => {
-                        checkValidation()
+                        checkValidation();
                         if (!isError) {
                             handleData();
                         }
@@ -91,7 +92,7 @@ function RegisterPage() {
                 >
                     Register
                 </Button>
-
+                {loading && <Typography style={{textAlign: "center"}}>Loading...</Typography>}
                 <Typography
                     style={{
                         textAlign: "center",
