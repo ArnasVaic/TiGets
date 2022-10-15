@@ -38,7 +38,7 @@ function RegisterPage() {
     function handleData() {
         const dataObject = { userName, password, name, surname, email, phoneNumber };
         console.log(dataObject);
-        dispatch(postRegister(dataObject, navigate, setErrorMsg, setIsError));
+        if (password === cPassword) dispatch(postRegister(dataObject, navigate, setErrorMsg, setIsError));
     }
 
     return (
