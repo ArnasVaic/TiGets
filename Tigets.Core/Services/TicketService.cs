@@ -110,6 +110,9 @@ namespace Tigets.Core.Services
 
             User user = await _userManager.FindByNameAsync(username);
 
+            if (user is null)
+                throw new Exception("User does not exist.");
+
             var tickets = await _ticketRepository.ListAsync(new TicketByOnTheMarketSpec(user.Id));
 
             return tickets;
@@ -122,6 +125,9 @@ namespace Tigets.Core.Services
 
             User user = await _userManager.FindByNameAsync(username);
 
+            if (user is null)
+                throw new Exception("User does not exist.");
+                    
             var tickets = from ticket in await _ticketRepository.ListAsync()
                           where ticket.UserId == user.Id 
                           select ticket;
