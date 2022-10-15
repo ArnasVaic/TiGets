@@ -9,6 +9,8 @@ using System.Text.Json.Nodes;
 using System.Threading.Tasks;
 using AutoMapper;
 using Tigets.Core.Models;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 
 namespace Tigets.Core.Services
 {
@@ -73,6 +75,14 @@ namespace Tigets.Core.Services
             var user = await _userManager.FindByNameAsync(userPostModel.UserName);
             if (user != null)
                 throw new Exception("User with this username already exists.");
+
+            //                    [A-Z....]+matches at least one or more letter, numbers or symbols. 
+            //                                                  () part is optional 0-m times. This is needed bacause < . > must
+            //                                                     be proceeded by a char before @       At least one char after @ by [...]+ is required
+            string patternText = "[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*@[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*.[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]";
+            Regex regEmail = new Regex(patternText);                 // all in all the pattern looks something like a(.a)@a(.a).com (.a) - meaning it's an optional par
+
+            if (!regEmail.IsMatch(userPostModel.Email)) throw new Exception("InvalidEmail");
 
             user = _mapper.Map<User>(userPostModel);
             user.Id = Guid.NewGuid().ToString();
