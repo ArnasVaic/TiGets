@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/loginPage/LoginPage";
 import RegisterPage from "./pages/registerPage/RegisterPage";
 import MarketPage from "./pages/marketPage/MarketPage";
-import { LOGIN_URL, MARKET_URL, PROFILE_URL } from "./constants";
-import { REGISTER_URL } from "./constants";
+import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL } from "./constants";
 
 function App() {
   return (
