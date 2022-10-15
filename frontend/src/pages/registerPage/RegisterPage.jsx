@@ -21,6 +21,7 @@ function RegisterPage() {
 
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState();
+    const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,8 +38,7 @@ function RegisterPage() {
 
     function handleData() {
         const dataObject = { userName, password, name, surname, email, phoneNumber };
-        console.log(dataObject);
-        if (password === cPassword) dispatch(postRegister(dataObject, navigate, setErrorMsg, setIsError));
+        if (password === cPassword) dispatch(postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading));
     }
 
     return (
@@ -92,7 +92,7 @@ function RegisterPage() {
                 >
                     Register
                 </Button>
-
+                {loading && <Typography style={{textAlign: "center"}}>Loading...</Typography>}
                 <Typography
                     style={{
                         textAlign: "center",

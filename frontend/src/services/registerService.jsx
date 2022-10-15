@@ -1,6 +1,7 @@
 
 export const postRegister =
-    (dataObject, navigate, setErrorMsg, setIsError) => async () => {
+    (dataObject, navigate, setErrorMsg, setIsError, setLoading) => async () => {
+        setLoading(true);
         try {
             const response = await fetch("https://localhost:7056/api/Account/Register", {
                 method: "POST",
