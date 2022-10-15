@@ -66,4 +66,5 @@ export const postRegister =
         } catch (error) {
             throw new Error("Server error");
         }
+        setLoading(false);
     };
