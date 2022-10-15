@@ -63,7 +63,6 @@ export const postRegister =
 
             }
         } catch (error) {
-            console.log("RegisterServiceerror", error.message, error.data)
             throw new Error("Server error");
         }
     };
