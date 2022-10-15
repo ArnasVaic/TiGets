@@ -58,7 +58,7 @@ export const postRegister =
                     setIsError(true);
                 }
                 else {
-                    alert("Oops, something went wrong. Please try again");
+                    alert("Oops, something went wrong. Please try again\n" + errMsg);
                 }
 
             }
