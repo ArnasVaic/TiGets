@@ -114,5 +114,19 @@ namespace Tigets.Core.Services
 
             return tickets;
         }
+
+        public async Task<IEnumerable<Ticket>> GetUserTickets(string username)
+        {
+           if (username is null)
+                throw new ArgumentNullException($"{nameof(username)}");
+
+            User user = await _userManager.FindByNameAsync(username);
+
+            var tickets = from ticket in await _ticketRepository.ListAsync()
+                          where ticket.UserId == user.Id 
+                          select ticket;
+
+            return tickets;
+        }
     }
 }
