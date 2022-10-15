@@ -5,6 +5,7 @@ export const patchBuy = (ticketId) => async (dispatch) => {
   try {
     const response = await fetch(PATCH_BUY_URL(ticketId), {
       method: "PATCH",
+      credentials: "include",
     });
     if (response.ok) {
       alert("Ticket was successfully bought");
@@ -21,6 +22,7 @@ export const getMarketTickets = () => async (dispatch) => {
   try {
     const response = await fetch(GET_MARKET_TICKETS, {
       method: "GET",
+      credentials: "include",
     });
     if (response.ok) {
       dispatch(setMarketTickets(await response.json()));
