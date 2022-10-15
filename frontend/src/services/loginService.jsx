@@ -11,6 +11,7 @@ export const postLogin =
         headers: {
           password: password,
         },
+        credentials: "include",
       });
       if (response.ok) {
         navigate(returnUrl);
