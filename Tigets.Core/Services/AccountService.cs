@@ -82,7 +82,7 @@ namespace Tigets.Core.Services
             string patternText = "[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*@[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*.[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]";
             Regex regEmail = new Regex(patternText);                 // all in all the pattern looks something like a(.a)@a(.a).com (.a) - meaning it's an optional par
 
-            if (!regEmail.IsMatch(userPostModel.Email)) throw new Exception("InvalidEmail");
+            if (!regEmail.IsMatch(userPostModel.Email)) throw new Exception("Failed : InvalidEmail");
 
             user = _mapper.Map<User>(userPostModel);
             user.Id = Guid.NewGuid().ToString();
