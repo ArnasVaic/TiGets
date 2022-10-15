@@ -23,8 +23,8 @@ function LoginPage() {
 
   return (
     <>
-      <StyledTitle>TIGETS</StyledTitle>
       <StyledCenteredColumn>
+        <StyledTitle>TIGETS</StyledTitle>
         <StyledJustValueTextField label="username" setValue={setUsername} />
         <StyledJustValueTextField
           label="password"

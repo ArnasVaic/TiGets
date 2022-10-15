@@ -7,13 +7,13 @@ export const profileSlice = createSlice({
   },
   reducers: {
     increaseBalanceBy: (state, action) => {
-          state.balance += action.payload;
+      state.balance += action.payload;
     },
   },
 });
 
 export const { increaseBalanceBy } = profileSlice.actions;
 
-export const selectBalance = (state) => state.balance;
+export const selectBalance = (state) => state.profile.balance;
 
 export default profileSlice.reducer;

@@ -1,69 +1,39 @@
-import { Stack } from "@mui/system";
-import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import SearchIcon from "@material-ui/icons/Search";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Ticket from "./components/Ticket";
+import { PROFILE_URL } from "../../constants";
+import { StyledTicket } from "../../generalComponents/styled/Ticket.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { selectMarketTickets } from "../../slices/marketSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { StyledNavigationButton } from "../../generalComponents/styled/NavigationButton.styled";
+import { getMarketTickets } from "../../services/marketService";
 
 function MarketPage() {
+  const tickets = useSelector(selectMarketTickets);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getMarketTickets());
+  }, [dispatch]);
 
-    const [searchInput, setSearchInput] = useState("");
-    const navigate = useNavigate();
-
-    // function inputHandler(e) {
-    //     setSearchInput(e.target.value);
-    // };
-
-    return (
-        <div
-            style={{
-                display: "flex",
-                height: "100vh",
-                width: "100 %",
-                rowGap: "10px",
-                justifyContent: "space-between",
-            }}
-        >
-            <Stack spacing={2} style={{ padding: "2%", marginLeft: "20%" }}>
-                <Typography style={{}}>
-                    {" "}
-                    Find the ticket you are looking for!
-                </Typography>
-
-                <TextField
-                    label="Search for event"
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <SearchIcon />
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-
-                <Ticket name={"Name1"} />
-                <Ticket name={"Name2"} />
-                <Ticket name={"Name3"} />
-                <Ticket name={"Name4"} />
-                <Ticket name={"Name5"} />
-                <Ticket name={"Name6"} />
-                <Ticket name={"Name7"} />
-                <Ticket name={"Name8"} />
-            </Stack>
-
-            <Stack spacing={2} style={{ padding: "10px" }}>
-                <Button
-                    variant="contained"
-                    onClick={() => {
-                        navigate("/");
-                    }}
-                >
-                    Profile
-                </Button>
-            </Stack>
-        </div>
-    );
+  return (
+    <>
+      <StyledNavigationButton text="Profile" url={PROFILE_URL} />
+      <StyledCenteredColumn spacing={2}>
+        <StyledTitle>TIGETS Market</StyledTitle>
+        {tickets.map((ticket, index) => (
+          <StyledTicket
+            key={index}
+            ticketId={ticket.id}
+            eventName={ticket.eventName}
+            address={ticket.address}
+            validFrom={ticket.validFrom.slice(0, 10)}
+            validTo={ticket.validTo.slice(0, 10)}
+            cost={ticket.cost}
+          />
+        ))}
+      </StyledCenteredColumn>
+    </>
+  );
 }
 
 export default MarketPage;

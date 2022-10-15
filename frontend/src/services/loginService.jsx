@@ -1,4 +1,4 @@
-import { POST_LOGIN_URL } from "../constants";
+import { POST_LOGIN_URL, PROFILE_URL } from "../constants";
 
 export const postLogin =
   (username, password, returnUrl, navigate, setWrongPassword, setLoading) =>
@@ -11,9 +11,15 @@ export const postLogin =
         headers: {
           password: password,
         },
+        credentials: "include",
       });
       if (response.ok) {
-        navigate(returnUrl);
+        if (!returnUrl) {
+          navigate(PROFILE_URL);
+        }
+        else {
+          navigate(returnUrl);
+        }
         setWrongPassword(false);
       } else {
         let errMsg = new TextDecoder().decode(
