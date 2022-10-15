@@ -1,13 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Tigets.Core.Models;
 
 namespace Tigets.Core.Services
@@ -31,7 +23,7 @@ namespace Tigets.Core.Services
 
         public async Task AddBalance(string username, decimal amount)
         {
-            if(username is null)
+            if (username is null)
                 throw new ArgumentNullException($"{nameof(username)}");
 
             // TODO: perhaps it's not a good idea to allow adding negative amount of money
@@ -82,6 +74,11 @@ namespace Tigets.Core.Services
 
             if (!result.Succeeded)
                 throw new Exception(result.ToString());
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }
