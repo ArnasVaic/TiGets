@@ -1,4 +1,10 @@
-import { MARKET_URL, POST_LOGIN_URL } from "../constants";
+import { useNavigate } from "react-router-dom";
+import {
+  LOGIN_URL,
+  MARKET_URL,
+  POST_LOGIN_URL,
+  POST_LOGOUT_URL,
+} from "../constants";
 
 export const postLogin =
   (username, password, returnUrl, navigate, setWrongPassword, setLoading) =>
@@ -38,3 +44,22 @@ export const postLogin =
     }
     setLoading(false);
   };
+
+export const postLogout = (navigate) => async () => {
+  try {
+    const response = await fetch(POST_LOGOUT_URL, {
+      method: "POST",
+      credentials: "include",
+    });
+    if (response.ok) {
+      navigate(LOGIN_URL);
+    } else {
+      let errMsg = new TextDecoder().decode(
+        (await response.body?.getReader()?.read()).value
+      );
+      alert("Oops, something went wrong. Please try again\n" + errMsg);
+    }
+  } catch (error) {
+    alert("Oops, server error");
+  }
+};

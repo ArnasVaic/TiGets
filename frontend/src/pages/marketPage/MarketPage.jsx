@@ -7,6 +7,7 @@ import NavigationButton from "../../generalComponents/NavigationButton";
 import Ticket from "./components/Ticket";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+import LogoutButton from "../../generalComponents/LogoutButton";
 
 function MarketPage() {
   const tickets = useSelector(selectMarketTickets);
@@ -17,6 +18,7 @@ function MarketPage() {
 
   return (
     <>
+      <LogoutButton />
       <NavigationButton text="Profile" url={PROFILE_URL} />
       <StyledCenteredColumn spacing={2}>
         <StyledTitle>TIGETS Market</StyledTitle>

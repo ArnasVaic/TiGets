@@ -9,3 +9,4 @@ export const PATCH_BUY_URL = (ticketId) =>
 export const GET_MARKET_TICKETS =
   "https://localhost:7056/api/Ticket/GetTickets";
 export const POST_REGISTER_URL = "https://localhost:7056/api/Account/Register";
+export const POST_LOGOUT_URL = "https://localhost:7056/api/Account/Logout";
