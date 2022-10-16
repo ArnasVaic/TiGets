@@ -9,5 +9,6 @@ namespace Tigets.Core.Services
         Task Register(UserPostModel userPostModel);
         Task<UserViewModel> GetProfileData(string username);
         Task Logout();
+        string GetAppInfo();
     }
 }

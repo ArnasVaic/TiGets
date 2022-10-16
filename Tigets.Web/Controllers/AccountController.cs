@@ -1,14 +1,7 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
-using Tigets.Core.Repositories;
 using Tigets.Core.Services;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Tigets.Web.Controllers
 {
@@ -81,6 +74,13 @@ namespace Tigets.Web.Controllers
         {
             await _accountService.Logout();
             return NoContent();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("GetInfo")]
+        public string GetAppInfo()
+        {
+            return _accountService.GetAppInfo();
         }
 
         [Authorize]
