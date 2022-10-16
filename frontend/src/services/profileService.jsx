@@ -1,7 +1,7 @@
 import { GET_PROFILE_TICKETS, PATCH_ADD_BALANCE } from "../constants";
 import { increaseBalanceBy } from "../slices/profileSlice";
 
-export const getProfileTickets = () => async (dispatch) => {
+export const getUserTickets = () => async (dispatch) => {
     try {
         const response = await fetch(GET_PROFILE_TICKETS, {
             method: "GET",
