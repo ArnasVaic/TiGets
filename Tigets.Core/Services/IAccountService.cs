@@ -7,6 +7,7 @@ namespace Tigets.Core.Services
         Task AddBalance(string username, decimal amount);
         Task Login(string username, string password);
         Task Register(UserPostModel userPostModel);
+        Task<UserViewModel> GetProfileData(string username);
         Task Logout();
     }
 }
