@@ -52,7 +52,7 @@ return (
 
                 <Button
                     variant="contained"
-                    onClick={() => dispatch(addBalance(5))}
+                    onClick={() => dispatch(addBalance(addedMoney))}
                 >
                     Add money
                 </Button>

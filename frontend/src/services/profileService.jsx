@@ -19,14 +19,12 @@ export const getProfileTickets = () => async (dispatch) => {
 
 export const addBalance = (amount) => async (dispatch) => {
     try {
-        console.log('ttry');
         const response = await fetch(PATCH_ADD_BALANCE(amount), {
             method: "PATCH",
             credentials: "include",
         });
         if (response.ok) {
             dispatch(increaseBalanceBy(amount));
-            console.log('yay');
         } else {
             alert("Something went wrong. Please try again");
             console.log(response.json());
