@@ -1,18 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using Tigets.Core.Services;
-
+using Tigets.Core.Specifications;
 using Xunit;
 
 namespace Tigets.Tests.TicketService
@@ -160,9 +152,9 @@ namespace Tigets.Tests.TicketService
 
             var username = "username";
 
-            _userStoreMock.Setup(x => 
+            _userStoreMock.Setup(x =>
                     x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new User {Id = "userid"});
+                .ReturnsAsync(new User { Id = "userid" });
 
             var service = CreateTicketService();
 
@@ -170,7 +162,7 @@ namespace Tigets.Tests.TicketService
             await service.Import(username, ticketPostModel);
 
             // ASSERT
-            _transferServiceMock.Verify(x => 
+            _transferServiceMock.Verify(x =>
                 x.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<decimal>()), Times.Once);
 
             _ticketRepositoryMock.Verify(x => x.AddAsync(It.IsAny<Ticket>(), It.IsAny<CancellationToken>()), Times.Once);
@@ -231,7 +223,7 @@ namespace Tigets.Tests.TicketService
 
             var ticket = new Ticket { State = TicketState.OffMarket };
 
-            _ticketRepositoryMock.Setup(x => 
+            _ticketRepositoryMock.Setup(x =>
                     x.GetByIdAsync(It.IsAny<string>()))
                 .ReturnsAsync(ticket);
 
@@ -254,7 +246,7 @@ namespace Tigets.Tests.TicketService
 
             var ticket = new Ticket
             {
-                State = TicketState.OnMarket, 
+                State = TicketState.OnMarket,
                 ValidTo = DateTime.Today.AddDays(-1)
             };
 
@@ -318,7 +310,7 @@ namespace Tigets.Tests.TicketService
                     x.GetByIdAsync(It.IsAny<string>()))
                 .ReturnsAsync(ticket);
 
-            _userStoreMock.Setup(x => 
+            _userStoreMock.Setup(x =>
                     x.FindByIdAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new User());
 
@@ -489,7 +481,7 @@ namespace Tigets.Tests.TicketService
             var ticket1 = new Ticket
             {
                 Id = "ticketId1",
-                UserId = "randomId", 
+                UserId = "randomId",
                 State = TicketState.OnMarket,
                 ValidTo = DateTime.Today.AddDays(1),
                 Cost = 10
@@ -517,8 +509,8 @@ namespace Tigets.Tests.TicketService
                     x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(user);
 
-            _ticketRepositoryMock.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<Ticket> { ticket1, ticket2, ticket3} );
+            _ticketRepositoryMock.Setup(x => x.ListAsync(It.IsAny<TicketByOnTheMarketSpec>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<Ticket> { ticket1, ticket2, ticket3 });
 
             var service = CreateTicketService();
 
@@ -589,7 +581,7 @@ namespace Tigets.Tests.TicketService
                 .ReturnsAsync(user);
 
             _ticketRepositoryMock.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<Ticket> {ticket1, ticket2});
+                .ReturnsAsync(new List<Ticket> { ticket1, ticket2 });
 
             var service = CreateTicketService();
 
@@ -601,8 +593,7 @@ namespace Tigets.Tests.TicketService
             Assert.Equal(ticket1, tickets.FirstOrDefault());
         }
 
-
-        private Core.Services.TicketService CreateTicketService() => new (
+        private Core.Services.TicketService CreateTicketService() => new(
             _ticketRepositoryMock.Object,
             _transferServiceMock.Object,
             new UserManager<User>(_userStoreMock.Object, null, null, null, null, null, null, null, null),
