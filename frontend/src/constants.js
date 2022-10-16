@@ -10,3 +10,6 @@ export const GET_MARKET_TICKETS =
   "https://localhost:7056/api/Ticket/GetTickets";
 export const POST_REGISTER_URL = "https://localhost:7056/api/Account/Register";
 export const POST_LOGOUT_URL = "https://localhost:7056/api/Account/Logout";
+
+export const PATCH_ADD_BALANCE = "https://localhost:7056/api/Account/Balance";
+export const GET_PROFILE_TICKETS = "https://localhost:7056/api/Ticket/GetUserTickets";
