@@ -75,13 +75,17 @@ export const postImportTicket = (ticket) => async (dispatch) => {
   try {
     const response = await fetch(POST_IMPORT_TICKET_URL, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
       credentials: "include",
       body: JSON.stringify(ticket),
     });
     if (response.ok) {
       dispatch(getUserTickets());
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+      );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
