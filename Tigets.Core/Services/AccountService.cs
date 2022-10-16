@@ -94,9 +94,10 @@ namespace Tigets.Core.Services
         public string GetAppInfo()
         {
             string appInfo = null;
+            string path = Path.Combine(Directory.GetCurrentDirectory() + "\\Resources\\AppInformation.txt");
             try
             {
-                using StreamReader sr = new StreamReader("./AppInfo.txt");
+                using StreamReader sr = new StreamReader(path);
                 appInfo = sr.ReadToEnd();
             }
             catch (Exception e)
