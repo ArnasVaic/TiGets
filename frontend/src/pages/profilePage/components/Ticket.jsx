@@ -1,16 +1,20 @@
-import { Typography, Button } from "@mui/material";
+import { Typography } from "@mui/material";
 import { StyledTicket } from "./Ticket.styled";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SubmitButton from "../../../generalComponents/SubmitButton";
+import { patchMoveTicket } from "../../../services/profileService";
+import { useDispatch } from "react-redux";
 
 function Ticket({
+  ticketId,
   eventName,
   address,
   validFrom,
   validTo,
-  ticketId,
   cost,
   isOffMarket,
 }) {
+  const dispatch = useDispatch();
   return (
     <StyledTicket>
       <Typography>{eventName}</Typography>
@@ -19,8 +23,22 @@ function Ticket({
       <ArrowForwardIcon fontSize="large" />
       <Typography>{validTo}</Typography>
       <Typography>{cost} Eur</Typography>
-      {isOffMarket && <Button variant="contained">Sell</Button>}
-      {!isOffMarket && <Button variant="contained">Take off the market</Button>}
+      {isOffMarket && (
+        <SubmitButton
+          text="Sell"
+          onClick={() => {
+            dispatch(patchMoveTicket(ticketId, 0));
+          }}
+        />
+      )}
+      {!isOffMarket && (
+        <SubmitButton
+          text="Take off the market"
+          onClick={() => {
+            dispatch(patchMoveTicket(ticketId, 1));
+          }}
+        />
+      )}
     </StyledTicket>
   );
 }
