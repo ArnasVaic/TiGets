@@ -88,22 +88,13 @@ namespace Tigets.Core.Services
 
         public async Task<UserViewModel> GetProfileData(string username)
         {
-            UserViewModel userView = new();
-
-            var user = await _userManager.FindByNameAsync(username);
-            if (user is null)
+            var userData = await _userManager.FindByNameAsync(username);
+            if (userData is null)
             {
                 throw new Exception("User does not exist.");
             }
 
-            userView.UserName = user.UserName;
-            userView.Name = user.Name;
-            userView.Surname = user.Surname;
-            userView.Email = user.Email;
-            userView.PhoneNumber = user.PhoneNumber;
-            userView.Balance = user.Balance;
-
-            return userView;
+            return _mapper.Map<UserViewModel>(userData);
         }
     }
 }
