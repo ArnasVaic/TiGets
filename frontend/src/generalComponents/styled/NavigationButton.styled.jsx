@@ -1,4 +1,3 @@
-import { styled } from "@mui/material";
-import NavigationButton from "../NavigationButton";
+import { Button, styled } from "@mui/material";
 
-export const StyledNavigationButton = styled(NavigationButton)``;
+export const StyledNavigationButton = styled(Button)``;

@@ -1,12 +1,12 @@
 import { PROFILE_URL } from "../../constants";
-import { StyledTicket } from "../../generalComponents/styled/Ticket.styled";
-import { StyledTitle } from "../../generalComponents/styled/Title.styled";
-import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { selectMarketTickets } from "../../slices/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { StyledNavigationButton } from "../../generalComponents/styled/NavigationButton.styled";
 import { getMarketTickets } from "../../services/marketService";
+import NavigationButton from '../../generalComponents/NavigationButton';
+import Ticket from '../../generalComponents/Ticket';
+import { StyledCenteredColumn } from '../../generalComponents/styled/CenteredColumn.styled';
+import { StyledTitle } from '../../generalComponents/styled/Title.styled';
 
 function MarketPage() {
   const tickets = useSelector(selectMarketTickets);
@@ -17,11 +17,11 @@ function MarketPage() {
 
   return (
     <>
-      <StyledNavigationButton text="Profile" url={PROFILE_URL} />
+      <NavigationButton text="Profile" url={PROFILE_URL} />
       <StyledCenteredColumn spacing={2}>
         <StyledTitle>TIGETS Market</StyledTitle>
         {tickets.map((ticket, index) => (
-          <StyledTicket
+          <Ticket
             key={index}
             ticketId={ticket.id}
             eventName={ticket.eventName}

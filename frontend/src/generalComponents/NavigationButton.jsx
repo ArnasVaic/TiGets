@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { StyledNavigationButton } from "./styled/NavigationButton.styled";
 
 function NavigationButton({ text, url }) {
   const navigate = useNavigate();
   return (
-    <Button
+    <StyledNavigationButton
       style={{
         margin: "10px",
         position: "absolute",
@@ -14,7 +14,7 @@ function NavigationButton({ text, url }) {
       onClick={() => navigate(url)}
     >
       {text}
-    </Button>
+    </StyledNavigationButton>
   );
 }
 

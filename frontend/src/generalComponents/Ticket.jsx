@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { patchBuy } from "../services/marketService";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { StyledTicket } from './styled/Ticket.styled';
 
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +31,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   };
 
   return (
-    <div
+    <StyledTicket
       style={{
         display: "flex",
         flexDirection: "row",
@@ -60,7 +61,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </StyledTicket>
   );
 }
 
