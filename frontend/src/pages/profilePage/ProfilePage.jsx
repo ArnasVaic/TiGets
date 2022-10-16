@@ -1,43 +1,77 @@
-import { Button, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import Ticket from "./components/Ticket";
 import React from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { Button, Typography } from "@mui/material"; 
 import { increaseBalanceBy } from "../../slices/profileSlice";
+import { selectMarketTickets } from "../../slices/marketSlice";
+import { getMarketTickets } from "../../services/marketService";
+import NavigationButton from "../../generalComponents/NavigationButton";
+import LogoutButton from "../../generalComponents/LogoutButton";
+import JustValueTextField from "../../generalComponents/JustValueTextField";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+
 
 function ProfilePage() {
-  const profile = useSelector((state) => state.profile);
-  const dispatch = useDispatch();
+const [addedMoney, setAddedMoney] = useState();
+const profile = useSelector((state) => state.profile);
+const dispatch = useDispatch();
 
-  return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Stack spacing={2} style={{ padding: "50px" }}>
-        <Typography>Your balance</Typography>
-        <Typography
-          style={{
-            border: "2px solid black",
-            borderRadius: "5px",
-            padding: "5px",
-          }}
+return (
+
+    <div style={{ border: "1",   //page 
+                margin: "0",
+                padding: "5",
+                position: "relative"
+    }} >
+        <div style={{           //header
+            width: 1500,
+            height: 65,
+            border: 2,
+            backgroundColor: '#f0f8ff',
+            textAlign: "center"
+        }} >
+            <LogoutButton />
+            <NavigationButton text="Market" url={'/market'} />
+        </div> 
+
+        <div style={{           //userInfo
+            backgroundColor: '#4682b4',
+            width: 250,
+            float: "left",
+            height: 700
+        }}
         >
-          {profile.balance}
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={() => dispatch(increaseBalanceBy(1))}
-        >
-          Add money
-        </Button>
-      </Stack>
-      <Stack spacing={2} style={{ padding: "50px" }}>
-        <Typography>Your tickets</Typography>
-        <Ticket onTheMarket={true} />
-        <Ticket onTheMarket={true} />
-        <Ticket onTheMarket={false} />
-        <Ticket onTheMarket={false} />
-      </Stack>
+
+            <StyledCenteredColumn spacing={2}>
+                <Typography style={{textAlign: "center", marginTop:30} }>Your balance</Typography>
+                <JustValueTextField label="Add money" setValue={setAddedMoney} />
+
+                <Button
+                    variant="contained"
+                    onClick={() => dispatch(increaseBalanceBy(1))}
+                >
+                    Add money
+                </Button>
+         </StyledCenteredColumn>
+
+        </div>
+
+        <div>                                        
+            <StyledCenteredColumn spacing={2}>
+                <StyledTitle>TIGETS profile</StyledTitle>
+                <Button>HELLO IM A TICKET</Button>
+                <Button>HELLO IM A TICKET</Button>
+                <Button>HELLO IM A TICKET</Button>
+            </StyledCenteredColumn>
+        </div>
+
+         
     </div>
-  );
+
+ );
+
 }
 
 export default ProfilePage;
