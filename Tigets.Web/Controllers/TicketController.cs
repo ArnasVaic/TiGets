@@ -62,5 +62,14 @@ namespace Tigets.Web.Controllers
             await _ticketService.Buy(username, ticketId);
             return NoContent();
         }
+
+        [Authorize]
+        [HttpPatch("Move")]
+        public async Task<IActionResult> Move([FromQuery] string ticketId, [FromQuery] TicketState state)
+        {
+            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+            await _ticketService.Move(username, ticketId, state);
+            return NoContent();
+        }
     }
 }

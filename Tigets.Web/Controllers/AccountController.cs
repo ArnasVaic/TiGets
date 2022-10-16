@@ -1,14 +1,7 @@
-﻿using System.Security.Claims;
-using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
-using Tigets.Core.Repositories;
 using Tigets.Core.Services;
-using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Tigets.Web.Controllers
 {
@@ -51,7 +44,7 @@ namespace Tigets.Web.Controllers
             {
                 await _accountService.Login(username, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -72,6 +65,14 @@ namespace Tigets.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _accountService.Logout();
             return NoContent();
         }
     }

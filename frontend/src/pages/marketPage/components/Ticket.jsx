@@ -1,58 +1,58 @@
-import { Typography, Button } from "@mui/material";
+import {
+  Typography,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+} from "@mui/material";
 import { useState } from "react";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import { useDispatch } from "react-redux";
+import { patchBuy } from "../../../services/marketService";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { StyledTicket } from "./Ticket.styled";
 
-function Ticket({ name }) {
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
+  const [open, setOpen] = useState(false);
+  const [buyEvent, setBuyEvent] = useState();
+  const dispatch = useDispatch();
 
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const handleBuyAttempt = (event) => {
+    setBuyEvent(event);
+    setOpen(true);
+  };
 
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
-    return (
-        <div
-            style={{
-                display: "flex",
-                flexDirection: "row",
-                border: "2px solid black",
-                borderRadius: "5px",
-                padding: "5px",
-            }}
-        >
-            <Typography style={{ padding: "10px 50px" }}>{name}</Typography>
-            <Typography style={{ padding: "10px 50px" }}>Address</Typography>
-            <Typography style={{ padding: "10px 50px" }}>Date</Typography>
-            <Typography style={{ padding: "10px 50px" }}>Price $ </Typography>
+  const handleBuy = () => {
+    dispatch(patchBuy(buyEvent.target.id));
+    setOpen(false);
+  };
 
-            <Button variant="contained" onClick={handleClick}>
-                {" "}
-                Buy{" "}
-            </Button>
+  return (
+    <StyledTicket>
+      <Typography>{eventName}</Typography>
+      <Typography>{address}</Typography>
+      <Typography>{validFrom}</Typography>
+      <ArrowForwardIcon fontSize="large" />
+      <Typography>{validTo}</Typography>
 
-            <Menu
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                }}
-                transformOrigin={{
-                    vertical: "top",
-                    horizontal: "left",
-                }}
-            >
-                <MenuItem onClick={handleClose}>Buy</MenuItem>
-                <MenuItem onClick={handleClose}>Cancel</MenuItem>
-            </Menu>
-        </div>
-    );
+      <Button id={ticketId} variant="contained" onClick={handleBuyAttempt}>
+        Buy {cost}Eur
+      </Button>
+
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>
+        <DialogActions>
+          <Button variant="contained" onClick={handleBuy} autoFocus>
+            Yes, please
+          </Button>
+          <Button onClick={handleClose}>Cancel</Button>
+        </DialogActions>
+      </Dialog>
+    </StyledTicket>
+  );
 }
 
 export default Ticket;

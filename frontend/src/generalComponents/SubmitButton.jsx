@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
+import { StyledSubmitButton } from "./styled/SubmitButton.styled";
 
 function SubmitButton({ text, onClick }) {
   return (
-    <Button variant="contained" onClick={onClick}>
+    <StyledSubmitButton variant="contained" onClick={onClick}>
       {text}
-    </Button>
+    </StyledSubmitButton>
   );
 }
 

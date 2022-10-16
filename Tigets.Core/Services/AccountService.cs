@@ -1,14 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Tigets.Core.Models;
+using System.Security.Policy;
+using System.Text.RegularExpressions;
 
 namespace Tigets.Core.Services
 {
@@ -31,7 +25,7 @@ namespace Tigets.Core.Services
 
         public async Task AddBalance(string username, decimal amount)
         {
-            if(username is null)
+            if (username is null)
                 throw new ArgumentNullException($"{nameof(username)}");
 
             // TODO: perhaps it's not a good idea to allow adding negative amount of money
@@ -74,6 +68,14 @@ namespace Tigets.Core.Services
             if (user != null)
                 throw new Exception("User with this username already exists.");
 
+            //                    [A-Z....]+matches at least one or more letter, numbers or symbols. 
+            //                                                  () part is optional 0-m times. This is needed bacause < . > must
+            //                                                     be proceeded by a char before @       At least one char after @ by [...]+ is required
+            string patternText = "[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*@[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]+(.([A-Za-z0-9!#$%&'*+/=?^_‘{|}~-])+)*.[A-Za-z0-9!#$%&'*+/=?^_‘{|}~-]";
+            Regex regEmail = new Regex(patternText);                 // all in all the pattern looks something like a(.a)@a(.a).com (.a) - meaning it's an optional par
+
+            if (!regEmail.IsMatch(userPostModel.Email)) throw new Exception("Failed : InvalidEmail");
+
             user = _mapper.Map<User>(userPostModel);
             user.Id = Guid.NewGuid().ToString();
             user.Balance = 0m;
@@ -82,6 +84,11 @@ namespace Tigets.Core.Services
 
             if (!result.Succeeded)
                 throw new Exception(result.ToString());
+        }
+
+        public async Task Logout()
+        {
+            await _signInManager.SignOutAsync();
         }
     }
 }

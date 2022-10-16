@@ -1,13 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Moq;
-using Tigets.Core.Models;
-using Tigets.Core.Repositories;
-using Tigets.Core.Services;
-using Tigets.Core.Specifications;
-using Xunit;
-
-namespace Tigets.Tests.TicketService
+﻿namespace Tigets.Tests.TicketService
 {
     public class TicketServiceTests
     {
@@ -442,6 +433,120 @@ namespace Tigets.Tests.TicketService
             Assert.Equal(TicketState.OffMarket, ticket.State);
         }
 
+        [Fact]
+        public async Task Move_UsernameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.Move(username, "ticketId", TicketState.OffMarket);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task Move_TicketIdNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string ticketId = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.Move("username", ticketId, TicketState.OffMarket);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(ticketId)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task Move_TicketDoesNotExist_ThrowsException()
+        {
+            // ARRANGE
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.Move("username", "ticketId", TicketState.OffMarket);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("Ticket does not exist.", result.Message);
+        }
+
+        [Fact]
+        public async Task Move_UserDoesNotExist_ThrowsException()
+        {
+            // ARRANGE
+            var service = CreateTicketService();
+
+            _ticketRepositoryMock.Setup(x =>
+                    x.GetByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(new Ticket());
+
+            // ACT
+            Func<Task> action = async () => await service.Move("username", "ticketId", TicketState.OffMarket);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("User does not exist.", result.Message);
+        }
+
+        [Fact]
+        public async Task Move_UserIdsDoNotMatch_ThrowsException()
+        {
+            // ARRANGE
+            var service = CreateTicketService();
+
+            _ticketRepositoryMock.Setup(x =>
+                    x.GetByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(new Ticket { UserId = "userId1" });
+
+            _userStoreMock.Setup(x =>
+                    x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new User { Id = "userId2" });
+
+            // ACT
+            Func<Task> action = async () => await service.Move("username", "ticketId", TicketState.OffMarket);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("User does not own this ticket.", result.Message);
+        }
+
+        [Theory]
+        [InlineData(TicketState.OffMarket, TicketState.OnMarket)]
+        [InlineData(TicketState.OnMarket, TicketState.OffMarket)]
+        public async Task Move_StateChangedAndSaveChangesAsyncInvoked(TicketState currentState, TicketState newState)
+        {
+            // ARRANGE
+            var id = "userId";
+            var ticket = new Ticket { UserId = id, State = currentState };
+
+            var service = CreateTicketService();
+
+            _ticketRepositoryMock.Setup(x =>
+                    x.GetByIdAsync(It.IsAny<string>()))
+                .ReturnsAsync(ticket);
+
+            _userStoreMock.Setup(x =>
+                    x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new User { Id = id });
+
+            // ACT
+            await service.Move("username", "ticketId", newState);
+
+            // ASSERT
+            _ticketRepositoryMock.Verify(x =>
+                x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
+
+            Assert.Equal(newState, ticket.State);
+        }
+
+        private Core.Services.TicketService CreateTicketService() => new(
         [Fact]
         public async Task GetTicketsOnTheMarket_UserNameNull_ThrowsArgumentNullException()
         {

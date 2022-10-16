@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { postLogin } from "../../services/loginService";
-import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
-import { StyledJustValueTextField } from "../../generalComponents/styled/JustValueTextField.styled";
-import { StyledTitle } from "../../generalComponents/styled/Title.styled";
-import { StyledErrorMessage } from "../../generalComponents/styled/ErrorMessage.styled";
-import { StyledSubmitButton } from "../../generalComponents/styled/SubmitButton.styled";
 import { Typography, Link } from "@mui/material";
 import { REGISTER_URL } from "../../constants";
+import JustValueTextField from "../../generalComponents/JustValueTextField";
+import SubmitButton from "../../generalComponents/SubmitButton";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
+import ErrorMessage from '../../generalComponents/ErrorMessage';
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -23,15 +23,15 @@ function LoginPage() {
 
   return (
     <>
-      <StyledTitle>TIGETS</StyledTitle>
       <StyledCenteredColumn>
-        <StyledJustValueTextField label="username" setValue={setUsername} />
-        <StyledJustValueTextField
+        <StyledTitle>TIGETS</StyledTitle>
+        <JustValueTextField label="username" setValue={setUsername} />
+        <JustValueTextField
           label="password"
           type="password"
           setValue={setPassword}
         />
-        <StyledSubmitButton
+        <SubmitButton
           text="Log in"
           onClick={() => {
             dispatch(
@@ -47,10 +47,12 @@ function LoginPage() {
           }}
         />
         {wrongPassword && (
-          <StyledErrorMessage>Wrong username or password</StyledErrorMessage>
+          <ErrorMessage text="Wrong username or password" />
         )}
         {loading && <Typography>Loading...</Typography>}
-        <Link style={{ textAlign: "center"}} href={REGISTER_URL}>New to TiGets? Create an account.</Link>
+        <Link style={{ textAlign: "center" }} href={REGISTER_URL}>
+          New to TiGets? Create an account.
+        </Link>
       </StyledCenteredColumn>
     </>
   );
