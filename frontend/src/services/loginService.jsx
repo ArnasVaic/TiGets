@@ -1,4 +1,4 @@
-import { POST_LOGIN_URL, PROFILE_URL } from "../constants";
+import { MARKET_URL, POST_LOGIN_URL } from "../constants";
 
 export const postLogin =
   (username, password, returnUrl, navigate, setWrongPassword, setLoading) =>
@@ -15,9 +15,8 @@ export const postLogin =
       });
       if (response.ok) {
         if (!returnUrl) {
-          navigate(PROFILE_URL);
-        }
-        else {
+          navigate(MARKET_URL);
+        } else {
           navigate(returnUrl);
         }
         setWrongPassword(false);
