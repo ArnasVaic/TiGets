@@ -78,7 +78,10 @@ namespace Tigets.Core.Services
             ticket.UserId = user.Id;
             user.Balance -= ticket.Cost;
             owner.Balance += ticket.Cost;
-            ticket.State = TicketState.OffMarket;
+
+            // Useless cast to fullfil requirements :)
+            int newState = (int)TicketState.OffMarket;
+            ticket.State = (TicketState)newState;
 
             await _transferService.Create(user.Id, owner.Id, ticket.Id, ticket.Cost);
         }

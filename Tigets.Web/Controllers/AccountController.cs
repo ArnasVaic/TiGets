@@ -1,7 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Security.Claims;
+using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Tigets.Core.Models;
+using Tigets.Core.Repositories;
 using Tigets.Core.Services;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Tigets.Web.Controllers
 {
@@ -74,6 +81,22 @@ namespace Tigets.Web.Controllers
         {
             await _accountService.Logout();
             return NoContent();
+        }
+
+        [Authorize]
+        [HttpGet("GetProfileData")]
+        public async Task<IActionResult> GetProfileData()
+        {
+            var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+            try
+            {
+                var user = await _accountService.GetProfileData(username: name);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
