@@ -10,15 +10,15 @@ export const profileSlice = createSlice({
     setUserData: (state, action) => {
       state.userData = action.payload;
     },
-    setTickets: (state, action) => {
+    setUserTickets: (state, action) => {
       state.tickets = action.payload;
     },
   },
 });
 
-export const { setUserData } = profileSlice.actions;
+export const { setUserData, setUserTickets } = profileSlice.actions;
 
 export const selectUserData = (state) => state.profile.userData;
-export const selectTickets = (state) => state.profile.tickets;
+export const selectUserTickets = (state) => state.profile.tickets;
 
 export default profileSlice.reducer;

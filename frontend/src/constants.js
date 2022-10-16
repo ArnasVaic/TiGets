@@ -11,5 +11,9 @@ export const GET_MARKET_TICKETS =
 export const POST_REGISTER_URL = "https://localhost:7056/api/Account/Register";
 export const POST_LOGOUT_URL = "https://localhost:7056/api/Account/Logout";
 
-export const PATCH_ADD_BALANCE = (amount) => `https://localhost:7056/api/Account/Balance?amount=${amount}`;
-export const GET_PROFILE_TICKETS = "https://localhost:7056/api/Ticket/GetUserTickets";
+export const PATCH_ADD_BALANCE = (amount) =>
+  `https://localhost:7056/api/Account/Balance?amount=${amount}`;
+export const GET_PROFILE_TICKETS =
+  "https://localhost:7056/api/Ticket/GetUserTickets";
+export const GET_USER_DATA_URL =
+  "https://localhost:7056/api/Account/GetProfileData";
