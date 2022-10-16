@@ -1,17 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Tigets.Core.Models;
-using System.Security.Policy;
 using System.Text.RegularExpressions;
+using Tigets.Core.Models;
 
 namespace Tigets.Core.Services
 {
@@ -110,5 +100,23 @@ namespace Tigets.Core.Services
 
             return _mapper.Map<UserViewModel>(userData);
         }
+
+        public string GetAppInfo()
+        {
+            string appInfo = null;
+            string path = Path.Combine(Directory.GetCurrentDirectory() + "\\Resources\\AppInformation.txt");
+            try
+            {
+                using StreamReader sr = new StreamReader(path);
+                appInfo = sr.ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                appInfo = "The information about this app cannot be provided currently.";
+            }
+
+            return appInfo;
+        }
+
     }
 }
