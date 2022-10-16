@@ -1,4 +1,13 @@
-﻿namespace Tigets.Tests.TicketService
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using Moq;
+using Tigets.Core.Models;
+using Tigets.Core.Repositories;
+using Tigets.Core.Services;
+using Tigets.Core.Specifications;
+using Xunit;
+
+namespace Tigets.Tests.TicketService
 {
     public class TicketServiceTests
     {
@@ -546,7 +555,6 @@
             Assert.Equal(newState, ticket.State);
         }
 
-        private Core.Services.TicketService CreateTicketService() => new(
         [Fact]
         public async Task GetTicketsOnTheMarket_UserNameNull_ThrowsArgumentNullException()
         {
