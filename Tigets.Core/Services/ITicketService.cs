@@ -1,4 +1,6 @@
-﻿namespace Tigets.Core.Services
+﻿using Tigets.Core.Models;
+
+namespace Tigets.Core.Services
 {
     public interface ITicketService
     {
