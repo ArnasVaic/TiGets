@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Tigets.Core.Models
 {
-    public class Ticket
+    public class Ticket : IEquatable<Ticket> 
     {
         [Key]
         [Required]
@@ -30,5 +30,19 @@ namespace Tigets.Core.Models
         [Required]
         [Column(TypeName = "decimal(18,2)")]
         public decimal Cost { get; set; }
+
+        public bool Equals(Ticket? other)
+        {
+            if (other is null) return false;
+            return (Id == other.Id &&
+                    UserId == other.UserId &&
+                    State == other.State &&
+                    ValidFrom == other.ValidFrom &&
+                    ValidTo == other.ValidTo &&
+                    EventName == other.EventName &&
+                    Address == other.Address &&
+                    Cost == other.Cost
+                );
+        }
     }
 }

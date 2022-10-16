@@ -4,7 +4,7 @@ using Moq;
 using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using Tigets.Core.Services;
-
+using Tigets.Core.Specifications;
 using Xunit;
 
 namespace Tigets.Tests.TicketService
@@ -553,6 +553,126 @@ namespace Tigets.Tests.TicketService
                 x.SaveChangesAsync(It.IsAny<CancellationToken>()), Times.Once);
 
             Assert.Equal(newState, ticket.State);
+        }
+
+        [Fact]
+        public async Task GetTicketsOnTheMarket_UserNameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetTicketsOnTheMarket(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task GetTicketsOnTheMarket_UserDoesNotExist_ThrowsException()
+        {
+            // ARRANGE
+            var username = "username";
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetTicketsOnTheMarket(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal($"User does not exist.", result.Message);
+        }
+
+        [Fact]
+        public async Task GetTicketsOnTheMarket_PassingTest_TicketRepositoryInvoked()
+        {
+            // ARRANGE
+            var user = new User { UserName = "username", Id = "userId" };
+
+            _userStoreMock.Setup(x =>
+                    x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+
+            var service = CreateTicketService();
+
+            // ACT
+            var tickets = await service.GetTicketsOnTheMarket(user.UserName);
+
+            // ASSERT
+            _ticketRepositoryMock.Verify(x => x.ListAsync(It.IsAny<TicketByOnTheMarketSpec>(), It.IsAny<CancellationToken>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task GetUserTickets_UserNameNull_ThrowsArgumentNullException()
+        {
+            // ARRANGE
+            string username = null;
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetUserTickets(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<ArgumentNullException>(action);
+            Assert.Equal($"Value cannot be null. (Parameter '{nameof(username)}')", result.Message);
+        }
+
+        [Fact]
+        public async Task GetUserTickets_UserDoesNotExist_ThrowsException()
+        {
+            // ARRANGE
+            var username = "username";
+            var service = CreateTicketService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetUserTickets(username);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal($"User does not exist.", result.Message);
+        }
+
+        [Fact]
+        public async Task GetUserTickets_PassingTest_FiltersUserTickets()
+        {
+            // ARRANGE
+            var user = new User { UserName = "username", Id = "userId", Balance = 10 };
+
+            var ticket1 = new Ticket
+            {
+                Id = "ticketId1",
+                UserId = user.Id,
+                State = TicketState.OnMarket,
+                ValidTo = DateTime.Today.AddDays(1),
+                Cost = 10
+            };
+
+            var ticket2 = new Ticket
+            {
+                Id = "ticketId2",
+                UserId = "userId2",
+                State = TicketState.OnMarket,
+                ValidTo = DateTime.Today.AddDays(1),
+                Cost = 10
+            };
+
+            _userStoreMock.Setup(x =>
+                    x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+
+            _ticketRepositoryMock.Setup(x => x.ListAsync(It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<Ticket> { ticket1, ticket2 });
+
+            var service = CreateTicketService();
+
+            // ACT
+            var tickets = await service.GetUserTickets(user.UserName);
+
+            // ASSERT
+            Assert.Single(tickets);
+            Assert.Equal(ticket1, tickets.FirstOrDefault());
         }
 
         private Core.Services.TicketService CreateTicketService() => new(
