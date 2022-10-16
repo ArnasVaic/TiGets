@@ -2,16 +2,17 @@ import React from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { Button, Typography } from "@mui/material"; 
-import { increaseBalanceBy } from "../../slices/profileSlice";
+import { Button, Typography, TextField } from "@mui/material"; 
+import { increaseBalanceBy, selectBalance } from "../../slices/profileSlice";
 import { selectMarketTickets } from "../../slices/marketSlice";
-import { getMarketTickets } from "../../services/marketService";
 import NavigationButton from "../../generalComponents/NavigationButton";
 import LogoutButton from "../../generalComponents/LogoutButton";
 import JustValueTextField from "../../generalComponents/JustValueTextField";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import Ticket from "./components/Ticket";
+import { addBalance } from "../../services/profileService";
+
 
 function ProfilePage() {
 const [addedMoney, setAddedMoney] = useState();
@@ -46,15 +47,16 @@ return (
         >
 
             <StyledCenteredColumn spacing={2}>
-                <Typography style={{textAlign: "center", marginTop:30} }>Your balance</Typography>
-                <JustValueTextField label="Add money" setValue={setAddedMoney} />
+                <Typography style={{ textAlign: "center", marginTop: 30 }}>Your balance is {profile.balance}</Typography>
+                <JustValueTextField label="add money" setValue={setAddedMoney}> </JustValueTextField>
 
                 <Button
                     variant="contained"
-                    onClick={() => dispatch(increaseBalanceBy(1))}
+                    onClick={() => dispatch(addBalance(5))}
                 >
                     Add money
                 </Button>
+
          </StyledCenteredColumn>
 
         </div>
@@ -67,17 +69,7 @@ return (
                 <Button>HELLO IM A TICKET</Button>
                 <Button>HELLO IM A TICKET</Button>
 
-                {tickets.map((ticket, index) => (
-                    <Ticket
-                        key={index}
-                        ticketId={ticket.id}
-                        eventName={ticket.eventName}
-                        address={ticket.address}
-                        validFrom={ticket.validFrom.slice(0, 10)}
-                        validTo={ticket.validTo.slice(0, 10)}
-                        cost={ticket.cost}
-                    />
-                ))}
+                
 
             </StyledCenteredColumn>
         </div>

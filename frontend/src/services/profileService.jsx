@@ -1,25 +1,10 @@
 import { GET_PROFILE_TICKETS, PATCH_ADD_BALANCE } from "../constants";
+import { increaseBalanceBy } from "../slices/profileSlice";
 
 export const getProfileTickets = () => async (dispatch) => {
     try {
         const response = await fetch(GET_PROFILE_TICKETS, {
             method: "GET",
-            credentials: "include",
-        });
-        if (response.ok) {
-            dispatch(setProfileTickets(await response.json()));
-        } else {
-            alert("Something went wrong. Please try again");
-        }
-    } catch (error) {
-        alert("Oops, server error");
-    }
-};
-
-export const addBalance = () => async (dispatch) => {
-    try {
-        const response = await fetch(PATCH_ADD_BALANCE, {
-            method: "PATCH",
             credentials: "include",
         });
         if (response.ok) {
@@ -29,5 +14,24 @@ export const addBalance = () => async (dispatch) => {
         }
     } catch (error) {
         alert("Oops, server error");
+    }
+};
+
+export const addBalance = (amount) => async (dispatch) => {
+    try {
+        console.log('ttry');
+        const response = await fetch(PATCH_ADD_BALANCE(amount), {
+            method: "PATCH",
+            credentials: "include",
+        });
+        if (response.ok) {
+            dispatch(increaseBalanceBy(amount));
+            console.log('yay');
+        } else {
+            alert("Something went wrong. Please try again");
+            console.log(response.json());
+        }
+    } catch (error) {
+        alert("Oops, server error" + error);
     }
 };
