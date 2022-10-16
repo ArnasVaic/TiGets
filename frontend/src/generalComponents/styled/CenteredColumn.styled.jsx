@@ -1,7 +1,9 @@
-import { styled } from "@mui/material";
+import { Stack, styled } from "@mui/material";
 
-export const StyledCenteredColumn = styled("div")`
+export const StyledCenteredColumn = styled(Stack)`
   display: flex;
   flex-direction: column;
-  padding: 0% 40%;
+  padding: 5% 20%;
+
+  justify-content: space-between;
 `;

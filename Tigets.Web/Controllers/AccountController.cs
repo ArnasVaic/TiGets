@@ -51,7 +51,7 @@ namespace Tigets.Web.Controllers
             {
                 await _accountService.Login(username, password);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -72,6 +72,14 @@ namespace Tigets.Web.Controllers
                 return BadRequest(ex.Message);
             }
 
+            return NoContent();
+        }
+
+        [Authorize]
+        [HttpPost("Logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _accountService.Logout();
             return NoContent();
         }
 
