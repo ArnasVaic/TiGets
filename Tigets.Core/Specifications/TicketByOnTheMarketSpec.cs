@@ -7,7 +7,7 @@ namespace Tigets.Core.Specifications
     {
         public TicketByOnTheMarketSpec(string userId)
         {
-            Query.Where(c => (c.State == TicketState.OnMarket && userId != c.UserId));
+            Query.Where(x => (x.State == TicketState.OnMarket && x.UserId != userId));
         }
     }
 }
