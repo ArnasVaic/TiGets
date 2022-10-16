@@ -69,3 +69,19 @@ export const postRegister =
         }
         setLoading(false);
     };
+
+export const getInfo = (setInfoAlert, setInformation) => async () => {
+
+       const response = await fetch("https://localhost:7056/api/Account/GetInfo", {
+         method: "GET",
+         credentials: "include",
+       });
+
+    response.text().then(value => {
+        setInfoAlert(true);
+        setInformation(value);
+    }).catch(err => {
+        setInfoAlert(true);
+        setInformation("The information about this app cannot be provided currently.");
+    });
+}

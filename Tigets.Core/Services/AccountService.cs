@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Tigets.Core.Models;
-using System.Security.Policy;
 using System.Text.RegularExpressions;
+using Tigets.Core.Models;
 
 namespace Tigets.Core.Services
 {
@@ -90,5 +89,34 @@ namespace Tigets.Core.Services
         {
             await _signInManager.SignOutAsync();
         }
+
+        public async Task<UserViewModel> GetProfileData(string username)
+        {
+            var userData = await _userManager.FindByNameAsync(username);
+            if (userData is null)
+            {
+                throw new Exception("User does not exist.");
+            }
+
+            return _mapper.Map<UserViewModel>(userData);
+        }
+
+        public string GetAppInfo()
+        {
+            string appInfo = null;
+            string path = Path.Combine(Directory.GetCurrentDirectory() + "\\Resources\\AppInformation.txt");
+            try
+            {
+                using StreamReader sr = new StreamReader(path);
+                appInfo = sr.ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                appInfo = "The information about this app cannot be provided currently.";
+            }
+
+            return appInfo;
+        }
+
     }
 }

@@ -84,6 +84,44 @@ namespace Tigets.Tests.AccountService
             Assert.Equal(30, user.Balance);
         }
 
+        [Fact]
+        public async Task GetProfileData_GetsData_SuccessfullyReturnsViewModel()
+        {
+            //ARRANGE
+            var userName = "username";
+            var user = new User { UserName = "username", Name = "name", Surname = "surname", Email = "email", PhoneNumber = "phone", Balance = 10.00M };
+            _userStoreMock.Setup(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+            var service = CreateAccountService();
+
+            //ACT
+            var userView = await service.GetProfileData(userName);
+
+            //ASSERT
+            _userStoreMock.Verify(x => x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()), Times.Once);
+            Assert.Equal("username", userView.UserName);
+            Assert.Equal("name", userView.Name);
+            Assert.Equal("surname", userView.Surname);
+            Assert.Equal("email", userView.Email);
+            Assert.Equal("phone", userView.PhoneNumber);
+            Assert.Equal(10.00M, userView.Balance);
+        }
+
+        [Fact]
+        public async Task GetProfileData_UserDoesNotExist_ThrowsException()
+        {
+            // ARRANGE
+            string userName = "username";
+            var service = CreateAccountService();
+
+            // ACT
+            Func<Task> action = async () => await service.GetProfileData(userName);
+
+            // ASSERT
+            var result = await Assert.ThrowsAsync<Exception>(action);
+            Assert.Equal("User does not exist.", result.Message);
+        }
+
         private Core.Services.AccountService CreateAccountService()
         {
             var userManager =

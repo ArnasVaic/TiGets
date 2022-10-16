@@ -15,6 +15,7 @@ namespace Tigets.Core.Utilities
             CreateMap<TicketPostModel, Ticket>();
             CreateMap<UserPostModel, User>();
             CreateMap<TicketPostModel, TicketViewModel>();
+            CreateMap<User, UserViewModel>();
         }
     }
 }
