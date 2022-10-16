@@ -1,4 +1,3 @@
-import { styled } from "@mui/material";
-import JustValueTextField from "../JustValueTextField";
+import { styled, TextField } from "@mui/material";
 
-export const StyledJustValueTextField = styled(JustValueTextField)``;
+export const StyledJustValueTextField = styled(TextField)``;
