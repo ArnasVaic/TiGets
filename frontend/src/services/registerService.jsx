@@ -1,9 +1,10 @@
+import { LOGIN_URL, POST_REGISTER_URL } from '../constants';
 
 export const postRegister =
     (dataObject, navigate, setErrorMsg, setIsError, setLoading) => async () => {
         setLoading(true);
         try {
-            const response = await fetch("https://localhost:7056/api/Account/Register", {
+            const response = await fetch(POST_REGISTER_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -13,7 +14,7 @@ export const postRegister =
                 body: JSON.stringify(dataObject),
             });
             if (response.ok) {
-                navigate('/login?ReturnUrl=%2Fmarket');
+                navigate(LOGIN_URL);
             } else {
                 let errMsg = new TextDecoder().decode(
                     (await response.body.getReader().read()).value

@@ -1,5 +1,3 @@
-import { styled, Typography } from "@mui/material";
+import { styled, Alert } from "@mui/material";
 
-export const StyledErrorMessage = styled(Typography)`
-  color: red;
-`;
+export const StyledErrorMessage = styled(Alert)``;
