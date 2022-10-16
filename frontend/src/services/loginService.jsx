@@ -30,7 +30,7 @@ export const postLogin =
         ) {
           setWrongPassword(true);
         } else {
-          alert("Oops, something went wrong. Please try again");
+          alert("Oops, something went wrong. Please try again\n" + errMsg);
         }
       }
     } catch (error) {

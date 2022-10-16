@@ -7,9 +7,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { patchBuy } from "../services/marketService";
+import { patchBuy } from "../../../services/marketService";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { StyledTicket } from './styled/Ticket.styled';
+import { StyledTicket } from "./Ticket.styled";
 
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [open, setOpen] = useState(false);

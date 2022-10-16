@@ -4,11 +4,11 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { postLogin } from "../../services/loginService";
 import { Typography, Link } from "@mui/material";
 import { REGISTER_URL } from "../../constants";
-import JustValueTextField from '../../generalComponents/JustValueTextField';
-import SubmitButton from '../../generalComponents/SubmitButton';
+import JustValueTextField from "../../generalComponents/JustValueTextField";
+import SubmitButton from "../../generalComponents/SubmitButton";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import ErrorMessage from '../../generalComponents/ErrorMessage';
-import { StyledCenteredColumn } from '../../generalComponents/styled/CenteredColumn.styled';
-import { StyledTitle } from '../../generalComponents/styled/Title.styled';
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -47,7 +47,7 @@ function LoginPage() {
           }}
         />
         {wrongPassword && (
-          <ErrorMessage>Wrong username or password</ErrorMessage>
+          <ErrorMessage text="Wrong username or password" />
         )}
         {loading && <Typography>Loading...</Typography>}
         <Link style={{ textAlign: "center" }} href={REGISTER_URL}>

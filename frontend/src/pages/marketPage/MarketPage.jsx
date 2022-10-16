@@ -3,10 +3,10 @@ import { selectMarketTickets } from "../../slices/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getMarketTickets } from "../../services/marketService";
-import NavigationButton from '../../generalComponents/NavigationButton';
-import Ticket from '../../generalComponents/Ticket';
-import { StyledCenteredColumn } from '../../generalComponents/styled/CenteredColumn.styled';
-import { StyledTitle } from '../../generalComponents/styled/Title.styled';
+import NavigationButton from "../../generalComponents/NavigationButton";
+import Ticket from "./components/Ticket";
+import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
+import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 
 function MarketPage() {
   const tickets = useSelector(selectMarketTickets);
