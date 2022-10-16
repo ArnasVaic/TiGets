@@ -97,7 +97,6 @@ function RegisterPage() {
           style={{
             textAlign: "center",
             marginTop: "10px",
-            textDecorationLine: "underline",
           }}
           href={LOGIN_URL}
         >

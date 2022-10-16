@@ -5,11 +5,6 @@ function NavigationButton({ text, url }) {
   const navigate = useNavigate();
   return (
     <StyledNavigationButton
-      style={{
-        margin: "10px",
-        position: "absolute",
-        right: "0",
-      }}
       variant="contained"
       onClick={() => navigate(url)}
     >

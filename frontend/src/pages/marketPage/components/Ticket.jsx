@@ -31,17 +31,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   };
 
   return (
-    <StyledTicket
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        border: "2px solid black",
-        borderRadius: "5px",
-        padding: "5px",
-      }}
-    >
+    <StyledTicket>
       <Typography>{eventName}</Typography>
       <Typography>{address}</Typography>
       <Typography>{validFrom}</Typography>
