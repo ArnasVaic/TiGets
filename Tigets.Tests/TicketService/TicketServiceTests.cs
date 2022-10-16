@@ -586,44 +586,14 @@ namespace Tigets.Tests.TicketService
         }
 
         [Fact]
-        public async Task GetTicketsOnTheMarket_PassingTest_FiltersUserTicketsAndOnTheMarket()
+        public async Task GetTicketsOnTheMarket_PassingTest_TicketRepositoryInvoked()
         {
             // ARRANGE
             var user = new User { UserName = "username", Id = "userId" };
 
-            var ticket1 = new Ticket
-            {
-                Id = "ticketId1",
-                UserId = "randomId",
-                State = TicketState.OnMarket,
-                ValidTo = DateTime.Today.AddDays(1),
-                Cost = 10
-            };
-
-            var ticket2 = new Ticket
-            {
-                Id = "ticketId2",
-                UserId = user.Id,
-                State = TicketState.OnMarket,
-                ValidTo = DateTime.Today.AddDays(1),
-                Cost = 10
-            };
-
-            var ticket3 = new Ticket
-            {
-                Id = "ticketId3",
-                UserId = user.Id,
-                State = TicketState.OnMarket,
-                ValidTo = DateTime.Today.AddDays(1),
-                Cost = 10
-            };
-
             _userStoreMock.Setup(x =>
                     x.FindByNameAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(user);
-
-            _ticketRepositoryMock.Setup(x => x.ListAsync(It.IsAny<TicketByOnTheMarketSpec>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new List<Ticket> { ticket1, ticket2, ticket3 });
 
             var service = CreateTicketService();
 
@@ -631,8 +601,7 @@ namespace Tigets.Tests.TicketService
             var tickets = await service.GetTicketsOnTheMarket(user.UserName);
 
             // ASSERT
-            Assert.Single(tickets);
-            Assert.Equal(ticket1, tickets.FirstOrDefault());
+            _ticketRepositoryMock.Verify(x => x.ListAsync(It.IsAny<TicketByOnTheMarketSpec>(), It.IsAny<CancellationToken>()), Times.Once);
         }
 
         [Fact]
