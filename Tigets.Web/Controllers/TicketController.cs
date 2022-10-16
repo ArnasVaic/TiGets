@@ -37,7 +37,7 @@ namespace Tigets.Web.Controllers
         }
 
         [Authorize]
-        [HttpGet("GetTickets")]
+        [HttpGet("GetMarketTickets")]
         public async Task<IActionResult> GetTicketsOnTheMarket()
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
