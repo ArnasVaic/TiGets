@@ -1,10 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Identity;
-using Tigets.Core.Models;
-using System.Security.Policy;
-using System.Text.RegularExpressions;
-
-namespace Tigets.Core.Services
+﻿namespace Tigets.Core.Services
 {
     public class AccountService : IAccountService
     {
@@ -89,6 +83,17 @@ namespace Tigets.Core.Services
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<UserViewModel> GetProfileData(string username)
+        {
+            var userData = await _userManager.FindByNameAsync(username);
+            if (userData is null)
+            {
+                throw new Exception("User does not exist.");
+            }
+
+            return _mapper.Map<UserViewModel>(userData);
         }
 
         public string GetAppInfo()

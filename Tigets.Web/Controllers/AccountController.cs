@@ -1,9 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Tigets.Core.Models;
-using Tigets.Core.Services;
-
-namespace Tigets.Web.Controllers
+﻿namespace Tigets.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -81,6 +76,22 @@ namespace Tigets.Web.Controllers
         public string GetAppInfo()
         {
             return _accountService.GetAppInfo();
+        }
+
+        [Authorize]
+        [HttpGet("GetProfileData")]
+        public async Task<IActionResult> GetProfileData()
+        {
+            var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+            try
+            {
+                var user = await _accountService.GetProfileData(username: name);
+                return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

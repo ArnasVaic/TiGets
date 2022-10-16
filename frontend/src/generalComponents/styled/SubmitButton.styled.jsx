@@ -1,4 +1,3 @@
-import {styled } from "@mui/material";
-import SubmitButton from '../SubmitButton';
+import { Button, styled } from "@mui/material";
 
-export const StyledSubmitButton = styled(SubmitButton)``;
+export const StyledSubmitButton = styled(Button)``;
