@@ -1,4 +1,9 @@
-﻿namespace Tigets.Core.Services
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
+using System.Text.RegularExpressions;
+using Tigets.Core.Models;
+
+namespace Tigets.Core.Services
 {
     public class AccountService : IAccountService
     {

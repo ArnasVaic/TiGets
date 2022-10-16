@@ -1,4 +1,9 @@
-﻿namespace Tigets.Web.Controllers
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Tigets.Core.Models;
+using Tigets.Core.Services;
+
+namespace Tigets.Web.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
