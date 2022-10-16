@@ -17,3 +17,4 @@ export const { increaseBalanceBy } = profileSlice.actions;
 export const selectBalance = (state) => state.profile.balance;
 
 export default profileSlice.reducer;
+

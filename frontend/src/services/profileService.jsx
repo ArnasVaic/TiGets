@@ -8,7 +8,7 @@ export const getUserTickets = () => async (dispatch) => {
             credentials: "include",
         });
         if (response.ok) {
-            dispatch();
+            dispatch(getProfileTickets);
         } else {
             alert("Something went wrong. Please try again");
         }
