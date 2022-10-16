@@ -13,7 +13,7 @@ export const postRegister =
                 body: JSON.stringify(dataObject),
             });
             if (response.ok) {
-                navigate('/login?ReturnUrl=%2Fmarket');
+                navigate('/login');
             } else {
                 let errMsg = new TextDecoder().decode(
                     (await response.body.getReader().read()).value
@@ -68,3 +68,19 @@ export const postRegister =
         }
         setLoading(false);
     };
+
+export const getInfo = (setInfoAlert, setInformation) => async () => {
+
+       const response = await fetch("https://localhost:7056/api/Account/GetInfo", {
+         method: "GET",
+         credentials: "include",
+       });
+
+    response.text().then(value => {
+        setInfoAlert(true);
+        setInformation(value);
+    }).catch(err => {
+        setInfoAlert(true);
+        setInformation("The information about this app cannot be provided currently.");
+    });
+}

@@ -8,6 +8,7 @@ import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { Typography, Button } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import { LOGIN_URL } from '../../constants';
+import { getInfo } from "../../services/registerService";
 
 
 function RegisterPage() {
@@ -22,6 +23,8 @@ function RegisterPage() {
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState();
     const [loading, setLoading] = useState(false);
+    const [infoAlert, setInfoAlert] = useState(false);
+    const [information, setInformation] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -100,12 +103,28 @@ function RegisterPage() {
                         textDecorationLine: "underline",
                     }}
                     onClick={() => {
-                        navigate(LOGIN_URL);
+                        navigate('/login');
                     }}
                 >
                     Already have and account? Log in.
                 </Typography>
 
+                <Button
+                    variant="contained"
+                    style={{
+                        backgroundColor: '#f0f8ff',
+                        color: '#4682b4',
+                    }}
+                    onClick={() => {
+                        dispatch(
+                           getInfo(setInfoAlert, setInformation));
+                    }}
+                >
+                    App information
+                </Button>
+           
+                {infoAlert && <Alert severity="info">{information}</Alert>}
+           
             </StyledCenteredColumn>
         </>
     );

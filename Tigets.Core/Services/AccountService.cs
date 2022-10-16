@@ -90,5 +90,22 @@ namespace Tigets.Core.Services
         {
             await _signInManager.SignOutAsync();
         }
+
+        public string GetAppInfo()
+        {
+            string appInfo = null;
+            try
+            {
+                using StreamReader sr = new StreamReader("./AppInfo.txt");
+                appInfo = sr.ReadToEnd();
+            }
+            catch (Exception e)
+            {
+                appInfo = "The information about this app cannot be provided currently.";
+            }
+
+            return appInfo;
+        }
+
     }
 }

@@ -8,5 +8,6 @@ namespace Tigets.Core.Services
         Task Login(string username, string password);
         Task Register(UserPostModel userPostModel);
         Task Logout();
+        string GetAppInfo();
     }
 }

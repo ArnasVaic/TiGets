@@ -75,5 +75,12 @@ namespace Tigets.Web.Controllers
             await _accountService.Logout();
             return NoContent();
         }
+
+        [AllowAnonymous]
+        [HttpGet("GetInfo")]
+        public string GetAppInfo()
+        {
+            return _accountService.GetAppInfo();
+        }
     }
 }
