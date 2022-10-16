@@ -9,25 +9,24 @@ function UserTickets() {
   const tickets = useSelector(selectUserTickets);
 
   return (
-    <>
-      <Typography>Your tickets</Typography>
-      <StyledUserTickets>
-        <StyledCenteredColumn spacing={2}>
-          {tickets.map((ticket, index) => (
-            <Ticket
-              key={index}
-              isOffMarket={ticket.state === 1}
-              ticketId={ticket.id}
-              eventName={ticket.eventName}
-              address={ticket.address}
-              validFrom={ticket.validFrom.slice(0, 10)}
-              validTo={ticket.validTo.slice(0, 10)}
-              cost={ticket.cost}
-            />
-          ))}
-        </StyledCenteredColumn>
-      </StyledUserTickets>
-    </>
+    <StyledUserTickets>
+      <StyledCenteredColumn spacing={2}>
+        <Typography>Your tickets</Typography>
+
+        {tickets.map((ticket, index) => (
+          <Ticket
+            key={index}
+            isOffMarket={ticket.state === 1}
+            ticketId={ticket.id}
+            eventName={ticket.eventName}
+            address={ticket.address}
+            validFrom={ticket.validFrom.slice(0, 10)}
+            validTo={ticket.validTo.slice(0, 10)}
+            cost={ticket.cost}
+          />
+        ))}
+      </StyledCenteredColumn>
+    </StyledUserTickets>
   );
 }
 

@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  getUserData,
-  getUserTickets,
-} from "../../services/profileService";
+import { getUserData, getUserTickets } from "../../services/profileService";
 import { StyledProfilePage } from "./components/ProfilePage.styled.jsx";
-import Header from "./components/Header";
+import Header from "../../generalComponents/Header";
 import UserTickets from "./components/UserTickets";
 import { useEffect } from "react";
 import UserData from "./components/UserData";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { MARKET_URL } from "../../constants";
 
 function ProfilePage() {
   const dispatch = useDispatch();
@@ -20,7 +18,7 @@ function ProfilePage() {
 
   return (
     <>
-      <Header />
+      <Header navigateText="Market" url={MARKET_URL} />
       <StyledProfilePage>
         <UserData />
         <UserTickets />

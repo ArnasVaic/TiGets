@@ -8,7 +8,7 @@ import JustValueTextField from "../../generalComponents/JustValueTextField";
 import SubmitButton from "../../generalComponents/SubmitButton";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
-import ErrorMessage from '../../generalComponents/ErrorMessage';
+import ErrorMessage from "../../generalComponents/ErrorMessage";
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -23,7 +23,7 @@ function LoginPage() {
 
   return (
     <>
-      <StyledCenteredColumn>
+      <StyledCenteredColumn style={{ padding: "10% 40%" }}>
         <StyledTitle>TIGETS</StyledTitle>
         <JustValueTextField label="username" setValue={setUsername} />
         <JustValueTextField
@@ -46,9 +46,7 @@ function LoginPage() {
             );
           }}
         />
-        {wrongPassword && (
-          <ErrorMessage text="Wrong username or password" />
-        )}
+        {wrongPassword && <ErrorMessage text="Wrong username or password" />}
         {loading && <Typography>Loading...</Typography>}
         <Link style={{ textAlign: "center" }} href={REGISTER_URL}>
           New to TiGets? Create an account.

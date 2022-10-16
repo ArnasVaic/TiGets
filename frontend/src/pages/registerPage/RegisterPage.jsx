@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../../services/registerService";
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Link } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import JustValueTextField from "../../generalComponents/JustValueTextField";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { getInfo } from "../../services/registerService";
+import { LOGIN_URL } from "../../constants";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -53,8 +54,8 @@ function RegisterPage() {
 
   return (
     <>
-      <StyledTitle>TIGETS</StyledTitle>
-      <StyledCenteredColumn>
+      <StyledCenteredColumn style={{ padding: "5% 35%" }}>
+        <StyledTitle>TIGETS</StyledTitle>
         <JustValueTextField label="userName" setValue={setUsername} />
         <JustValueTextField
           label="password"
@@ -95,22 +96,22 @@ function RegisterPage() {
         {loading && (
           <Typography style={{ textAlign: "center" }}>Loading...</Typography>
         )}
-        <Typography
+        <Link
           style={{
             textAlign: "center",
             marginTop: "10px",
-            textDecorationLine: "underline",
           }}
           onClick={() => {
-            navigate("/login");
+            navigate(LOGIN_URL);
           }}
         >
           Already have and account? Log in.
-        </Typography>
+        </Link>
 
         <Button
           variant="contained"
           style={{
+            margin: "10px",
             backgroundColor: "#f0f8ff",
             color: "#4682b4",
           }}
