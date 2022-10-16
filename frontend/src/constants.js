@@ -17,3 +17,7 @@ export const GET_PROFILE_TICKETS =
   "https://localhost:7056/api/Ticket/GetUserTickets";
 export const GET_USER_DATA_URL =
   "https://localhost:7056/api/Account/GetProfileData";
+export const PATCH_MOVE_TICKET_URL = (ticketId, state) =>
+  `https://localhost:7056/api/Ticket/Move?ticketId=${ticketId}&state=${state}`;
+export const POST_IMPORT_TICKET_URL =
+  "https://localhost:7056/api/Ticket/Import";
