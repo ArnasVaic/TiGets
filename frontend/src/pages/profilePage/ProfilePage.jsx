@@ -1,42 +1,29 @@
-import { Button, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
-import Ticket from "./components/Ticket";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { increaseBalanceBy } from "../../slices/profileSlice";
+import { getUserData, getUserTickets } from "../../services/profileService";
+import { StyledProfilePage } from "./components/ProfilePage.styled.jsx";
+import Header from "../../generalComponents/Header";
+import UserTickets from "./components/UserTickets";
+import { useEffect } from "react";
+import UserData from "./components/UserData";
+import { useDispatch } from "react-redux";
+import { MARKET_URL } from "../../constants";
 
 function ProfilePage() {
-  const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(getUserData());
+    dispatch(getUserTickets());
+  }, [dispatch]);
+
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Stack spacing={2} style={{ padding: "50px" }}>
-        <Typography>Your balance</Typography>
-        <Typography
-          style={{
-            border: "2px solid black",
-            borderRadius: "5px",
-            padding: "5px",
-          }}
-        >
-          {profile.balance}
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={() => dispatch(increaseBalanceBy(1))}
-        >
-          Add money
-        </Button>
-      </Stack>
-      <Stack spacing={2} style={{ padding: "50px" }}>
-        <Typography>Your tickets</Typography>
-        <Ticket onTheMarket={true} />
-        <Ticket onTheMarket={true} />
-        <Ticket onTheMarket={false} />
-        <Ticket onTheMarket={false} />
-      </Stack>
-    </div>
+    <>
+      <Header navigateText="Market" url={MARKET_URL} />
+      <StyledProfilePage>
+        <UserData />
+        <UserTickets />
+      </StyledProfilePage>
+    </>
   );
 }
 

@@ -1,25 +1,45 @@
-import { Typography, Button} from "@mui/material";
+import { Typography } from "@mui/material";
+import { StyledTicket } from "./Ticket.styled";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import SubmitButton from "../../../generalComponents/SubmitButton";
+import { patchMoveTicket } from "../../../services/profileService";
+import { useDispatch } from "react-redux";
 
-function Ticket({ onTheMarket }) {
-
+function Ticket({
+  ticketId,
+  eventName,
+  address,
+  validFrom,
+  validTo,
+  cost,
+  isOffMarket,
+}) {
+  const dispatch = useDispatch();
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "row",
-        border: "2px solid black",
-        borderRadius: "5px",
-        padding: "5px",
-      }}
-    >
-      <Typography style={{ padding: "10px 50px" }}>Event name</Typography>
-      <Typography style={{ padding: "10px 50px" }}>Address</Typography>
-      <Typography style={{ padding: "10px 50px" }}>Date</Typography>
-
-      {onTheMarket ? <Button variant="contained"> Take of the market</Button>
-              : <Button variant="contained"> Sell </Button>}
-
-    </div>
+    <StyledTicket>
+      <Typography>{eventName}</Typography>
+      <Typography>{address}</Typography>
+      <Typography>{validFrom}</Typography>
+      <ArrowForwardIcon fontSize="large" />
+      <Typography>{validTo}</Typography>
+      <Typography>{cost} Eur</Typography>
+      {isOffMarket && (
+        <SubmitButton
+          text="Sell"
+          onClick={() => {
+            dispatch(patchMoveTicket(ticketId, 0));
+          }}
+        />
+      )}
+      {!isOffMarket && (
+        <SubmitButton
+          text="Take off the market"
+          onClick={() => {
+            dispatch(patchMoveTicket(ticketId, 1));
+          }}
+        />
+      )}
+    </StyledTicket>
   );
 }
 

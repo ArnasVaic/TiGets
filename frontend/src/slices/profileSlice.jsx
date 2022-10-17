@@ -3,17 +3,22 @@ import { createSlice } from "@reduxjs/toolkit";
 export const profileSlice = createSlice({
   name: "profile",
   initialState: {
-    balance: 10.0,
+    userData: [],
+    tickets: [],
   },
   reducers: {
-    increaseBalanceBy: (state, action) => {
-      state.balance += action.payload;
+    setUserData: (state, action) => {
+      state.userData = action.payload;
+    },
+    setUserTickets: (state, action) => {
+      state.tickets = action.payload;
     },
   },
 });
 
-export const { increaseBalanceBy } = profileSlice.actions;
+export const { setUserData, setUserTickets } = profileSlice.actions;
 
-export const selectBalance = (state) => state.profile.balance;
+export const selectUserData = (state) => state.profile.userData;
+export const selectUserTickets = (state) => state.profile.tickets;
 
 export default profileSlice.reducer;
