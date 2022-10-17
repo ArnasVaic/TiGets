@@ -33,7 +33,9 @@ function ImportTicketDialog({ open, setOpen }) {
         <JustValueTextField label="cost (Eur)" setValue={setCost} />
       </DialogContent>
 
-      <DialogActions>
+      <DialogActions
+        style={{ display: "flex", justifyContent: "space-around" }}
+      >
         <Button
           variant="contained"
           color="success"
