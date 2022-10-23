@@ -9,12 +9,15 @@ import SubmitButton from "../../generalComponents/SubmitButton";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import ErrorMessage from "../../generalComponents/ErrorMessage";
+import { CircularProgress } from '@mui/material';
 
 function LoginPage() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [wrongPassword, setWrongPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
   const dispatch = useDispatch();
 
   const search = useLocation().search;
@@ -47,7 +50,7 @@ function LoginPage() {
           }}
         />
         {wrongPassword && <ErrorMessage text="Wrong username or password" />}
-        {loading && <Typography>Loading...</Typography>}
+        {loading && <CircularProgress style={{ position: 'relative', left: 110, padding: 10 }} />}
         <Link style={{ textAlign: "center" }} href={REGISTER_URL}>
           New to TiGets? Create an account.
         </Link>
