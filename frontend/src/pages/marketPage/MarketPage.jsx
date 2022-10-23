@@ -22,11 +22,11 @@ function MarketPage() {
       <Header navigateText="Profile" url={PROFILE_URL} />
       <StyledCenteredColumn spacing={2}>
       <StyledTitle>TIGETS Market</StyledTitle>
-      <JustValueTextField label="Search.." setValue={setSearch} />
+      <JustValueTextField label="Search event.." setValue={setSearch} />
               {tickets.filter(ticket => {
                   if (search === "") {
                       return ticket;
-                  } else if (ticket.eventName.includes(search)) return ticket;
+                  } else if (ticket.eventName.toLowerCase().includes(search.toLowerCase())) return ticket;
               }
               ).map((ticket, index) => (
                   <Ticket
