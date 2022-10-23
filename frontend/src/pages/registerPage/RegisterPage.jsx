@@ -9,7 +9,7 @@ import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { getInfo } from "../../services/registerService";
 import { LOGIN_URL } from "../../constants";
-import { CircularProgress } from '@mui/material';
+import { StyledCircularProgress } from "../../generalComponents/styled/CircularProgress.styled";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -95,17 +95,11 @@ function RegisterPage() {
         >
           Register
         </Button>
-        {loading && <CircularProgress style={{ position: 'relative', left: 170, padding: 10 }} />};
+        {loading && <StyledCircularProgress style={{ left: 155 }} />};
        
         <Link
-          style={{
-            textAlign: "center",
-            marginTop: "10px",
-          }}
-          onClick={() => {
-            navigate(LOGIN_URL);
-          }}
-        >
+          style={{ textAlign: "center",}}
+          onClick={() => { navigate(LOGIN_URL); }} >
           Already have and account? Log in.
         </Link>
 
