@@ -104,6 +104,8 @@ namespace Tigets.Web
 
             app.UseCors(MyAllowSpecificOrigins);
 
+            app.UseMiddleware<ErrorLoggingMiddleware>();
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
