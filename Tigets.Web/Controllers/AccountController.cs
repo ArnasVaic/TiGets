@@ -21,14 +21,7 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> AddBalance(decimal amount)
         {
             var username = User.Identity?.Name;
-            try
-            {
-                await _accountService.AddBalance(username, amount);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            await _accountService.AddBalance(username, amount);
             return NoContent();
         }
 
@@ -37,18 +30,8 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> Login([FromQuery] string username, [FromHeader(Name = "password")] string password)
         {
             if (User.Identity.IsAuthenticated)
-            {
                 return BadRequest("User is already logged in");
-            }
-            try
-            {
-                await _accountService.Login(username, password);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            await _accountService.Login(username, password);
             return Ok();
         }
 
@@ -56,15 +39,7 @@ namespace Tigets.Web.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserPostModel userPostModel)
         {
-            try
-            {
-                await _accountService.Register(userPostModel);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
+            await _accountService.Register(userPostModel);
             return NoContent();
         }
 
@@ -88,15 +63,8 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> GetProfileData()
         {
             var name = User.Identity?.Name ?? throw new Exception("User does not exist");
-            try
-            {
-                var user = await _accountService.GetProfileData(username: name);
-                return Ok(user);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            var user = await _accountService.GetProfileData(username: name);
+            return Ok(user);
         }
     }
 }
