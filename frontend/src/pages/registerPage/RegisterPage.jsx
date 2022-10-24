@@ -9,7 +9,7 @@ import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { getInfo } from "../../services/registerService";
 import { LOGIN_URL } from "../../constants";
-import { StyledCircularProgress } from "../../generalComponents/styled/CircularProgress.styled";
+import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -50,7 +50,7 @@ function RegisterPage() {
     };
     if (password === cPassword)
       dispatch(
-        postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading)
+        postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading, setSuccess)
       );
   }
 
@@ -95,8 +95,8 @@ function RegisterPage() {
         >
           Register
         </Button>
-        {loading && <StyledCircularProgress style={{ left: 155 }} />};
-       
+        {loading && <StyledLinearProgress />}
+        {success && <StyledLinearProgress color="success"/>}
         <Link
           style={{ textAlign: "center",}}
           onClick={() => { navigate(LOGIN_URL); }} >

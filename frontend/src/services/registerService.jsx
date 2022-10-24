@@ -1,7 +1,7 @@
 import { LOGIN_URL, POST_REGISTER_URL } from '../constants';
 
 export const postRegister =
-    (dataObject, navigate, setErrorMsg, setIsError, setLoading) => async () => {
+    (dataObject, navigate, setErrorMsg, setIsError, setLoading, setSuccess) => async () => {
         setLoading(true);
         try {
             const response = await fetch(POST_REGISTER_URL, {
@@ -14,6 +14,7 @@ export const postRegister =
                 body: JSON.stringify(dataObject),
             });
             if (response.ok) {
+                setSuccess(true);
                 navigate(LOGIN_URL);
             } else {
                 let errMsg = new TextDecoder().decode(

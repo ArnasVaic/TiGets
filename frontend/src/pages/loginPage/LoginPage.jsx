@@ -8,7 +8,7 @@ import JustValueTextField from "../../generalComponents/JustValueTextField";
 import SubmitButton from "../../generalComponents/SubmitButton";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
-import { StyledCircularProgress } from "../../generalComponents/styled/CircularProgress.styled";
+import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
 import ErrorMessage from "../../generalComponents/ErrorMessage";
 
 
@@ -50,7 +50,7 @@ function LoginPage() {
           }}
         />
         {wrongPassword && <ErrorMessage text="Wrong username or password" />}
-        {loading && <StyledCircularProgress style={{ left: 100 }} />}
+        {loading && <StyledLinearProgress />}
         <Link style={{ textAlign: "center" }} href={REGISTER_URL}>
           New to TiGets? Create an account.
         </Link>
