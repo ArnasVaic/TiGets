@@ -31,14 +31,12 @@ function ImportTicketDialog({ open, setOpen }) {
     >
       <DialogTitle>Enter the ticket data</DialogTitle>
       <DialogContent style={{ display: "flex", flexDirection: "column" }}>
-        <JustValueTextField label="event name" setValue={setEventName} />
-        <JustValueTextField label="address" setValue={setAddress} />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateTimePicker
             label="valid from"
             value={validFrom}
             onChange={(value) => {
-              setValidFrom(value);
+              setValidFrom(value.format("YYYY-MM-DDTHH:mm:ss[Z]"));
             }}
             renderInput={(params) => <StyledJustValueTextField {...params} />}
           />
@@ -46,13 +44,13 @@ function ImportTicketDialog({ open, setOpen }) {
             label="valid to"
             value={validTo}
             onChange={(value) => {
-              setValidTo(value);
-              console.log(value);
+              setValidTo(value.format("YYYY-MM-DDTHH:mm:ss[Z]"));
             }}
             renderInput={(params) => <StyledJustValueTextField {...params} />}
           />
         </LocalizationProvider>
-
+        <JustValueTextField label="event name" setValue={setEventName} />
+        <JustValueTextField label="address" setValue={setAddress} />
         <JustValueTextField label="cost (Eur)" setValue={setCost} />
       </DialogContent>
 
