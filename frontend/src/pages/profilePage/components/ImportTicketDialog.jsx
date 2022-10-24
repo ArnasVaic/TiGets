@@ -75,7 +75,7 @@ function ImportTicketDialog({ open, setOpen }) {
             );
             setOpen(false);
           }}
-          autofocus
+          autoFocus
         >
           Import
         </Button>

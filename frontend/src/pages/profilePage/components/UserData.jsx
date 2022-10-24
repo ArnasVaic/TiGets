@@ -12,7 +12,7 @@ import { StyledProfileMenu } from "./ProfileMenu.styled";
 function UserData() {
   const [enteredAmount, setEnteredAmount] = useState();
   const userData = useSelector(selectUserData);
-  const [importOpen, setImportOpen] = useState();
+  const [importOpen, setImportOpen] = useState(false);
   const dispatch = useDispatch();
 
   return (
