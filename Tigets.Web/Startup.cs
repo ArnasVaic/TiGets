@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Tigets.Core.Models;
 using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
 using Tigets.Web.Commons;
+using Tigets.Web.Middleware;
 
 namespace Tigets.Web
 {
