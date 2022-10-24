@@ -46,7 +46,7 @@ function ImportTicketDialog({ open, setOpen }) {
             onChange={(value) => {
               setValidTo(value.format("YYYY-MM-DDTHH:mm:ss[Z]"));
             }}
-            renderInput={(params) => <StyledJustValueTextField {...params} />}
+            renderInput={(params) => <StyledJustValueTextField {...params} />} 
           />
         </LocalizationProvider>
         <JustValueTextField label="event name" setValue={setEventName} />
