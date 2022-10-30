@@ -9,6 +9,7 @@ import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { getInfo } from "../../services/registerService";
 import { LOGIN_URL } from "../../constants";
+import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -22,6 +23,7 @@ function RegisterPage() {
   const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [infoAlert, setInfoAlert] = useState(false);
   const [information, setInformation] = useState("");
 
@@ -48,7 +50,7 @@ function RegisterPage() {
     };
     if (password === cPassword)
       dispatch(
-        postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading)
+        postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading, setSuccess)
       );
   }
 
@@ -93,18 +95,11 @@ function RegisterPage() {
         >
           Register
         </Button>
-        {loading && (
-          <Typography style={{ textAlign: "center" }}>Loading...</Typography>
-        )}
+        {loading && <StyledLinearProgress />}
+        {success && <StyledLinearProgress color="success"/>}
         <Link
-          style={{
-            textAlign: "center",
-            marginTop: "10px",
-          }}
-          onClick={() => {
-            navigate(LOGIN_URL);
-          }}
-        >
+          style={{ textAlign: "center",}}
+          onClick={() => { navigate(LOGIN_URL); }} >
           Already have and account? Log in.
         </Link>
 
