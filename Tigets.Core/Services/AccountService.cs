@@ -10,6 +10,7 @@ namespace Tigets.Core.Services
         private readonly SignInManager<User> _signInManager;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
+        private readonly Lazy<Reading> _reading;
 
         public AccountService(
             SignInManager<User> signInManager,
@@ -20,6 +21,7 @@ namespace Tigets.Core.Services
             _signInManager = signInManager;
             _userManager = userManager;
             _mapper = mapper;
+            _reading = new Lazy<Reading>();
         }
 
         public async Task AddBalance(string username, decimal amount)
@@ -103,19 +105,7 @@ namespace Tigets.Core.Services
 
         public string GetAppInfo()
         {
-            string appInfo = null;
-            string path = Path.Combine(Directory.GetCurrentDirectory() + "\\Resources\\AppInformation.txt");
-            try
-            {
-                using StreamReader sr = new StreamReader(path);
-                appInfo = sr.ReadToEnd();
-            }
-            catch (Exception e)
-            {
-                appInfo = "The information about this app cannot be provided currently.";
-            }
-
-            return appInfo;
+            return _reading.Value.AppInfo;
         }
 
     }
