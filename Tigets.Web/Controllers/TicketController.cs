@@ -59,7 +59,15 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> Buy(string ticketId)
         {
             var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            await _ticketService.Buy(username, ticketId);
+            try
+            {
+                await _ticketService.Buy(username, ticketId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
 
