@@ -34,11 +34,11 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   };
 
   const handleErrorClose = () => {
-     setOpenError(false);
+     setErrorMsg();
   };
 
   const handleBuy = () => {
-    dispatch(patchBuy(buyEvent.target.id, setErrorMsg, setOpenError));
+    dispatch(patchBuy(buyEvent.target.id, setErrorMsg));
     setOpen(false);
   };
 
@@ -64,7 +64,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openError} onClose={handleErrorClose}>
+      <Dialog open={errorMsg} onClose={handleErrorClose}>
         <DialogTitle>There is not enough money in your account. Add balance in your profile page.</DialogTitle>
         <DialogActions>
           <Button variant="contained" onClick={handleGoToProfile} autoFocus>

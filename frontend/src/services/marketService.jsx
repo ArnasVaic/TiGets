@@ -1,7 +1,7 @@
 import { GET_MARKET_TICKETS, PATCH_BUY_URL } from "../constants";
 import { setMarketTickets } from "../slices/marketSlice";
 
-export const patchBuy = (ticketId, setErrorMsg, setOpenError) => async (dispatch) => {
+export const patchBuy = (ticketId, setErrorMsg) => async (dispatch) => {
   try {
     const response = await fetch(PATCH_BUY_URL(ticketId), {
       method: "PATCH",
@@ -16,7 +16,6 @@ export const patchBuy = (ticketId, setErrorMsg, setOpenError) => async (dispatch
         );
         if (errMsg === "User does not have enough money to buy this ticket.") {
             setErrorMsg("User does not have enough money to buy this ticket.");
-            setOpenError(true);
         }
         else {
             alert("Something went wrong. Please try again");
