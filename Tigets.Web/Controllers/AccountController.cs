@@ -21,7 +21,16 @@ namespace Tigets.Web.Controllers
         public async Task<IActionResult> AddBalance(decimal amount)
         {
             var username = User.Identity?.Name;
-            await _accountService.AddBalance(username, amount);
+
+            try
+            {
+                await _accountService.AddBalance(username, amount);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
 
@@ -48,7 +57,15 @@ namespace Tigets.Web.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserPostModel userPostModel)
         {
-            await _accountService.Register(userPostModel);
+            try
+            {
+                await _accountService.Register(userPostModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
 
@@ -56,7 +73,15 @@ namespace Tigets.Web.Controllers
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
-            await _accountService.Logout();
+            try
+            {
+                await _accountService.Logout();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
 
@@ -71,8 +96,16 @@ namespace Tigets.Web.Controllers
         [HttpGet("GetProfileData")]
         public async Task<IActionResult> GetProfileData()
         {
-            var name = User.Identity?.Name ?? throw new Exception("User does not exist");
-            var user = await _accountService.GetProfileData(username: name);
+            UserViewModel user;
+            try
+            {
+                var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+                user = await _accountService.GetProfileData(username: name);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return Ok(user);
         }
     }
