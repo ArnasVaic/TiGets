@@ -18,7 +18,7 @@ export const patchBuy = (ticketId, setErrorMsg) => async (dispatch) => {
             setErrorMsg("User does not have enough money to buy this ticket.");
         }
         else {
-            alert("Something went wrong. Please try again");
+            alert("Something went wrong. Please try again\n" + errMsg);
         }
     }
   } catch (error) {
@@ -35,7 +35,10 @@ export const getMarketTickets = () => async (dispatch) => {
     if (response.ok) {
       dispatch(setMarketTickets(await response.json()));
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+    );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");

@@ -16,7 +16,10 @@ export const getUserTickets = () => async (dispatch) => {
     if (response.ok) {
       dispatch(setUserTickets(await response.json()));
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+    );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
@@ -32,7 +35,10 @@ export const addBalance = (amount) => async (dispatch) => {
     if (response.ok) {
       dispatch(getUserData());
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+    );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error" + error);
@@ -48,7 +54,10 @@ export const getUserData = () => async (dispatch) => {
     if (response.ok) {
       dispatch(setUserData(await response.json()));
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+    );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
@@ -64,7 +73,10 @@ export const patchMoveTicket = (ticketId, isOffMarket) => async (dispatch) => {
     if (response.ok) {
       dispatch(getUserTickets());
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+    );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");

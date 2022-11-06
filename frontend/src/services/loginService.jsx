@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   LOGIN_URL,
   MARKET_URL,
