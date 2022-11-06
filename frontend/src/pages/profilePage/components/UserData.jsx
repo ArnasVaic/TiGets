@@ -8,7 +8,6 @@ import { addBalance } from "../../../services/profileService";
 import {
   selectUserData,
   setErrorMessage,
-  setSuccessMessage,
 } from "../../../slices/profileSlice";
 import ImportTicketDialog from "./ImportTicketDialog";
 import { StyledProfileMenu } from "./ProfileMenu.styled";

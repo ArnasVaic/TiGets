@@ -98,12 +98,13 @@ export const postImportTicket = (ticket) => async (dispatch) => {
       body: JSON.stringify(ticket),
     });
     if (response.ok) {
+      dispatch(setSuccessMessage("Ticket was successfully imported"));
       dispatch(getUserTickets());
     } else {
       let errMsg = new TextDecoder().decode(
         (await response.body.getReader().read()).value
       );
-      alert("Something went wrong. Please try again\n" + errMsg);
+      dispatch(setErrorMessage(errMsg));
     }
   } catch (error) {
     alert("Oops, server error");

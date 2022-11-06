@@ -14,6 +14,7 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StyledJustValueTextField } from "../../../generalComponents/styled/JustValueTextField.styled";
+import { setErrorMessage } from "../../../slices/profileSlice";
 
 function ImportTicketDialog({ open, setOpen }) {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ function ImportTicketDialog({ open, setOpen }) {
             onChange={(value) => {
               setValidTo(value.format("YYYY-MM-DDTHH:mm:ss[Z]"));
             }}
-            renderInput={(params) => <StyledJustValueTextField {...params} />} 
+            renderInput={(params) => <StyledJustValueTextField {...params} />}
           />
         </LocalizationProvider>
         <JustValueTextField label="event name" setValue={setEventName} />
@@ -61,16 +62,26 @@ function ImportTicketDialog({ open, setOpen }) {
           variant="contained"
           color="success"
           onClick={() => {
-            dispatch(
-              postImportTicket({
-                state: 1,
-                validFrom: validFrom,
-                validTo: validTo,
-                eventName: eventName,
-                address: address,
-                cost: cost,
-              })
-            );
+            if (!(eventName && address && cost && validFrom && validTo)) {
+              dispatch(setErrorMessage("All fields are required"));
+            } else if (isNaN(cost)) {
+              dispatch(
+                setErrorMessage(
+                  "Cost must be a number - not just some random shit"
+                )
+              );
+            } else {
+              dispatch(
+                postImportTicket({
+                  state: 1,
+                  validFrom: validFrom,
+                  validTo: validTo,
+                  eventName: eventName,
+                  address: address,
+                  cost: cost,
+                })
+              );
+            }
             setOpen(false);
           }}
           autoFocus
