@@ -32,10 +32,13 @@ namespace Tigets.Web
 
             services.InjectServices();
 
-            services.AddDbContext<TigetsContext>(options =>
+            services.AddSingleton<DbContextLoggingInterceptor>();
+
+            services.AddDbContext<TigetsContext>((provider, options) =>
             {
                 var connectionString = Configuration.GetConnectionString("DefaultConnection");
                 options.UseSqlServer(connectionString);
+                options.AddInterceptors(provider.GetRequiredService<DbContextLoggingInterceptor>());
             });
 
             services.AddDefaultIdentity<User>()
