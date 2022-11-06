@@ -1,4 +1,5 @@
-﻿using Tigets.Core.Models;
+﻿using Microsoft.Extensions.DependencyInjection.Extensions;
+using Tigets.Core.Models;
 using Tigets.Core.Repositories;
 using Tigets.Core.Services;
 using Tigets.Infrastructure.Repositories;
@@ -13,7 +14,8 @@ namespace Tigets.Web.Commons
             services.AddScoped<ITransferRepository, TransferRepository>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITransferService, TransferService>();
-            services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<ITicketService, TicketService>(); 
+           // services.AddScoped<IDeleteTicketsService, DeleteTicketsService>();
         }
     }
 }
