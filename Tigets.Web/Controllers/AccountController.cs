@@ -31,7 +31,16 @@ namespace Tigets.Web.Controllers
         {
             if (User.Identity.IsAuthenticated)
                 return BadRequest("User is already logged in");
-            await _accountService.Login(username, password);
+
+            try
+            {
+                await _accountService.Login(username, password);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return Ok();
         }
 
