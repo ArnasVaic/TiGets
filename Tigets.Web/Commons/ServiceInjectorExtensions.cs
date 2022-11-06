@@ -15,7 +15,7 @@ namespace Tigets.Web.Commons
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITransferService, TransferService>();
             services.AddScoped<ITicketService, TicketService>(); 
-           // services.AddScoped<IDeleteTicketsService, DeleteTicketsService>();
+            services.AddScoped<IDeleteTicketsService, DeleteTicketsService>();
         }
     }
 }

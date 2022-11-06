@@ -12,7 +12,7 @@ namespace Tigets.Core.Specifications
     {
         public ExpiredTicketSpec(string userId)
         {
-            Query.Where(x => (x.UserId == userId && x.ValidTo <= DateTime.UtcNow));
+            Query.Where(x => (x.UserId == userId) && (x.ValidTo < DateTime.UtcNow));
         }
     }
 }

@@ -15,10 +15,10 @@ namespace Tigets.Core.Services
 
     {
         private readonly ITicketRepository _ticketRepository;
-        private readonly TicketService _ticketService;
-        public DeleteTicketsService(ITicketRepository ticketRepository)
+        private readonly ITicketService _ticketService;
+        public DeleteTicketsService(ITicketService ts, ITicketRepository ticketRepository)
         {
-           // _ticketService = ts;
+            _ticketService = ts;
             _ticketService.DeleteExpired += DeleteTickets;
             _ticketRepository = ticketRepository;
         }
@@ -26,6 +26,7 @@ namespace Tigets.Core.Services
         public async Task DeleteTickets(object sender, DeleteExpiredEventArgs e)
         {
             await _ticketRepository.DeleteBySpecUnsaved(new ExpiredTicketSpec(e.Id));
+            await _ticketRepository.SaveChangesAsync();
         }
 
     }

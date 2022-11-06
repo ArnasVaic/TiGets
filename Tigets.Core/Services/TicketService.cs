@@ -49,19 +49,12 @@ namespace Tigets.Core.Services
 
             await _transferService.Create(user.Id, user.Id, ticket.Id, ticket.Cost);
             await _ticketRepository.AddAsync(ticket);
-            await _ticketRepository.DeleteBySpecUnsaved(new ExpiredTicketSpec(user.Id));
 
-            //OnImport(new DeleteExpiredEventArgs(user.Id)); 
+            if (DeleteExpired is not null)
+            {
+                DeleteExpired(this, new DeleteExpiredEventArgs(user.Id));
+            }
 
-        }
-        //protected virtual void OnImport(DeleteExpiredEventArgs args)
-        public async Task OnImport(DeleteExpiredEventArgs args)
-        {
-            await _ticketRepository.DeleteBySpecUnsaved(new ExpiredTicketSpec(args.Id));
-            //if (DeleteExpired is not null)
-            //{ 
-            //    DeleteExpired(this, args);
-           // }
         }
 
         public async Task Buy(string username, string ticketId)
