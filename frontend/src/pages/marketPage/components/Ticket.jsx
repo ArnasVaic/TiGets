@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { patchBuy } from "../../../services/marketService";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { StyledTicket } from "./Ticket.styled";
+import { PROFILE_URL } from '../../../constants';
 
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [open, setOpen] = useState(false);
@@ -25,7 +26,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   };
 
   const handleGoToProfile = () => {
-     navigate('/profile');
+     navigate(PROFILE_URL);
   }
     
   const handleClose = () => {
