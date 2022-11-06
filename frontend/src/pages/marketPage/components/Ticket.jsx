@@ -15,7 +15,6 @@ import { StyledTicket } from "./Ticket.styled";
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
-  const [openError, setOpenError] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
