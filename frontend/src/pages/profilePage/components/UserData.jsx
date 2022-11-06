@@ -5,7 +5,11 @@ import JustValueTextField from "../../../generalComponents/JustValueTextField";
 import { StyledCenteredColumn } from "../../../generalComponents/styled/CenteredColumn.styled";
 import SubmitButton from "../../../generalComponents/SubmitButton";
 import { addBalance } from "../../../services/profileService";
-import { selectUserData } from "../../../slices/profileSlice";
+import {
+  selectUserData,
+  setErrorMessage,
+  setSuccessMessage,
+} from "../../../slices/profileSlice";
 import ImportTicketDialog from "./ImportTicketDialog";
 import { StyledProfileMenu } from "./ProfileMenu.styled";
 
@@ -22,7 +26,17 @@ function UserData() {
         <JustValueTextField label="Enter amount" setValue={setEnteredAmount} />
         <SubmitButton
           text="Add money"
-          onClick={() => dispatch(addBalance(enteredAmount))}
+          onClick={() => {
+            if (!isNaN(enteredAmount)) {
+              dispatch(addBalance(enteredAmount));
+            } else {
+              dispatch(
+                setErrorMessage(
+                  "Woah, woah... This does not seem like an integer..."
+                )
+              );
+            }
+          }}
         />
         <Typography>Username: {userData.userName} </Typography>
         <Typography>Name: {userData.name} </Typography>
