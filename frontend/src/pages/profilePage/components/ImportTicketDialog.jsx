@@ -67,7 +67,7 @@ function ImportTicketDialog({ open, setOpen }) {
             } else if (isNaN(cost)) {
               dispatch(
                 setErrorMessage(
-                  "Cost must be a number - not just some random shit"
+                  "Cost should be a number"
                 )
               );
             } else {
