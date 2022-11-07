@@ -30,8 +30,16 @@ namespace Tigets.Web.Controllers
         [HttpPost("Import")]
         public async Task<IActionResult> ImportTicket(TicketPostModel ticketPostModel)
         {
-            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            await _ticketService.Import(username, ticketPostModel);
+            try
+            {
+                var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+                await _ticketService.Import(username, ticketPostModel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             var view = _mapper.Map<TicketViewModel>(ticketPostModel);
             return Ok(view);
         }
@@ -40,8 +48,17 @@ namespace Tigets.Web.Controllers
         [HttpGet("GetMarketTickets")]
         public async Task<IActionResult> GetTicketsOnTheMarket()
         {
-            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            var tickets = await _ticketService.GetTicketsOnTheMarket(username);
+            IEnumerable<Ticket> tickets;
+            try
+            {
+                var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+                tickets = await _ticketService.GetTicketsOnTheMarket(username);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return Ok(tickets);
         }
 
@@ -49,8 +66,16 @@ namespace Tigets.Web.Controllers
         [HttpGet("GetUserTickets")]
         public async Task<IActionResult> GetUserTickets()
         {
-            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            var tickets = await _ticketService.GetUserTickets(username);
+            IEnumerable<Ticket> tickets;
+            try
+            {
+                var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+                tickets = await _ticketService.GetUserTickets(username);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return Ok(tickets);
         }
 
@@ -58,9 +83,9 @@ namespace Tigets.Web.Controllers
         [HttpPatch("Buy")]
         public async Task<IActionResult> Buy(string ticketId)
         {
-            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
             try
             {
+                var username = User.Identity?.Name ?? throw new Exception("User does not exist");
                 await _ticketService.Buy(username, ticketId);
             }
             catch (Exception ex)
@@ -75,8 +100,16 @@ namespace Tigets.Web.Controllers
         [HttpPatch("Move")]
         public async Task<IActionResult> Move([FromQuery] string ticketId, [FromQuery] TicketState state)
         {
-            var username = User.Identity?.Name ?? throw new Exception("User does not exist");
-            await _ticketService.Move(username, ticketId, state);
+            try
+            {
+                var username = User.Identity?.Name ?? throw new Exception("User does not exist");
+                await _ticketService.Move(username, ticketId, state);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
             return NoContent();
         }
     }

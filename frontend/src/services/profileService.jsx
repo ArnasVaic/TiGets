@@ -5,7 +5,12 @@ import {
   PATCH_MOVE_TICKET_URL,
   POST_IMPORT_TICKET_URL,
 } from "../constants";
-import { setUserData, setUserTickets } from "../slices/profileSlice";
+import {
+  setErrorMessage,
+  setSuccessMessage,
+  setUserData,
+  setUserTickets,
+} from "../slices/profileSlice";
 
 export const getUserTickets = () => async (dispatch) => {
   try {
@@ -16,7 +21,10 @@ export const getUserTickets = () => async (dispatch) => {
     if (response.ok) {
       dispatch(setUserTickets(await response.json()));
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+      );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
@@ -30,9 +38,13 @@ export const addBalance = (amount) => async (dispatch) => {
       credentials: "include",
     });
     if (response.ok) {
+      dispatch(setSuccessMessage("Money was successfully added"));
       dispatch(getUserData());
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+      );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error" + error);
@@ -48,7 +60,10 @@ export const getUserData = () => async (dispatch) => {
     if (response.ok) {
       dispatch(setUserData(await response.json()));
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+      );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
@@ -64,7 +79,10 @@ export const patchMoveTicket = (ticketId, isOffMarket) => async (dispatch) => {
     if (response.ok) {
       dispatch(getUserTickets());
     } else {
-      alert("Something went wrong. Please try again");
+      let errMsg = new TextDecoder().decode(
+        (await response.body.getReader().read()).value
+      );
+      alert("Something went wrong. Please try again\n" + errMsg);
     }
   } catch (error) {
     alert("Oops, server error");
@@ -80,12 +98,13 @@ export const postImportTicket = (ticket) => async (dispatch) => {
       body: JSON.stringify(ticket),
     });
     if (response.ok) {
+      dispatch(setSuccessMessage("Ticket was successfully imported"));
       dispatch(getUserTickets());
     } else {
       let errMsg = new TextDecoder().decode(
         (await response.body.getReader().read()).value
       );
-      alert("Something went wrong. Please try again\n" + errMsg);
+      dispatch(setErrorMessage(errMsg));
     }
   } catch (error) {
     alert("Oops, server error");

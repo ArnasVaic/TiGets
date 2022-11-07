@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { postRegister } from "../../services/registerService";
-import { Typography, Button, Link } from "@mui/material";
+import { Button, Link } from "@mui/material";
 import Alert from "@mui/material/Alert";
 import JustValueTextField from "../../generalComponents/JustValueTextField";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
@@ -10,6 +10,7 @@ import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredCol
 import { getInfo } from "../../services/registerService";
 import { LOGIN_URL } from "../../constants";
 import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
+import ErrorMessage from "../../generalComponents/ErrorMessage";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -20,7 +21,6 @@ function RegisterPage() {
   const [email, setEmail] = useState();
   const [phoneNumber, setPhoneNumber] = useState();
 
-  const [isError, setIsError] = useState(false);
   const [errorMsg, setErrorMsg] = useState();
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -32,10 +32,21 @@ function RegisterPage() {
 
   function checkValidation() {
     if (password !== cPassword) {
-      setIsError(true);
       setErrorMsg("Passwords do not match!");
+    } else if (
+      !(
+        userName &&
+        password &&
+        cPassword &&
+        name &&
+        surname &&
+        email &&
+        phoneNumber
+      )
+    ) {
+      setErrorMsg("All fields are required");
     } else {
-      setIsError(false);
+      setErrorMsg(null);
     }
   }
 
@@ -48,9 +59,18 @@ function RegisterPage() {
       email,
       phoneNumber,
     };
-    if (password === cPassword)
+    if (
+      password === cPassword &&
+      userName &&
+      password &&
+      cPassword &&
+      name &&
+      surname &&
+      email &&
+      phoneNumber
+    )
       dispatch(
-        postRegister(dataObject, navigate, setErrorMsg, setIsError, setLoading, setSuccess)
+        postRegister(dataObject, navigate, setErrorMsg, setLoading, setSuccess)
       );
   }
 
@@ -63,32 +83,42 @@ function RegisterPage() {
           label="password"
           type="password"
           setValue={setPassword}
+          setRequiredErrMsg={setErrorMsg}
         />
         <JustValueTextField
           label="confirm password"
           type="password"
           setValue={setCPassword}
+          setRequiredErrMsg={setErrorMsg}
         />
-        <JustValueTextField label="name" setValue={setName} />
-        <JustValueTextField label="surname" setValue={setSurname} />
-        <JustValueTextField label="email" setValue={setEmail} />
-        <JustValueTextField label="phone number" setValue={setPhoneNumber} />
+        <JustValueTextField
+          label="name"
+          setValue={setName}
+          setRequiredErrMsg={setErrorMsg}
+        />
+        <JustValueTextField
+          label="surname"
+          setValue={setSurname}
+          setRequiredErrMsg={setErrorMsg}
+        />
+        <JustValueTextField
+          label="email"
+          setValue={setEmail}
+          setRequiredErrMsg={setErrorMsg}
+        />
+        <JustValueTextField
+          label="phone number"
+          setValue={setPhoneNumber}
+          setRequiredErrMsg={setErrorMsg}
+        />
 
-        <div>
-          {isError ? (
-            <Alert sx={{ mt: 1, marginBottom: 1 }} severity="error">
-              {errorMsg}
-            </Alert>
-          ) : (
-            ""
-          )}
-        </div>
+        {errorMsg && <ErrorMessage text={errorMsg} />}
 
         <Button
           variant="contained"
           onClick={() => {
             checkValidation();
-            if (!isError) {
+            if (!errorMsg) {
               handleData();
             }
           }}
@@ -96,10 +126,13 @@ function RegisterPage() {
           Register
         </Button>
         {loading && <StyledLinearProgress />}
-        {success && <StyledLinearProgress color="success"/>}
+        {success && <StyledLinearProgress color="success" />}
         <Link
-          style={{ textAlign: "center",}}
-          onClick={() => { navigate(LOGIN_URL); }} >
+          style={{ textAlign: "center" }}
+          onClick={() => {
+            navigate(LOGIN_URL);
+          }}
+        >
           Already have and account? Log in.
         </Link>
 
