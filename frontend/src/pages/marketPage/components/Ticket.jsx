@@ -12,9 +12,21 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { StyledTicket } from "./Ticket.styled";
 
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
+  const [isHovering, setIsHovering] = useState(false);
+  const [color, setColor] = useState("");
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
   const dispatch = useDispatch();
+
+  const handleMouseOver = () => {
+      setIsHovering(true);
+      setColor("lightBlue");
+  };
+
+  const handleMouseOut = () => {
+      setIsHovering(false);
+      setColor("");
+  };
 
   const handleBuyAttempt = (event) => {
     setBuyEvent(event);
@@ -30,8 +42,13 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
     setOpen(false);
   };
 
+
+
   return (
-    <StyledTicket>
+      <StyledTicket onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
+        style = {{ backgroundColor: color }
+      }
+      >
       <Typography>{eventName}</Typography>
       <Typography>{address}</Typography>
       <Typography>{validFrom}</Typography>
