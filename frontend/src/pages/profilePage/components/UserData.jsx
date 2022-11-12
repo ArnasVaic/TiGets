@@ -24,22 +24,25 @@ function UserData() {
           text="Add money"
           onClick={() => dispatch(addBalance(enteredAmount))}
         />
-        <Typography>Username: {userData.userName} </Typography>
-        <Typography>Name: {userData.name} </Typography>
-        <Typography>Surname: {userData.surname} </Typography>
-        <Typography>Email: {userData.email} </Typography>
-        <Typography>Phone number: {userData.phoneNumber} </Typography>
 
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            setImportOpen(true);
+
+      <Button
+         variant="contained"
+         onClick={() => {
+             setImportOpen(true);
           }}
-        >
-          Import ticket
-        </Button>
-        <ImportTicketDialog open={importOpen} setOpen={setImportOpen} />
+         >
+         Import ticket
+       </Button>
+       <ImportTicketDialog open={importOpen} setOpen={setImportOpen} />
+
+        <div style={{ backgroundColor: "#6E8195", borderRadius: "5px", padding: "5px"}}>
+        <Typography>Username: {userData.userName} </Typography>
+        <Typography>{userData.name} {userData.surname} </Typography>
+        <Typography>{userData.email} </Typography>
+        <Typography>{userData.phoneNumber} </Typography>
+        </div>
+
       </StyledCenteredColumn>
     </StyledProfileMenu>
   );

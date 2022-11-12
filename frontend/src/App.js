@@ -6,9 +6,27 @@ import RegisterPage from "./pages/registerPage/RegisterPage";
 import MarketPage from "./pages/marketPage/MarketPage";
 import TicketPage from "./pages/ticketPage/TicketPage";
 import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL, TICKET_URL } from "./constants";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {
+    blue,
+    lightBlue,
+    lightGreen,
+    red,
+    teal,
+    yellow,
+} from "@mui/material/colors";
+
+const theme = createTheme({
+    pallete: {
+        primary: {
+            main: blue,
+        }
+    }
+})
 
 function App() {
-  return (
+return (
+  <ThemeProvider theme={theme} >
     <BrowserRouter>
       <Routes>
         <Route path={PROFILE_URL} element={<ProfilePage />} />
@@ -18,6 +36,7 @@ function App() {
         <Route path={TICKET_URL} element={<TicketPage />} />
       </Routes>
     </BrowserRouter>
+  </ThemeProvider>
   );
 }
 

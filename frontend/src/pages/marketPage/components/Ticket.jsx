@@ -54,16 +54,19 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
     setOpen(false);
   };
 
+  const handleTicketInfo = () => {
+       
+  };
+
 return (
 
       <StyledTicket onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
           style={{
               backgroundColor: color, }}
       >
-
         <div style={{ flexDirection: "column", alignItems: "center" }}>
             <Typography variant="h6">{eventName}</Typography>
-            <Typography onMouseOver={handleAbout} onMouseOut={handleOutAbout}
+            <Typography onMouseOver={handleAbout} onMouseOut={handleOutAbout} 
             style={{
                     marginTop: 10,
                     border: 1,
