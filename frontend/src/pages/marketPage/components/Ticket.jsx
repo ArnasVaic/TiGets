@@ -13,6 +13,8 @@ import { StyledTicket } from "./Ticket.styled";
 
 function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   const [isHovering, setIsHovering] = useState(false);
+  const [isHoveringAbout, setIsHoveringAbout] = useState(false);
+  const [aboutColor, setAboutColor] = useState("");
   const [color, setColor] = useState("");
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
@@ -20,12 +22,22 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
 
   const handleMouseOver = () => {
       setIsHovering(true);
-      setColor("lightBlue");
+      setColor("#BED0E5");
   };
 
   const handleMouseOut = () => {
       setIsHovering(false);
       setColor("");
+  };
+
+  const handleAbout = () => {
+        setIsHoveringAbout(true);
+      setAboutColor("#D63448");
+  };
+
+  const handleOutAbout = () => {
+        setIsHoveringAbout(false);
+        setAboutColor("");
   };
 
   const handleBuyAttempt = (event) => {
@@ -42,22 +54,39 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
     setOpen(false);
   };
 
+return (
 
-
-  return (
       <StyledTicket onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
-        style = {{ backgroundColor: color }
-      }
+          style={{
+              backgroundColor: color, }}
       >
-      <Typography>{eventName}</Typography>
-      <Typography>{address}</Typography>
-      <Typography>{validFrom}</Typography>
-      <ArrowForwardIcon fontSize="large" />
-      <Typography>{validTo}</Typography>
 
-      <Button id={ticketId} variant="contained" onClick={handleBuyAttempt}>
-        Buy {cost}Eur
-      </Button>
+        <div style={{ flexDirection: "column", alignItems: "center" }}>
+            <Typography variant="h6">{eventName}</Typography>
+            <Typography onMouseOver={handleAbout} onMouseOut={handleOutAbout}
+            style={{
+                    marginTop: 10,
+                    border: 1,
+                    padding: 5,
+                    outlineStyle: "solid",
+                    outlineWidth: "thin",
+                    outlineColor: aboutColor,
+            }}>
+                About ticket</Typography>
+        </div >
+        <div style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+        }}>
+            <Typography> Valid from {validFrom} to {validTo}</Typography>
+            <Typography>{address}</Typography>
+        </div>
+        <div>
+           <Button id={ticketId} variant="contained" onClick={handleBuyAttempt} style={{ marginRight: 10 }}>
+              Buy ticket {cost} Eur
+           </Button>
+        </div>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>

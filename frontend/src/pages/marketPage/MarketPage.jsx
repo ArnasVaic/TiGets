@@ -20,8 +20,10 @@ function MarketPage() {
   return (
     <>
       <Header navigateText="Profile" url={PROFILE_URL} />
-      <StyledCenteredColumn spacing={2}>
-      <StyledTitle>TIGETS Market</StyledTitle>
+      <StyledCenteredColumn spacing={2} style={{
+              backgroundColor: "#F6FAFF",
+          }}>
+      <StyledTitle>TIGETS MARKET</StyledTitle>
       <JustValueTextField label="Search event.." setValue={setSearch} />
               {tickets.filter(ticket => {
                   if (search === "") {
@@ -45,3 +47,5 @@ function MarketPage() {
 }
 
 export default MarketPage;
+
+
