@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/loginPage/LoginPage";
 import RegisterPage from "./pages/registerPage/RegisterPage";
 import MarketPage from "./pages/marketPage/MarketPage";
-import MarketPage from "./pages/ticketPage/TicketPage";
+import TicketPage from "./pages/ticketPage/TicketPage";
 import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL, TICKET_URL } from "./constants";
 
 function App() {
