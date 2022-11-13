@@ -5,6 +5,8 @@ export const profileSlice = createSlice({
   initialState: {
     userData: [],
     tickets: [],
+    errMsg: "",
+    succMsg: "",
   },
   reducers: {
     setUserData: (state, action) => {
@@ -13,12 +15,27 @@ export const profileSlice = createSlice({
     setUserTickets: (state, action) => {
       state.tickets = action.payload;
     },
+    setSuccessMessage: (state, action) => {
+      state.succMsg = action.payload;
+      state.errMsg = "";
+    },
+    setErrorMessage: (state, action) => {
+      state.errMsg = action.payload;
+      state.succMsg = "";
+    },
   },
 });
 
-export const { setUserData, setUserTickets } = profileSlice.actions;
+export const {
+  setUserData,
+  setUserTickets,
+  setSuccessMessage,
+  setErrorMessage,
+} = profileSlice.actions;
 
 export const selectUserData = (state) => state.profile.userData;
 export const selectUserTickets = (state) => state.profile.tickets;
+export const selectSuccessMessage = (state) => state.profile.succMsg;
+export const selectErrorMessage = (state) => state.profile.errMsg;
 
 export default profileSlice.reducer;

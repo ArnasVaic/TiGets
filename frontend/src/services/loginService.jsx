@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import {
   LOGIN_URL,
   MARKET_URL,
@@ -36,7 +35,7 @@ export const postLogin =
         ) {
           setWrongPassword(true);
         } else {
-          alert("Oops, something went wrong. Please try again\n" + errMsg);
+          alert("Oopsies!\n" + errMsg);
         }
       }
     } catch (error) {

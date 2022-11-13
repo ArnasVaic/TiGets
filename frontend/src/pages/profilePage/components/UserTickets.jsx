@@ -1,17 +1,26 @@
-import { Typography } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
+import ErrorMessage from "../../../generalComponents/ErrorMessage";
 import { StyledCenteredColumn } from "../../../generalComponents/styled/CenteredColumn.styled";
-import { selectUserTickets } from "../../../slices/profileSlice";
+import {
+  selectErrorMessage,
+  selectSuccessMessage,
+  selectUserTickets,
+} from "../../../slices/profileSlice";
 import Ticket from "./Ticket";
 import { StyledUserTickets } from "./UserTickets.styled";
 
 function UserTickets() {
   const tickets = useSelector(selectUserTickets);
+  const errMsg = useSelector(selectErrorMessage);
+  const succMsg = useSelector(selectSuccessMessage);
 
   return (
     <StyledUserTickets>
       <StyledCenteredColumn spacing={2}>
-      <Typography style={{textAlign: "center"} } variant = "h6" >Your tickets</Typography>
+        <Typography style={{ textAlign: "center" }} variant="h6" >Your tickets</Typography>
+        {errMsg && <ErrorMessage text={errMsg} />}
+        {succMsg && <Alert severity="success">{succMsg}</Alert>}
         {tickets.map((ticket, index) => (
           <Ticket
             key={index}
