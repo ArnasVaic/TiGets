@@ -43,17 +43,15 @@ function Ticket({
               backgroundColor: color,
           }}
       >
-          <div style={{ flexDirection: "column", alignItems: "center" }} onClick={handleTicketInfoClick}>
+          <div style={{ flexDirection: "column", alignItems: "center" }}>
               <Typography variant="h6">{eventName}</Typography>
-              <Typography 
+              <Button onClick={handleTicketInfoClick}
                   style={{
                       marginTop: 10,
                       border: 1,
                       padding: 5,
-                      outlineStyle: "solid",
-                      outlineWidth: "thin",
                   }}>
-                  About ticket</Typography>
+                  About ticket</Button>
           </div >
           <div style={{
               display: "flex",
