@@ -5,7 +5,9 @@ export const StyledProfileHeader = styled(`div`)`
   width: 100%;
   padding: 10px;
   text-align: center;
-  background: #f0f8ff;
   color: white;
   font-size: 30px;
+  border-bottom: 1px solid black;
+  outline-style: solid;
+  outline-width: thin;
 `;

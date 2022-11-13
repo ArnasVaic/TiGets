@@ -18,7 +18,7 @@ function UserTickets() {
   return (
     <StyledUserTickets>
       <StyledCenteredColumn spacing={2}>
-        <Typography>Your tickets</Typography>
+        <Typography style={{ textAlign: "center" }} variant="h6" >Your tickets</Typography>
         {errMsg && <ErrorMessage text={errMsg} />}
         {succMsg && <Alert severity="success">{succMsg}</Alert>}
         {tickets.map((ticket, index) => (

@@ -1,7 +1,7 @@
 import { styled } from "@mui/material";
 
 export const StyledProfileMenu = styled(`div`)`
-  background: #4682b4;
+  background: #93AECA;
   float: left;
   width: 25%;
   height: 700px;

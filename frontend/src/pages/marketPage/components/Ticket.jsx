@@ -21,9 +21,21 @@ function Ticket({
   validTo,
   cost,
 }) {
+  const [isHovering, setIsHovering] = useState(false);
+  const [color, setColor] = useState("");
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
   const dispatch = useDispatch();
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+    setColor("#BED0E5");
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    setColor("");
+  };
 
   const handleBuyAttempt = (event) => {
     setBuyEvent(event);
@@ -39,17 +51,44 @@ function Ticket({
     setOpen(false);
   };
 
-  return (
-    <StyledTicket>
-      <Typography>{eventName}</Typography>
-      <Typography>{address}</Typography>
-      <Typography>{validFrom}</Typography>
-      <ArrowForwardIcon fontSize="large" />
-      <Typography>{validTo}</Typography>
+  const handleTicketInfo = () => {
+    //don't know what should be displayed yet
+  };
 
-      <Button id={ticketId} variant="contained" onClick={handleBuyAttempt}>
-        Buy {cost}Eur
-      </Button>
+  return (
+    <StyledTicket
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      style={{
+        backgroundColor: color,
+      }}
+    >
+      <div style={{ flexDirection: "column", alignItems: "center" }}>
+        <Typography variant="h6">{eventName}</Typography>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Typography>
+          {" "}
+          Valid from {validFrom} to {validTo}
+        </Typography>
+        <Typography>{address}</Typography>
+      </div>
+      <div>
+        <Button
+          id={ticketId}
+          variant="contained"
+          onClick={handleBuyAttempt}
+          style={{ marginRight: 10 }}
+        >
+          Buy ticket {cost} Eur
+        </Button>
+      </div>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>

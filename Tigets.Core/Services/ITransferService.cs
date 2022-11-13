@@ -10,5 +10,6 @@ namespace Tigets.Core.Services
     public interface ITransferService
     {
         Task Create(string buyerId, string? ownerId, string ticketId, decimal cost);
+        Task<IEnumerable<Transfer>> GetTransfers(string ticketId);
     }
 }

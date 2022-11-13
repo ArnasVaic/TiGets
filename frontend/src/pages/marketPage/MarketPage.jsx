@@ -9,7 +9,7 @@ import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import Header from "../../generalComponents/Header";
 import JustValueTextField from "../../generalComponents/JustValueTextField";
 import ErrorMessage from "../../generalComponents/ErrorMessage";
-import { Alert } from '@mui/material';
+import { Alert } from "@mui/material";
 
 function MarketPage() {
   const tickets = useSelector(selectMarketTickets);
@@ -24,11 +24,16 @@ function MarketPage() {
   return (
     <>
       <Header navigateText="Profile" url={PROFILE_URL} />
-      <StyledCenteredColumn spacing={2}>
-        <StyledTitle>TIGETS Market</StyledTitle>
+      <StyledCenteredColumn
+        spacing={2}
+        style={{
+          backgroundColor: "#F6FAFF",
+        }}
+      >
+        <StyledTitle>TIGETS MARKET</StyledTitle>
         <JustValueTextField label="Search event.." setValue={setSearch} />
         {errMsg && <ErrorMessage text={errMsg} />}
-        {succMsg && <Alert severity="success">{succMsg}</Alert> }
+        {succMsg && <Alert severity="success">{succMsg}</Alert>}
         {tickets
           .filter((ticket) => {
             if (search === "") {
