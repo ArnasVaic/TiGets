@@ -55,7 +55,7 @@ function Ticket({ ticketId, eventName, address, validFrom, validTo, cost }) {
   };
 
   const handleTicketInfo = () => {
-       
+       //don't know what should be displayed yet
   };
 
 return (

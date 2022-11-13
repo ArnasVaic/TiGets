@@ -1,10 +1,12 @@
 import { Typography } from "@mui/material";
 import { StyledTicket } from "./Ticket.styled";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import SubmitButton from "../../../generalComponents/SubmitButton";
 import { patchMoveTicket } from "../../../services/profileService";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { TICKET_URL } from "../../../constants";
+import { getTransfers } from "../../../services/ticketService";
 
 function Ticket({
   ticketId,
@@ -16,6 +18,7 @@ function Ticket({
   isOffMarket,
 }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isHovering, setIsHovering] = useState(false);
     const [color, setColor] = useState("");
 
@@ -30,7 +33,8 @@ function Ticket({
     };
 
     const handleTicketInfoClick = () => {
-        
+        dispatch(getTransfers(ticketId));
+        navigate(TICKET_URL);
     }
 
   return (

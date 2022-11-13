@@ -21,4 +21,7 @@ export const GET_USER_DATA_URL =
 export const PATCH_MOVE_TICKET_URL = (ticketId, state) =>
   `https://localhost:7056/api/Ticket/Move?ticketId=${ticketId}&state=${state}`;
 export const POST_IMPORT_TICKET_URL =
-  "https://localhost:7056/api/Ticket/Import";
+    "https://localhost:7056/api/Ticket/Import";
+
+export const GET_TRANSFERS_URL = (ticketId) =>
+    `https://localhost:7056/api/Transfer/GetTransfers?TicketId=${ticketId}`;
