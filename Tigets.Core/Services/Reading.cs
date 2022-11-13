@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Tigets.Core.Services
+﻿namespace Tigets.Core.Services
 {
     public class Reading
     {
         public String AppInfo { get; }
+
         private Reading()
         {
             AppInfo = readFromFile();
@@ -30,6 +25,5 @@ namespace Tigets.Core.Services
 
             return appInfo;
         }
-
     }
 }
