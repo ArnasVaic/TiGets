@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -42,6 +43,18 @@ namespace Tigets.Core.Services
             };
 
             await _transferRepository.AddAsync(transfer);
+        }
+
+        public async Task<IEnumerable<Transfer>> GetTransfers(string ticketId)
+        {
+            if (ticketId is null)
+                throw new ArgumentNullException($"{nameof(ticketId)}");
+
+            var transfers = from transfer in await _transferRepository.ListAsync()
+                where transfer.TicketId == ticketId
+                select transfer;
+
+            return transfers;
         }
     }
 }

@@ -24,4 +24,4 @@ export const POST_IMPORT_TICKET_URL =
     "https://localhost:7056/api/Ticket/Import";
 
 export const GET_TRANSFERS_URL = (ticketId) =>
-    `https://localhost:7056/api/Transfer/GetTransfers?TicketId=${ticketId}`;
+    `https://localhost:7056/api/Transfer/GetTransfers?ticketId=${ticketId}`;
