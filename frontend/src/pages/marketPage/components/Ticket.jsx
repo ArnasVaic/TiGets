@@ -65,17 +65,6 @@ function Ticket({
     >
       <div style={{ flexDirection: "column", alignItems: "center" }}>
         <Typography variant="h6">{eventName}</Typography>
-        <Typography
-          style={{
-            marginTop: 10,
-            border: 1,
-            padding: 5,
-            outlineStyle: "solid",
-            outlineWidth: "thin",
-          }}
-        >
-          About ticket
-        </Typography>
       </div>
       <div
         style={{
