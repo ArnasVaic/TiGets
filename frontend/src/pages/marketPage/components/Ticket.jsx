@@ -22,8 +22,6 @@ function Ticket({
   cost,
 }) {
   const [isHovering, setIsHovering] = useState(false);
-  const [isHoveringAbout, setIsHoveringAbout] = useState(false);
-  const [aboutColor, setAboutColor] = useState("");
   const [color, setColor] = useState("");
   const [open, setOpen] = useState(false);
   const [buyEvent, setBuyEvent] = useState();
@@ -37,16 +35,6 @@ function Ticket({
   const handleMouseOut = () => {
     setIsHovering(false);
     setColor("");
-  };
-
-  const handleAbout = () => {
-    setIsHoveringAbout(true);
-    setAboutColor("#D63448");
-  };
-
-  const handleOutAbout = () => {
-    setIsHoveringAbout(false);
-    setAboutColor("");
   };
 
   const handleBuyAttempt = (event) => {
@@ -78,15 +66,12 @@ function Ticket({
       <div style={{ flexDirection: "column", alignItems: "center" }}>
         <Typography variant="h6">{eventName}</Typography>
         <Typography
-          onMouseOver={handleAbout}
-          onMouseOut={handleOutAbout}
           style={{
             marginTop: 10,
             border: 1,
             padding: 5,
             outlineStyle: "solid",
             outlineWidth: "thin",
-            outlineColor: aboutColor,
           }}
         >
           About ticket
