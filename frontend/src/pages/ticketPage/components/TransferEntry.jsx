@@ -1,11 +1,11 @@
+import { StyledTransferEntry } from "./TransferEntry.style";
 
-
-function TransferEntry({ ticketId, date}) {
+function TransferEntry({ ticketId, date, cost}) {
 
     return (
-        <div style={{textAlign: "center"}}>
-          {date}
-        </div>
+        <StyledTransferEntry>
+          Date: {date}, cost: { cost} Eur
+        </StyledTransferEntry>
     );
 }
 
