@@ -16,7 +16,6 @@ function TicketPage() {
     const transfers = useSelector(selectTransfers);
     const dispatch = useDispatch();;
     useEffect(() => {
-        console.log(transfers);
         dispatch(getTransfers(string));
     }, [dispatch]);
     
