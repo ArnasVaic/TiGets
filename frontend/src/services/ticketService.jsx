@@ -15,6 +15,6 @@ export const getTransfers = (ticketId) => async (dispatch) => {
             alert("Something went wrong. Please try again");
         }
     } catch (error) {
-        alert("Oops, server error");
+        alert("Oops, server error" + error.msg);
     }
 };

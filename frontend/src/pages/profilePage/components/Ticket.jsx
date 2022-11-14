@@ -6,8 +6,6 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TICKET_URL } from "../../../constants";
-import { getTransfers } from "../../../services/ticketService";
-
 
 function Ticket({
   ticketId,
@@ -34,8 +32,7 @@ function Ticket({
     };
 
     const handleTicketInfoClick = () => {
-        dispatch(getTransfers(ticketId));
-        navigate(TICKET_URL);
+        navigate(`/ticket/${ticketId}`);
     }
 
   return (

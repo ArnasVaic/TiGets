@@ -17,7 +17,7 @@ return (
         <Route path={MARKET_URL} element={<MarketPage />} />
         <Route path={LOGIN_URL} element={<LoginPage />} />
         <Route path={REGISTER_URL} element={<RegisterPage />} />
-        <Route path={TICKET_URL} element={<TicketPage />} />
+        <Route path="/ticket/:ticketId" element={<TicketPage />} />
       </Routes>
     </BrowserRouter>
   );
