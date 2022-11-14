@@ -2,14 +2,14 @@
 {
     public class Reading
     {
-        public String AppInfo { get; }
+        public string AppInfo { get; }
 
         private Reading()
         {
-            AppInfo = readFromFile();
+            AppInfo = ReadFromFile();
         }
 
-        private string readFromFile()
+        private string ReadFromFile()
         {
             string appInfo;
             string path = Path.Combine(Directory.GetCurrentDirectory() + "\\Resources\\AppInformation.txt");
