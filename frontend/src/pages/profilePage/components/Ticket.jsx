@@ -32,7 +32,7 @@ function Ticket({
     };
 
     const handleTicketInfoClick = () => {
-        navigate(`/ticket/${ticketId}`);
+        navigate(TICKET_URL(ticketId));
     }
 
   return (

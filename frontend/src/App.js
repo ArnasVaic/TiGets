@@ -5,7 +5,7 @@ import LoginPage from "./pages/loginPage/LoginPage";
 import RegisterPage from "./pages/registerPage/RegisterPage";
 import MarketPage from "./pages/marketPage/MarketPage";
 import TicketPage from "./pages/ticketPage/TicketPage";
-import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL, TICKET_URL } from "./constants";
+import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL, TICKET_URL_PATH } from "./constants";
 
 
 
@@ -17,7 +17,7 @@ return (
         <Route path={MARKET_URL} element={<MarketPage />} />
         <Route path={LOGIN_URL} element={<LoginPage />} />
         <Route path={REGISTER_URL} element={<RegisterPage />} />
-        <Route path="/ticket/:ticketId" element={<TicketPage />} />
+        <Route path={TICKET_URL_PATH} element={<TicketPage />} />
       </Routes>
     </BrowserRouter>
   );

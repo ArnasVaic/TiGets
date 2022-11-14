@@ -1,5 +1,7 @@
 export const LOGIN_URL = "/login";
-export const TICKET_URL = "/ticket";
+export const TICKET_URL = (ticketId) =>
+    `/ticket/${ticketId}`;
+export const TICKET_URL_PATH = "/ticket/:ticketId";
 export const POST_LOGIN_URL = (username) =>
   `https://localhost:7056/api/Account/Login?Username=${username}`;
 export const REGISTER_URL = "/register";
