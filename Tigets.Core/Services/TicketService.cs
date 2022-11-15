@@ -7,13 +7,15 @@ using Tigets.Core.Specifications;
 
 namespace Tigets.Core.Services
 {
+    public delegate Task DeleteExpiredHandler(object o, DeleteExpiredEventArgs e);   
     public class TicketService : ITicketService
     {
         private readonly ITicketRepository _ticketRepository;
         private readonly ITransferService _transferService;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-
+      
+        public event DeleteExpiredHandler DeleteExpired;
         public TicketService(
             ITicketRepository ticketRepository,
             ITransferService transferService,
@@ -47,6 +49,12 @@ namespace Tigets.Core.Services
 
             await _transferService.Create(user.Id, user.Id, ticket.Id, ticket.Cost);
             await _ticketRepository.AddAsync(ticket);
+
+            if (DeleteExpired is not null)
+            {
+                DeleteExpired(this, new DeleteExpiredEventArgs(user.Id));
+            }
+
         }
 
         public async Task Buy(string username, string ticketId)

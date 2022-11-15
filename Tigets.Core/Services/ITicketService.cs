@@ -9,5 +9,7 @@ namespace Tigets.Core.Services
         Task<IEnumerable<Ticket>> GetTicketsOnTheMarket(string username);
         Task<IEnumerable<Ticket>> GetUserTickets(string username);
         Task Move(string username, string ticketId, TicketState state);
+
+        public event DeleteExpiredHandler DeleteExpired;
     }
 }
