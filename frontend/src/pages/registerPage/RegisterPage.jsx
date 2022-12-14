@@ -8,9 +8,10 @@ import JustValueTextField from "../../generalComponents/JustValueTextField";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { getInfo } from "../../services/registerService";
-import { LOGIN_URL } from "../../constants";
+import { BACKGROUND, GREEN_BUTTON, LOGIN_URL } from "../../constants";
 import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
 import ErrorMessage from "../../generalComponents/ErrorMessage";
+import SubmitButton from "../../generalComponents/SubmitButton";
 
 function RegisterPage() {
   const [userName, setUsername] = useState();
@@ -76,8 +77,10 @@ function RegisterPage() {
 
   return (
     <>
-      <StyledCenteredColumn style={{ padding: "5% 35%" }}>
-        <StyledTitle>TIGETS</StyledTitle>
+      <StyledCenteredColumn
+        style={{ padding: "5% 35%", backgroundColor: BACKGROUND }}
+      >
+        <StyledTitle>TiGets</StyledTitle>
         <JustValueTextField label="userName" setValue={setUsername} />
         <JustValueTextField
           label="password"
@@ -114,43 +117,25 @@ function RegisterPage() {
 
         {errorMsg && <ErrorMessage text={errorMsg} />}
 
-        <Button
-          variant="contained"
+        <SubmitButton
           onClick={() => {
             checkValidation();
             if (!errorMsg) {
               handleData();
             }
           }}
-        >
-          Register
-        </Button>
+          text={"Register"}
+        />
         {loading && <StyledLinearProgress />}
         {success && <StyledLinearProgress color="success" />}
         <Link
-          style={{ textAlign: "center" }}
+          style={{ textAlign: "center", color: GREEN_BUTTON }}
           onClick={() => {
             navigate(LOGIN_URL);
           }}
         >
           Already have and account? Log in.
         </Link>
-
-        <Button
-          variant="contained"
-          style={{
-            margin: "10px",
-            backgroundColor: "#f0f8ff",
-            color: "#4682b4",
-          }}
-          onClick={() => {
-            dispatch(getInfo(setInfoAlert, setInformation));
-          }}
-        >
-          App information
-        </Button>
-
-        {infoAlert && <Alert severity="info">{information}</Alert>}
       </StyledCenteredColumn>
     </>
   );

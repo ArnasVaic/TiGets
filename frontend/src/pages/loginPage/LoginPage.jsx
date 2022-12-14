@@ -3,14 +3,18 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { postLogin } from "../../services/loginService";
 import { Typography, Link } from "@mui/material";
-import { REGISTER_URL } from "../../constants";
+import {
+  BACKGROUND,
+  DARK_BUTTON,
+  GREEN_BUTTON,
+  REGISTER_URL,
+} from "../../constants";
 import JustValueTextField from "../../generalComponents/JustValueTextField";
 import SubmitButton from "../../generalComponents/SubmitButton";
 import { StyledCenteredColumn } from "../../generalComponents/styled/CenteredColumn.styled";
 import { StyledTitle } from "../../generalComponents/styled/Title.styled";
 import { StyledLinearProgress } from "../../generalComponents/styled/LinearProgress.styled";
 import ErrorMessage from "../../generalComponents/ErrorMessage";
-
 
 function LoginPage() {
   const [username, setUsername] = useState();
@@ -26,8 +30,10 @@ function LoginPage() {
 
   return (
     <>
-      <StyledCenteredColumn style={{ padding: "10% 40%" }}>
-        <StyledTitle>TIGETS</StyledTitle>
+      <StyledCenteredColumn
+        style={{ padding: "10% 40%", backgroundColor: BACKGROUND }}
+      >
+        <StyledTitle>TiGets</StyledTitle>
         <JustValueTextField label="username" setValue={setUsername} />
         <JustValueTextField
           label="password"
@@ -50,8 +56,13 @@ function LoginPage() {
           }}
         />
         {wrongPassword && <ErrorMessage text="Wrong username or password" />}
-        {loading && <StyledLinearProgress />}
-        <Link style={{ textAlign: "center" }} href={REGISTER_URL}>
+        {loading && (
+          <StyledLinearProgress style={{ backgroundColor: DARK_BUTTON }} />
+        )}
+        <Link
+          style={{ textAlign: "center", color: GREEN_BUTTON }}
+          href={REGISTER_URL}
+        >
           New to TiGets? Create an account.
         </Link>
       </StyledCenteredColumn>
