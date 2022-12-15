@@ -1,6 +1,7 @@
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BACKGROUND, GREEN_BUTTON, TICKET } from "../../../constants";
 import JustValueTextField from "../../../generalComponents/JustValueTextField";
 import { StyledCenteredColumn } from "../../../generalComponents/styled/CenteredColumn.styled";
 import { StyledText } from "../../../generalComponents/styled/Text.styled";
@@ -40,29 +41,31 @@ function UserData() {
           }}
         />
 
-        <Button
-          variant="contained"
+        <SubmitButton
           onClick={() => {
             setImportOpen(true);
           }}
-        >
-          Import ticket
-        </Button>
+          text={"Import ticket"}
+        />
         <ImportTicketDialog open={importOpen} setOpen={setImportOpen} />
 
         <div
           style={{
-            backgroundColor: "#6E8195",
-            borderRadius: "5px",
-            padding: "5px",
+            backgroundColor: TICKET,
+            borderRadius: 0,
+            padding: "15px",
           }}
         >
-          <Typography>Username: {userData.userName} </Typography>
-          <Typography>
+          <StyledText>{userData.userName} </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
             {userData.name} {userData.surname}{" "}
-          </Typography>
-          <Typography>{userData.email} </Typography>
-          <Typography>{userData.phoneNumber} </Typography>
+          </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
+            {userData.email}{" "}
+          </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
+            {userData.phoneNumber}{" "}
+          </StyledText>
         </div>
       </StyledCenteredColumn>
     </StyledProfileMenu>

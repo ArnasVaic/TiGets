@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GREEN_BUTTON, TICKET_HOVER, TICKET_URL } from "../../../constants";
 import { StyledText } from "../../../generalComponents/styled/Text.styled";
+import NavigationButton from "../../../generalComponents/NavigationButton";
 
 function Ticket({
   ticketId,
@@ -33,7 +34,7 @@ function Ticket({
   };
 
   const handleTicketInfoClick = () => {
-    navigate(TICKET_URL(ticketId));
+    navigate();
   };
 
   return (
@@ -45,20 +46,25 @@ function Ticket({
       }}
     >
       <Grid container spacings={2}>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <StyledText variant="h6">{eventName}</StyledText>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <StyledText>{address}</StyledText>
         </Grid>
-
-        <Grid item xs={4}>
+        <Grid item xs={6}>
+          <StyledText>{cost} Eur</StyledText>
+        </Grid>
+        <Grid item xs={6}>
           <StyledText>
             {validFrom} → {validTo}
           </StyledText>
         </Grid>
-        <Grid item xs={4}>
-          <StyledText>{cost} Eur</StyledText>
+        <Grid item xs={4} style={{ paddingTop: "10px" }}>
+          <SubmitButton
+            text={"About ticket"}
+            onClick={() => navigate(TICKET_URL(ticketId))}
+          />
         </Grid>
       </Grid>
 
