@@ -22,15 +22,20 @@ function MarketPage() {
   const [succMsg, setSuccMsg] = useState();
 
   return (
-    <div
-      style={{
-        backgroundColor: BACKGROUND,
-      }}
-    >
+    <div>
       <Header navigateText="Profile" url={PROFILE_URL} />
-      <StyledCenteredColumn spacing={2}>
+      <StyledCenteredColumn
+        spacing={2}
+        style={{
+          backgroundColor: BACKGROUND,
+        }}
+      >
         <StyledTitle>TiGets market</StyledTitle>
-        <JustValueTextField label="Search event.." setValue={setSearch} />
+        <JustValueTextField
+          label="Search event.."
+          setValue={setSearch}
+          style={{ paddingTop: 0 }}
+        />
         {errMsg && <ErrorMessage text={errMsg} />}
         {succMsg && <Alert severity="success">{succMsg}</Alert>}
         {tickets

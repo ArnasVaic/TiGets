@@ -44,6 +44,7 @@ function Ticket({
   const handleBuyAttempt = (event) => {
     setBuyEvent(event);
     setOpen(true);
+    console.log(event.target.id);
   };
 
   const handleClose = () => {
@@ -51,7 +52,7 @@ function Ticket({
   };
 
   const handleBuy = () => {
-    dispatch(patchBuy(buyEvent.target.id, setErrMsg, setSuccMsg));
+    dispatch(patchBuy(ticketId, setErrMsg, setSuccMsg));
     setOpen(false);
   };
 
@@ -82,6 +83,7 @@ function Ticket({
         </Grid>
       </Grid>
       <SubmitButton
+        id={ticketId}
         text={`Buy ticket ${cost} Eur`}
         onClick={handleBuyAttempt}
       />
@@ -89,7 +91,7 @@ function Ticket({
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>
         <DialogActions>
-          <SubmitButton onClick={handleBuy} text={"Yes, please"}/>
+          <SubmitButton onClick={handleBuy} text={"Yes, please"} />
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>

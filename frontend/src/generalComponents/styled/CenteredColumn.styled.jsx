@@ -1,4 +1,5 @@
 import { Stack, styled } from "@mui/material";
+import { BACKGROUND } from "../../constants";
 
 export const StyledCenteredColumn = styled(Stack)`
   display: flex;
