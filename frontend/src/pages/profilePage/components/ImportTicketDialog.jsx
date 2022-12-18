@@ -15,6 +15,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { StyledJustValueTextField } from "../../../generalComponents/styled/JustValueTextField.styled";
 import { setErrorMessage } from "../../../slices/profileSlice";
+import SubmitButton from "../../../generalComponents/SubmitButton";
 
 function ImportTicketDialog({ open, setOpen }) {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function ImportTicketDialog({ open, setOpen }) {
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
-      style={{ height: "600px" }}
+      style={{ height: "600px", borderRadius: 0 }}
     >
       <DialogTitle>Enter the ticket data</DialogTitle>
       <DialogContent style={{ display: "flex", flexDirection: "column" }}>
@@ -58,18 +59,12 @@ function ImportTicketDialog({ open, setOpen }) {
       <DialogActions
         style={{ display: "flex", justifyContent: "space-around" }}
       >
-        <Button
-          variant="contained"
-          color="success"
+        <SubmitButton
           onClick={() => {
             if (!(eventName && address && cost && validFrom && validTo)) {
               dispatch(setErrorMessage("All fields are required"));
             } else if (isNaN(cost)) {
-              dispatch(
-                setErrorMessage(
-                  "Cost should be a number"
-                )
-              );
+              dispatch(setErrorMessage("Cost should be a number"));
             } else {
               dispatch(
                 postImportTicket({
@@ -84,11 +79,10 @@ function ImportTicketDialog({ open, setOpen }) {
             }
             setOpen(false);
           }}
-          autoFocus
-        >
-          Import
-        </Button>
+          text={"Import"}
+        />
         <Button
+          style={{ borderRadius: 0 }}
           variant="outlined"
           onClick={() => {
             setOpen(false);

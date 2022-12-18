@@ -1,14 +1,13 @@
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { BACKGROUND, GREEN_BUTTON, TICKET } from "../../../constants";
 import JustValueTextField from "../../../generalComponents/JustValueTextField";
 import { StyledCenteredColumn } from "../../../generalComponents/styled/CenteredColumn.styled";
+import { StyledText } from "../../../generalComponents/styled/Text.styled";
 import SubmitButton from "../../../generalComponents/SubmitButton";
 import { addBalance } from "../../../services/profileService";
-import {
-  selectUserData,
-  setErrorMessage,
-} from "../../../slices/profileSlice";
+import { selectUserData, setErrorMessage } from "../../../slices/profileSlice";
 import ImportTicketDialog from "./ImportTicketDialog";
 import { StyledProfileMenu } from "./ProfileMenu.styled";
 
@@ -21,7 +20,11 @@ function UserData() {
   return (
     <StyledProfileMenu>
       <StyledCenteredColumn spacing={2}>
-        <Typography>Your balance: {userData.balance} Eur</Typography>
+        <StyledText style={{ textAlign: "center" }}>Your balance:</StyledText>
+        <StyledText variant="h6" style={{ textAlign: "center" }}>
+          {" "}
+          {userData.balance} Eur
+        </StyledText>
         <JustValueTextField label="Enter amount" setValue={setEnteredAmount} />
         <SubmitButton
           text="Add money"
@@ -38,24 +41,32 @@ function UserData() {
           }}
         />
 
-
-      <Button
-         variant="contained"
-         onClick={() => {
-             setImportOpen(true);
+        <SubmitButton
+          onClick={() => {
+            setImportOpen(true);
           }}
-         >
-         Import ticket
-       </Button>
-       <ImportTicketDialog open={importOpen} setOpen={setImportOpen} />
+          text={"Import ticket"}
+        />
+        <ImportTicketDialog open={importOpen} setOpen={setImportOpen} />
 
-        <div style={{ backgroundColor: "#6E8195", borderRadius: "5px", padding: "5px"}}>
-        <Typography>Username: {userData.userName} </Typography>
-        <Typography>{userData.name} {userData.surname} </Typography>
-        <Typography>{userData.email} </Typography>
-        <Typography>{userData.phoneNumber} </Typography>
+        <div
+          style={{
+            backgroundColor: TICKET,
+            borderRadius: 0,
+            padding: "15px",
+          }}
+        >
+          <StyledText>{userData.userName} </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
+            {userData.name} {userData.surname}{" "}
+          </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
+            {userData.email}{" "}
+          </StyledText>
+          <StyledText style={{ paddingTop: "10px" }}>
+            {userData.phoneNumber}{" "}
+          </StyledText>
         </div>
-
       </StyledCenteredColumn>
     </StyledProfileMenu>
   );

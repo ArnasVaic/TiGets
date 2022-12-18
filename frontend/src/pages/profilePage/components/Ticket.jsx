@@ -1,11 +1,13 @@
-import { Typography, Button } from "@mui/material";
+import { Typography, Button, Grid } from "@mui/material";
 import { StyledTicket } from "./Ticket.styled";
 import SubmitButton from "../../../generalComponents/SubmitButton";
 import { patchMoveTicket } from "../../../services/profileService";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { TICKET_URL } from "../../../constants";
+import { GREEN_BUTTON, TICKET_HOVER, TICKET_URL } from "../../../constants";
+import { StyledText } from "../../../generalComponents/styled/Text.styled";
+import NavigationButton from "../../../generalComponents/NavigationButton";
 
 function Ticket({
   ticketId,
@@ -16,70 +18,80 @@ function Ticket({
   cost,
   isOffMarket,
 }) {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [isHovering, setIsHovering] = useState(false);
-    const [color, setColor] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [isHovering, setIsHovering] = useState(false);
+  const [color, setColor] = useState("");
 
-    const handleMouseOver = () => {
-        setIsHovering(true);
-        setColor("#BED0E5");
-    };
+  const handleMouseOver = () => {
+    setIsHovering(true);
+    setColor(TICKET_HOVER);
+  };
 
-    const handleMouseOut = () => {
-        setIsHovering(false);
-        setColor("");
-    };
+  const handleMouseOut = () => {
+    setIsHovering(false);
+    setColor("");
+  };
 
-    const handleTicketInfoClick = () => {
-        navigate(TICKET_URL(ticketId));
-    }
+  const handleTicketInfoClick = () => {
+    navigate();
+  };
 
   return (
-      <StyledTicket onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}
-          style={{
-              backgroundColor: color,
-          }}
-      >
-          <div style={{ flexDirection: "column", alignItems: "center" }}>
-              <Typography variant="h6">{eventName}</Typography>
-              <Button onClick={handleTicketInfoClick}
-                  style={{
-                      marginTop: 10,
-                      border: 1,
-                      padding: 5,
-                  }}>
-                  About ticket</Button>
-          </div >
-          <div style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-          }}>
-              <Typography> Valid from {validFrom} to {validTo}</Typography>
-              <Typography>{address}</Typography>
-          </div>
-          <div>
-              <Typography>{cost} Eur</Typography>
-          </div>
-          <div>
-              {isOffMarket && (
-                  <SubmitButton
-                      text="Sell"
-                      onClick={() => {
-                          dispatch(patchMoveTicket(ticketId, 0));
-                      }}
-                  />
-              )}
-              {!isOffMarket && (
-                  <SubmitButton
-                      text="Take off the market"
-                      onClick={() => {
-                          dispatch(patchMoveTicket(ticketId, 1));
-                      }}
-                  />
-              )}
-          </div>
+    <StyledTicket
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+      style={{
+        backgroundColor: color,
+      }}
+    >
+      <Grid container spacings={2}>
+        <Grid item xs={6}>
+          <StyledText variant="h6">{eventName}</StyledText>
+        </Grid>
+        <Grid item xs={6}>
+          <StyledText>{address}</StyledText>
+        </Grid>
+        <Grid item xs={6}>
+          <StyledText>{cost} Eur</StyledText>
+        </Grid>
+        <Grid item xs={6}>
+          <StyledText>
+            {validFrom} → {validTo}
+          </StyledText>
+        </Grid>
+        <Grid item xs={4} style={{ paddingTop: "10px" }}>
+          <SubmitButton
+            text={"About ticket"}
+            onClick={() => navigate(TICKET_URL(ticketId))}
+          />
+        </Grid>
+      </Grid>
+
+      <div>
+        {isOffMarket && (
+          <Button
+            onClick={() => {
+              dispatch(patchMoveTicket(ticketId, 0));
+            }}
+            style={{
+              backgroundColor: GREEN_BUTTON,
+              fontFamily: "Unbounded",
+              color: "white",
+            }}
+          >
+            Put into the market
+          </Button>
+        )}
+        {!isOffMarket && (
+          <SubmitButton
+            text="Take off the market"
+            onClick={() => {
+              dispatch(patchMoveTicket(ticketId, 1));
+            }}
+          />
+        )}
+      </div>
     </StyledTicket>
   );
 }

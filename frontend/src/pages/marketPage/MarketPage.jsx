@@ -1,4 +1,4 @@
-import { PROFILE_URL } from "../../constants";
+import { BACKGROUND, PROFILE_URL } from "../../constants";
 import { selectMarketTickets } from "../../slices/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -22,16 +22,20 @@ function MarketPage() {
   const [succMsg, setSuccMsg] = useState();
 
   return (
-    <>
+    <div>
       <Header navigateText="Profile" url={PROFILE_URL} />
       <StyledCenteredColumn
         spacing={2}
         style={{
-          backgroundColor: "#F6FAFF",
+          backgroundColor: BACKGROUND,
         }}
       >
-        <StyledTitle>TIGETS MARKET</StyledTitle>
-        <JustValueTextField label="Search event.." setValue={setSearch} />
+        <StyledTitle>TiGets market</StyledTitle>
+        <JustValueTextField
+          label="Search event.."
+          setValue={setSearch}
+          style={{ paddingTop: 0 }}
+        />
         {errMsg && <ErrorMessage text={errMsg} />}
         {succMsg && <Alert severity="success">{succMsg}</Alert>}
         {tickets
@@ -57,7 +61,7 @@ function MarketPage() {
             />
           ))}
       </StyledCenteredColumn>
-    </>
+    </div>
   );
 }
 

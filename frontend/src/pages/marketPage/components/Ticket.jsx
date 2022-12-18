@@ -4,12 +4,16 @@ import {
   Dialog,
   DialogTitle,
   DialogActions,
+  Grid,
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { patchBuy } from "../../../services/marketService";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { StyledTicket } from "./Ticket.styled";
+import { StyledText } from "../../../generalComponents/styled/Text.styled";
+import { DARK_BUTTON, TICKET_HOVER } from "../../../constants";
+import SubmitButton from "../../../generalComponents/SubmitButton";
 
 function Ticket({
   setErrMsg,
@@ -29,7 +33,7 @@ function Ticket({
 
   const handleMouseOver = () => {
     setIsHovering(true);
-    setColor("#BED0E5");
+    setColor(TICKET_HOVER);
   };
 
   const handleMouseOut = () => {
@@ -40,6 +44,7 @@ function Ticket({
   const handleBuyAttempt = (event) => {
     setBuyEvent(event);
     setOpen(true);
+    console.log(event.target.id);
   };
 
   const handleClose = () => {
@@ -47,7 +52,7 @@ function Ticket({
   };
 
   const handleBuy = () => {
-    dispatch(patchBuy(buyEvent.target.id, setErrMsg, setSuccMsg));
+    dispatch(patchBuy(ticketId, setErrMsg, setSuccMsg));
     setOpen(false);
   };
 
@@ -63,39 +68,30 @@ function Ticket({
         backgroundColor: color,
       }}
     >
-      <div style={{ flexDirection: "column", alignItems: "center" }}>
-        <Typography variant="h6">{eventName}</Typography>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Typography>
-          {" "}
-          Valid from {validFrom} to {validTo}
-        </Typography>
-        <Typography>{address}</Typography>
-      </div>
-      <div>
-        <Button
-          id={ticketId}
-          variant="contained"
-          onClick={handleBuyAttempt}
-          style={{ marginRight: 10 }}
-        >
-          Buy ticket {cost} Eur
-        </Button>
-      </div>
+      <Grid container spacings={2}>
+        <Grid item xs={4}>
+          <StyledText variant="h6">{eventName}</StyledText>
+        </Grid>
+        <Grid item xs={4}>
+          <StyledText>{address}</StyledText>
+        </Grid>
+
+        <Grid item xs={4}>
+          <StyledText>
+            {validFrom} → {validTo}
+          </StyledText>
+        </Grid>
+      </Grid>
+      <SubmitButton
+        id={ticketId}
+        text={`Buy ticket ${cost} Eur`}
+        onClick={handleBuyAttempt}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Are you sure you want to buy this ticket?</DialogTitle>
         <DialogActions>
-          <Button variant="contained" onClick={handleBuy} autoFocus>
-            Yes, please
-          </Button>
+          <SubmitButton onClick={handleBuy} text={"Yes, please"} />
           <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>

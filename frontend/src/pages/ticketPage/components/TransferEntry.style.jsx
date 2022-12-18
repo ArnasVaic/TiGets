@@ -1,13 +1,14 @@
-import { styled } from "@mui/material";
+import { Grid, styled } from "@mui/material";
+import { TICKET, TICKET_SHADOW } from "../../../constants";
 
-export const StyledTransferEntry = styled("div")`
+export const StyledTransferEntry = styled(Grid)`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  border-bottom: 1px solid black;
-  border-top: 1px solid black;
+  border: 1px solid black;
   padding: 10px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 3px 1px #92939E;
+  border-radius: 0px;
+  box-shadow: 3px 1px 3px 1px ${TICKET_SHADOW};
+  background-color: ${TICKET};
 `;

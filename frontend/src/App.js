@@ -5,12 +5,16 @@ import LoginPage from "./pages/loginPage/LoginPage";
 import RegisterPage from "./pages/registerPage/RegisterPage";
 import MarketPage from "./pages/marketPage/MarketPage";
 import TicketPage from "./pages/ticketPage/TicketPage";
-import { LOGIN_URL, MARKET_URL, PROFILE_URL, REGISTER_URL, TICKET_URL_PATH } from "./constants";
-
-
+import {
+  LOGIN_URL,
+  MARKET_URL,
+  PROFILE_URL,
+  REGISTER_URL,
+  TICKET_URL_PATH,
+} from "./constants";
 
 function App() {
-return (
+  return (
     <BrowserRouter>
       <Routes>
         <Route path={PROFILE_URL} element={<ProfilePage />} />
