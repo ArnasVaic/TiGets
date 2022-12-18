@@ -14,7 +14,7 @@ namespace Tigets.Web
     {
         public IConfiguration Configuration { get; }
 
-        readonly string MyAllowSpecificOrigins = "http://localhost:3000";
+        readonly string MyAllowSpecificOrigins = "http://192.168.0.101:3000";
 
         public Startup(IConfiguration configuration)
         {

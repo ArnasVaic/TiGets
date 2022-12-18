@@ -5,10 +5,10 @@ import { StyledTransferEntry } from "./TransferEntry.style";
 function TransferEntry({ ticketId, date, cost }) {
   return (
     <StyledTransferEntry container>
-      <Grid item sx={6}>
+      <Grid item xs={6}>
         <StyledText>When: {date}</StyledText>
       </Grid>
-      <Grid item sx={6}>
+      <Grid item xs={6}>
         <StyledText> Price: {cost} Eur</StyledText>
       </Grid>
     </StyledTransferEntry>

@@ -46,7 +46,7 @@ function Ticket({
       }}
     >
       <Grid container spacings={2}>
-        <Grid item xs={6}>
+        <Grid item xs={6} style={{ overflow: "hidden" }}>
           <StyledText variant="h6">{eventName}</StyledText>
         </Grid>
         <Grid item xs={6}>
