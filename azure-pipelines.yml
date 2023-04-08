@@ -29,6 +29,14 @@ steps:
     configuration: '$(buildConfiguration)'
 
 - task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    inputs:
+      testSelector: 'testAssemblies'
+      testAssemblyVer2: |
+        $(System.DefaultWorkingDirectory)\Tests\**\bin\**\*.Test.dll
+        **\*test*.dll
+        !**\*TestAdapter.dll
+        !**\obj\**
+      searchFolder: './Tests'
+      platform: '$(buildPlatform)'
+      configuration: '$(configuration)'
+      codeCoverageEnabled: true
