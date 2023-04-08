@@ -36,7 +36,7 @@ steps:
       **\*test*.dll
       !**\*TestAdapter.dll
       !**\obj\**
-  searchFolder: './Tests'
-  platform: '$(buildPlatform)'
-  configuration: '$(configuration)'
-  codeCoverageEnabled: true
+#  searchFolder: './Tests'
+#  platform: '$(buildPlatform)'
+#  configuration: '$(configuration)'
+#  codeCoverageEnabled: true
