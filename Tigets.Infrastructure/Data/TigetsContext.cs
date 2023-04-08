@@ -14,5 +14,6 @@ namespace Tigets.Infrastructure.Data
             : base(options) { }
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Transfer> Transfers { get; set; }
+        public DbSet<Event> Events { get; set; }
     }
 }
