@@ -32,7 +32,7 @@ steps:
   inputs:
     testSelector: 'testAssemblies'
     testAssemblyVer2: |
-      $(System.DefaultWorkingDirectory)\Tests\**\bin\**\*.Test.dll
+      $(System.DefaultWorkingDirectory)\Tests\**\bin\**\*.test.dll
       **\*test*.dll
       !**\*TestAdapter.dll
       !**\obj\**
