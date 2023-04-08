@@ -36,3 +36,4 @@ steps:
       **\*test.dll
       !**\*TestAdapter.dll
       !**\obj\**
+    codeCoverageEnabled: true
