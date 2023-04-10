@@ -7,6 +7,9 @@ using Tigets.Core.Utilities;
 using Tigets.Infrastructure.Data;
 using Tigets.Web.Commons;
 using Tigets.Web.Middleware;
+using Tigets.Core.Services;
+using Tigets.Core.Repositories;
+using Tigets.Infrastructure.Repositories;
 
 namespace Tigets.Web
 {
@@ -25,6 +28,9 @@ namespace Tigets.Web
         {
             // Add services to the container.
             services.AddControllers();
+
+            services.AddScoped<IEventService, EventService>();
+            services.AddScoped<IEventRepository, EventRepository>();
 
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

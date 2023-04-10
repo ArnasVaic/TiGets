@@ -27,6 +27,8 @@ export const POST_IMPORT_TICKET_URL =
 export const GET_TRANSFERS_URL = (ticketId) =>
   `https://localhost:7056/api/Transfer/GetTransfers?ticketId=${ticketId}`;
 
+export const POST_CREATE_EVENT_URL = "https://localhost:7056/api/Event";
+
 export const BACKGROUND = "#F1D3B3";
 export const HEADER = "#C7BCA1";
 export const TICKET = "#C7BCA1";
