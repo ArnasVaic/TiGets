@@ -49,7 +49,10 @@ namespace Tigets.Api.Controllers
                     await writer.WriteLineAsync(username);
                 }
 
-                return Ok($"User {username} verification is successful");
+                return Ok($"User {username} verification was successful");
+            }
+            catch(FileNotFoundException ex){
+                return Ok($"User {username} verification was successful");
             }
             catch (Exception ex)
             {
