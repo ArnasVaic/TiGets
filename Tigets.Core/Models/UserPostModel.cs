@@ -14,5 +14,6 @@ namespace Tigets.Core.Models
         public string Surname { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public Boolean isVerified { get { return isVerified; } set { isVerified = false; } }
     }
 }
