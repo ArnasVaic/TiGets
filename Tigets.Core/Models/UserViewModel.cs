@@ -8,5 +8,7 @@
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
         public decimal Balance { get; set; }
+
+        public Boolean isVerified { get { return isVerified; } set { isVerified = false; } }
     }
 }
