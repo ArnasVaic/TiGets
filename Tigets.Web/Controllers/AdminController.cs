@@ -37,12 +37,19 @@ namespace Tigets.Api.Controllers
             {
                 string filePath = "VerifiedUsers.txt";
 
+                string[] lines = System.IO.File.ReadAllLines(filePath);
+                foreach (string line in lines)
+                {
+                    if (line == username)
+                        return BadRequest($"User {username} is already verified");
+                }
+
                 using (StreamWriter writer = new StreamWriter(filePath, append: true))
                 {
                     await writer.WriteLineAsync(username);
                 }
 
-                return Ok($"User {username} verified and added to the file.");
+                return Ok($"User {username} verification is successful");
             }
             catch (Exception ex)
             {

@@ -85,28 +85,28 @@ namespace Tigets.Web.Controllers
             return NoContent();
         }
 
-        public string GetAppInfo()
-        {
-            return _accountService.GetAppInfo();
-        }
+        // public string GetAppInfo()
+        // {
+        //     return _accountService.GetAppInfo();
+        // }
 
-        public async Task<IActionResult> GetProfileData()
-        {
-            UserViewModel user;
-            try
-            {
-                var name = User.Identity?.Name ?? throw new Exception("User does not exist");
-                user = await _accountService.GetProfileData(username: name);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            return Ok(user);
-        }
+        // public async Task<IActionResult> GetProfileData()
+        // {
+        //     UserViewModel user;
+        //     try
+        //     {
+        //         var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+        //         user = await _accountService.GetProfileData(username: name);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
+        //     return Ok(user);
+        // }
 
         [Authorize]
-        [HttpGet("IsUserVerified")]
+        [HttpGet("VerificationStatus")]
         public async Task<IActionResult> GetVerificationStatus()
         {
             UserViewModel user;
