@@ -1,12 +1,8 @@
-using System;
 using AutoMapper;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Tigets.Infrastructure;
 using Tigets.Core.Models;
 using Tigets.Core.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Tigets.Api.Controllers
 {

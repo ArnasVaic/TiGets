@@ -7,24 +7,22 @@ namespace Tigets.Core.Services
 {
     public class AdminVerificationService : IAdminVerificationService
     {
-        private readonly SignInManager<Admin> _signInManager;
-        private readonly UserManager<Admin> _userManager;
-        private readonly IMapper _mapper;
-        private readonly Lazy<Reading> _reading;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
 
         public AdminVerificationService(
-            SignInManager<Admin> signInManager,
-            UserManager<Admin> userManager,
-            IMapper mapper
+            SignInManager<User> signInManager,
+            UserManager<User> userManager
         )
         {
             _signInManager = signInManager;
             _userManager = userManager;
-            _mapper = mapper;
-            _reading = new Lazy<Reading>();
         }
 
-    
+        public string GetAppInfo()
+        {
+            throw new NotImplementedException();
+        }
 
         public async Task Login(string username, string password)
         {
@@ -53,26 +51,9 @@ namespace Tigets.Core.Services
             await _signInManager.SignOutAsync();
         }
 
-        public async Task<UserViewModel> GetProfileData(string username)
+        public Task VerifyUser(UserPostModel user)
         {
-            var userData = await _userManager.FindByNameAsync(username);
-            if (userData is null)
-            {
-                throw new Exception("Admin does not exist.");
-            }
-
-            return _mapper.Map<UserViewModel>(userData);
+            throw new NotImplementedException();
         }
-
-public async Task VerifyUser(UserPostModel userPostModel)
-        {
-            
-        }
-
-        public string GetAppInfo()
-        {
-            return _reading.Value.AppInfo;
-        }
-
     }
 }

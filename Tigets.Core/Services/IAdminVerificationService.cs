@@ -7,6 +7,5 @@ namespace Tigets.Core.Services
         Task Login(string username, string password);
         Task Logout();
         Task VerifyUser(UserPostModel user);
-        string GetAppInfo();
     }
 }

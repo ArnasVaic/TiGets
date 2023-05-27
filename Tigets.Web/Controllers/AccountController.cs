@@ -85,15 +85,11 @@ namespace Tigets.Web.Controllers
             return NoContent();
         }
 
-        [AllowAnonymous]
-        [HttpGet("GetInfo")]
         public string GetAppInfo()
         {
             return _accountService.GetAppInfo();
         }
 
-        [Authorize]
-        [HttpGet("GetProfileData")]
         public async Task<IActionResult> GetProfileData()
         {
             UserViewModel user;
@@ -107,6 +103,40 @@ namespace Tigets.Web.Controllers
                 return BadRequest(ex.Message);
             }
             return Ok(user);
+        }
+
+        [Authorize]
+        [HttpGet("IsUserVerified")]
+        public async Task<IActionResult> GetVerificationStatus()
+        {
+            UserViewModel user;
+            string filePath;
+            string[] verifiedUsers;
+
+            try{
+                filePath = "VerifiedUsers.txt";
+                verifiedUsers = await System.IO.File.ReadAllLinesAsync(filePath);
+            }
+            catch (FileNotFoundException ex)
+            {
+                return Ok("User is not verified");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred: " + ex.Message);
+            }
+
+            var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+            user = await _accountService.GetProfileData(username: name);
+
+            if (!verifiedUsers.Contains(name))
+            {
+                return Ok("User is not verified");
+            }
+            else
+            {
+                return Ok("User is verified");
+            }
         }
     }
 }
