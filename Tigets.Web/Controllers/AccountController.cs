@@ -85,28 +85,58 @@ namespace Tigets.Web.Controllers
             return NoContent();
         }
 
-        [AllowAnonymous]
-        [HttpGet("GetInfo")]
-        public string GetAppInfo()
-        {
-            return _accountService.GetAppInfo();
-        }
+        // public string GetAppInfo()
+        // {
+        //     return _accountService.GetAppInfo();
+        // }
+
+        // public async Task<IActionResult> GetProfileData()
+        // {
+        //     UserViewModel user;
+        //     try
+        //     {
+        //         var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+        //         user = await _accountService.GetProfileData(username: name);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return BadRequest(ex.Message);
+        //     }
+        //     return Ok(user);
+        // }
 
         [Authorize]
-        [HttpGet("GetProfileData")]
-        public async Task<IActionResult> GetProfileData()
+        [HttpGet("VerificationStatus")]
+        public async Task<IActionResult> GetVerificationStatus()
         {
             UserViewModel user;
-            try
+            string filePath;
+            string[] verifiedUsers;
+
+            try{
+                filePath = "VerifiedUsers.txt";
+                verifiedUsers = await System.IO.File.ReadAllLinesAsync(filePath);
+            }
+            catch (FileNotFoundException ex)
             {
-                var name = User.Identity?.Name ?? throw new Exception("User does not exist");
-                user = await _accountService.GetProfileData(username: name);
+                return Ok("User is not verified");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return StatusCode(500, "An error occurred: " + ex.Message);
             }
-            return Ok(user);
+
+            var name = User.Identity?.Name ?? throw new Exception("User does not exist");
+            user = await _accountService.GetProfileData(username: name);
+
+            if (!verifiedUsers.Contains(name))
+            {
+                return Ok("User is not verified");
+            }
+            else
+            {
+                return Ok("User is verified");
+            }
         }
     }
 }
